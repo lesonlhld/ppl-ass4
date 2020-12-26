@@ -1,7 +1,7 @@
 @echo off
 set "CurDir="
 for %%a in ("%cd%") do set "CurDir=%%~nxa"
-if NOT "%CurDir%" == "assignment3" exit
+if NOT "%CurDir%" == "assignment4" exit
 
 if exist %CD%\src\test\testcases\ (
     echo "Cleaning testcases"
@@ -17,10 +17,10 @@ if exist %CD%\src\test\solutions\ (
     echo "Creating solutions"
     mkdir %CD%\src\test\solutions\
 
-if exist %CD%\src\test\solutionsSample (
-    echo "Cleaning solutions sample"
-	rmdir /Q /S %CD%\src\test\solutionsSample
-)
+@REM if exist %CD%\src\test\solutionsSample (
+@REM     echo "Cleaning solutions sample"
+@REM 	rmdir /Q /S %CD%\src\test\solutionsSample
+@REM )
 
 if exist %CD%\output\ (
     echo "Cleaning Output..."
@@ -30,21 +30,26 @@ if exist %CD%\output\ (
     mkdir %CD%\output\
     mkdir %CD%\output\test
 
-if exist %CD%\test\solutions\ (
-    echo "Copying solution sample"
-    mkdir %CD%\src\test\solutionsSample
-    robocopy %CD%\test\solutions %CD%\src\test\solutionsSample /NFL /NDL /NJH /NJS /nc /ns /np
+@REM if exist %CD%\test\solutions\ (
+@REM     echo "Copying solution sample"
+@REM     mkdir %CD%\src\test\solutionsSample
+@REM     robocopy %CD%\test\solutions %CD%\src\test\solutionsSample /NFL /NDL /NJH /NJS /nc /ns /np
+@REM )
+
+@REM if exist %CD%\src\test\CheckSuite_old.py (
+@REM     echo "Deleting CheckSuite_old.py"
+@REM     del %CD%\src\test\CheckSuite_old.py /f /q
+@REM )
+
+if exist %CD%\src\test\CodeGenSuite_old.py (
+    echo "Deleting CodeGenSuite_old.py"
+    del %CD%\src\test\CodeGenSuite_old.py /f /q
 )
 
-if exist %CD%\src\test\CheckSuite_old.py (
-    echo "Deleting CheckSuite_old.py"
-    del %CD%\src\test\CheckSuite_old.py /f /q
-)
-
-if exist %CD%\test\check.py (
-    echo "Copying check.py"
-    robocopy %CD%\test\ %CD%\src\ check.py /NFL /NDL /NJH /NJS /nc /ns /np
-)
+@REM if exist %CD%\test\check.py (
+@REM     echo "Copying check.py"
+@REM     robocopy %CD%\test\ %CD%\src\ check.py /NFL /NDL /NJH /NJS /nc /ns /np
+@REM )
 
 @REM if exist %CD%\test\LexerSuite.py (
 @REM     echo "Rename old LexerSuite.py to LexerSuite_old.py"
@@ -118,10 +123,15 @@ cd src
 @REM echo "Testing ASTGen..."
 @REM python run.py test ASTGenSuite
 
+@REM echo.
+@REM echo "=============================================="
+@REM echo "Testing Check..."
+@REM python run.py test CheckSuite
+
 echo.
 echo "=============================================="
-echo "Testing Check..."
-python run.py test CheckSuite
+echo "Testing Code Generation..."
+python run.py test CodeGenSuite
 
 @REM cd ..
 @REM if exist %CD%\src\test\CheckSuite.txt (
@@ -136,32 +146,41 @@ python run.py test CheckSuite
 @REM )
 @REM cd src
 
-if exist %CD%\test\CheckSuite.py (
-    echo "Rename old CheckSuite.py to CheckSuite_old.py"
-    ren %CD%\test\CheckSuite.py CheckSuite_old.py
+@REM if exist %CD%\test\CheckSuite.py (
+@REM     echo "Rename old CheckSuite.py to CheckSuite_old.py"
+@REM     ren %CD%\test\CheckSuite.py CheckSuite_old.py
+@REM )
+
+@REM if exist %CD%\test\CheckSuite.txt (
+@REM     ren %CD%\test\CheckSuite.txt CheckSuite.py
+@REM )
+
+if exist %CD%\test\CodeGenSuite.py (
+    @REM echo "Rename old CodeGenSuite.py to CodeGenSuite_old.py"
+    ren %CD%\test\CodeGenSuite.py CodeGenSuite_old.py
 )
 
-if exist %CD%\test\CheckSuite.txt (
-    ren %CD%\test\CheckSuite.txt CheckSuite.py
+if exist %CD%\test\CodeGenSuite.txt (
+    ren %CD%\test\CodeGenSuite.txt CodeGenSuite.py
 )
 
-if exist %CD%\test\solutionsSample\ (
-    if exist %CD%\check.py (
-        echo.
-        echo "=============================================="
-        echo "Checking solution..."
-        echo.
-        python check.py
-    )
-)
+@REM if exist %CD%\test\solutionsSample\ (
+@REM     if exist %CD%\check.py (
+@REM         echo.
+@REM         echo "=============================================="
+@REM         echo "Checking solution..."
+@REM         echo.
+@REM         python check.py
+@REM     )
+@REM )
 cd ..
 
 @echo off
 
-if exist %CD%\src\check.txt (
-    robocopy %CD%\src\ %CD%\output\ check.txt /move /NFL /NDL /NJH /NJS /nc /ns /np
-    start %CD%\output\check.txt
-)
+@REM if exist %CD%\src\check.txt (
+@REM     robocopy %CD%\src\ %CD%\output\ check.txt /move /NFL /NDL /NJH /NJS /nc /ns /np
+@REM     start %CD%\output\check.txt
+@REM )
 
 @REM if exist %CD%\src\test\LexerSuite_old.py (
 @REM     robocopy %CD%\src\test\ %CD%\output\test\ LexerSuite.py /move /NFL /NDL /NJH /NJS /nc /ns /np
@@ -188,12 +207,12 @@ if exist %CD%\src\test\TestUtils_old.py (
     ren %CD%\src\test\TestUtils_old.py TestUtils.py
 )
 
-if exist %CD%\src\check.py (
-    robocopy %CD%\src\ %CD%\output\test\ check.py /move /NFL /NDL /NJH /NJS /nc /ns /np
-)
+@REM if exist %CD%\src\check.py (
+@REM     robocopy %CD%\src\ %CD%\output\test\ check.py /move /NFL /NDL /NJH /NJS /nc /ns /np
+@REM )
 
-if exist %CD%\src\test\solutionsSample\ (
-    robocopy %CD%\src\test\solutionsSample\ %CD%\output\test\solutions /move /NFL /NDL /NJH /NJS /nc /ns /np
-)
+@REM if exist %CD%\src\test\solutionsSample\ (
+@REM     robocopy %CD%\src\test\solutionsSample\ %CD%\output\test\solutions /move /NFL /NDL /NJH /NJS /nc /ns /np
+@REM )
 
 ::pause >nul
