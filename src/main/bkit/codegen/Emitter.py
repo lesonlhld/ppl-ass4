@@ -1,6 +1,11 @@
-
-from MachineCode import JasminCode
+import sys
+from CodeGenError import *
 import CodeGenerator as cgen
+from MachineCode import JasminCode
+from AST import *
+
+sys.path.append('../utils')
+sys.path.append('../checker')
 
 class Emitter():
     def __init__(self, filename):
@@ -27,7 +32,7 @@ class Emitter():
         elif typeIn is cgen.ClassType:
             return "L" + inType.cname + ";"
 
-    def getFullType(inType):
+    def getFullType(self, inType):
         typeIn = type(inType)
         if typeIn is cgen.IntType:
             return "int"
@@ -144,6 +149,8 @@ class Emitter():
         frame.push()
         if type(inType) is cgen.IntType:
             return self.jvm.emitILOAD(index)
+        elif type(inType) is cgen.FloatType:
+            return self.jvm.emitFLOAD(index)
         elif type(inType) is cgen.ArrayType or type(inType) is cgen.ClassType or type(inType) is cgen.StringType:
             return self.jvm.emitALOAD(index)
         else:
@@ -176,6 +183,8 @@ class Emitter():
 
         if type(inType) is cgen.IntType:
             return self.jvm.emitISTORE(index)
+        elif type(inType) is cgen.FloatType:
+            return self.jvm.emitFSTORE(index)
         elif type(inType) is cgen.ArrayType or type(inType) is cgen.ClassType or type(inType) is cgen.StringType:
             return self.jvm.emitASTORE(index)
         else:
@@ -204,7 +213,7 @@ class Emitter():
         #isFinal: Boolean
         #value: String
 
-        return self.jvm.emitSTATICFIELD(lexeme, self.getJVMType(in_), false)
+        return self.jvm.emitSTATICFIELD(lexeme, self.getJVMType(in_), False)
 
     def emitGETSTATIC(self, lexeme, in_, frame):
         #lexeme: String

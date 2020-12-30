@@ -65,7 +65,6 @@ if exist %CD%\src\test\CodeGenSuite_old.py (
 @REM     robocopy %CD%\test\ %CD%\src\test\ ParserSuite.py /move /NFL /NDL /NJH /NJS /nc /ns /np
 @REM )
 
-
 if exist %CD%\test\TestUtils.py (
     echo "Rename old TestUtils.py to TestUtils_old.py"
     ren %CD%\src\test\TestUtils.py TestUtils_old.py
@@ -80,12 +79,19 @@ if exist %CD%\test\AST.py (
     robocopy %CD%\test\ %CD%\src\main\bkit\utils\ AST.py /NFL /NDL /NJH /NJS /nc /ns /np
 )
 
-if exist %CD%\test\StaticError.py (
-    echo "Rename old StaticError.py to StaticError_old.py"
-    ren %CD%\src\main\bkit\checker\StaticError.py StaticError_old.py
-    echo "Copying StaticError.py"
-    robocopy %CD%\test\ %CD%\src\main\bkit\checker\ StaticError.py /NFL /NDL /NJH /NJS /nc /ns /np
+if exist %CD%\test\CodeGenError.py (
+    echo "Rename old CodeGenError.py to CodeGenError_old.py"
+    ren %CD%\src\main\bkit\codegen\CodeGenError.py CodeGenError_old.py
+    echo "Copying CodeGenError.py"
+    robocopy %CD%\test\ %CD%\src\main\bkit\codegen\ CodeGenError.py /NFL /NDL /NJH /NJS /nc /ns /np
 )
+
+@REM if exist %CD%\test\StaticError.py (
+@REM     echo "Rename old StaticError.py to StaticError_old.py"
+@REM     ren %CD%\src\main\bkit\checker\StaticError.py StaticError_old.py
+@REM     echo "Copying StaticError.py"
+@REM     robocopy %CD%\test\ %CD%\src\main\bkit\checker\ StaticError.py /NFL /NDL /NJH /NJS /nc /ns /np
+@REM )
 
 @REM if exist %CD%\src\test\testLexer.py (
 @REM     del %CD%\src\test\testLexer.py /f /q
@@ -197,14 +203,19 @@ if exist %CD%\src\main\bkit\utils\AST_old.py (
     ren %CD%\src\main\bkit\utils\AST_old.py AST.py
 )
 
-if exist %CD%\src\main\bkit\checker\StaticError_old.py (
-    robocopy %CD%\src\main\bkit\checker\ %CD%\output\test\ StaticError.py /move /NFL /NDL /NJH /NJS /nc /ns /np
-    ren %CD%\src\main\bkit\checker\StaticError_old.py StaticError.py
-)
+@REM if exist %CD%\src\main\bkit\checker\StaticError_old.py (
+@REM     robocopy %CD%\src\main\bkit\checker\ %CD%\output\test\ StaticError.py /move /NFL /NDL /NJH /NJS /nc /ns /np
+@REM     ren %CD%\src\main\bkit\checker\StaticError_old.py StaticError.py
+@REM )
 
 if exist %CD%\src\test\TestUtils_old.py (
     robocopy %CD%\src\test\ %CD%\output\test\ TestUtils.py /move /NFL /NDL /NJH /NJS /nc /ns /np
     ren %CD%\src\test\TestUtils_old.py TestUtils.py
+)
+
+if exist %CD%\src\main\bkit\codegen\CodeGenError_old.py (
+    robocopy %CD%\src\main\bkit\codegen\ %CD%\output\test\ CodeGenError.py /move /NFL /NDL /NJH /NJS /nc /ns /np
+    ren %CD%\src\main\bkit\codegen\CodeGenError_old.py CodeGenError.py
 )
 
 @REM if exist %CD%\src\check.py (
