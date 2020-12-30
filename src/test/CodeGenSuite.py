@@ -271,4 +271,19 @@ class CheckCodeGenSuite(unittest.TestCase):
         EndBody."""
         expect = r"""10"""
         self.assertTrue(TestCodeGen.test(input,expect,522))
-        
+
+    def test_523(self):
+        """Created automatically"""
+        input = r""" 
+        Function: main
+        Body:
+        Var: a[3] = {1,2,3};
+            Var: i = 0;
+            While (i < 3) Do
+                print(string_of_int(a[i]));
+                i = i + 1;
+            EndWhile.
+        EndBody.
+        """
+        expect = "123"
+        self.assertTrue(TestCodeGen.test(input,expect,523))

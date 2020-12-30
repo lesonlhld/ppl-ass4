@@ -117,7 +117,7 @@ class Emitter():
         frame.pop()
         if type(in_) is cgen.IntType:
             return self.jvm.emitIASTORE()
-        elif type(in_) is cgen.ArrayType or type(in_) is ClassType or type(in_) is cgen.StringType:
+        elif type(in_) is cgen.ArrayType or type(in_) is cgen.ClassType or type(in_) is cgen.StringType:
             return self.jvm.emitAASTORE()
         else:
             raise IllegalOperandException(str(in_))
@@ -193,14 +193,23 @@ class Emitter():
     ''' generate the second instruction for array cell access
     *
     '''
-    def emitWRITEVAR2(self, name, typ, frame):
+    def emitWRITEVAR2(self, name, inType):
         #name: String
         #typ: Type
         #frame: Frame
         #..., value -> ...
-
-        #frame.push()
-        raise IllegalOperandException(name)
+        
+        typeIn = type(inType)
+        if typeIn is cgen.IntType:
+            typeIn = "int"
+        elif typeIn is cgen.FloatType:
+            typeIn = "float"
+        elif typeIn is cgen.StringType:
+            typeIn = "String"
+        elif typeIn is cgen.BoolType:
+            typeIn = "boolean"
+            
+        return self.jvm.emitNEWARRAY(typeIn)
 
     ''' generate the field (static) directive for a class mutable or immutable attribute.
     *   @param lexeme the name of the attribute.

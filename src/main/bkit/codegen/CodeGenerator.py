@@ -47,7 +47,7 @@ class Type(ABC):
             dimen2 = 0
             dimen3 = 0
             if dimen1 == 0:
-                return ArrayType([0],Unknown())
+                return ArrayType(Unknown(), [0])
             for x in literal.value:
                 varType = varType1 = Type.getTypeFromLiteral(x)
                 if type(varType1) == ArrayType:
@@ -57,7 +57,7 @@ class Type(ABC):
                         if type(varType2) == ArrayType:
                             dimen3 = len(y.value) if dimen3 < len(y.value) else dimen3
             dimen = [dimen1, dimen2, dimen3] if dimen3 > 0 else [dimen1, dimen2] if dimen2 > 0 else [dimen1]
-            return ArrayType(dimen,varType)
+            return ArrayType(varType, dimen)
         else:
             return Unknown()
             
@@ -166,9 +166,9 @@ class Symbol:
         if len(var.varDimen) > 0:
             init = Type.getTypeFromLiteral(var.varInit)
             if type(init) == ArrayType:
-                varType = ArrayType(var.varDimen, init.eleType)
+                varType = ArrayType(init.eleType, var.varDimen)
             elif type(init) == Unknown:
-                varType = ArrayType(var.varDimen, init)
+                varType = ArrayType(init, var.varDimen)
         else:
             varType = Type.getTypeFromLiteral(var.varInit)
         kind = Variable()
@@ -389,24 +389,28 @@ class CodeGenVisitor(BaseVisitor):
         varName = var.variable.name
         frame = o.frame
         isGlobal = o.isGlobal
-        if len(var.varDimen) > 0:
-            init = self.visit(var.varInit, o)
-            val, varType = ArrayType(var.varDimen, init.eletype)
-        elif var.varInit != []:
-            val, varType = self.visit(var.varInit, o)
+        init, initType = self.visit(var.varInit, Access(frame, o.sym, False, True))
         
         # if isGlobal or frame == None:
         if isGlobal:
-            self.emit.printout(self.emit.emitATTRIBUTE(varName, varType, False, ""))
-            return Symbol(varName, varType)
+            self.emit.printout(self.emit.emitATTRIBUTE(varName, initType, False, ""))
+            return Symbol(varName, initType)
         else:
-            value = var.varInit.value if var.varInit else None
             idx = frame.getNewIndex()
-            self.emit.printout(self.emit.emitVAR(idx, varName, varType, frame.getStartLabel(), frame.getEndLabel(), frame))
-            o.sym = [Symbol(varName, varType, Index(idx))] + o.sym
-            rightCode, rightType = self.visit(var.varInit, Access(frame, o.sym, False, True))
-            leftCode, leftType = self.visit(var.variable, Access(frame, o.sym, True, True))
-            self.emit.printout(rightCode + leftCode)
+            self.emit.printout(self.emit.emitVAR(idx, varName, initType, frame.getStartLabel(), frame.getEndLabel(), frame))
+            o.sym = [Symbol(varName, initType, Index(idx))] + o.sym
+            if type(initType) == ArrayType:
+                self.emit.printout(self.visit(IntLiteral(len(init)), Access(frame, o.sym, False, True))[0])
+                self.emit.printout(self.emit.emitWRITEVAR2(varName, init[0][1]))
+                self.emit.printout(self.emit.emitWRITEVAR(varName, initType, idx, frame))
+                for x in range(len(init)):
+                    self.emit.printout(self.emit.emitREADVAR(varName, initType, idx, frame))
+                    self.emit.printout(self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
+                    self.emit.printout(init[x][0])
+                    self.emit.printout(self.emit.emitASTORE(init[x][1], frame))
+            else:
+                var, varType = self.visit(var.variable, Access(frame, o.sym, True, False))
+                self.emit.printout(init + var)
             return MethodEnv(frame, o.sym)
 
     def visitFuncDecl(self, func, o):
@@ -417,8 +421,8 @@ class CodeGenVisitor(BaseVisitor):
         self.genMethod(func, o.sym, frame)
 
     def visitBinaryOp(self, ast, o):
-        left, leftType = self.visit(ast.left,o)
-        right, rightType = self.visit(ast.right,o)
+        left, leftType = self.visit(ast.left,Access(o.frame, o.sym, False, False))
+        right, rightType = self.visit(ast.right,Access(o.frame, o.sym, False, False))
 
         if ast.op in ['==', '!=', '<', '>', '<=', '>=', '=/=', '<.', '>.', '<=.', '>=.', '&&', '||']:
             mType = BoolType()
@@ -492,11 +496,22 @@ class CodeGenVisitor(BaseVisitor):
         else:
             self.emit.printout(code)
 
+    def visitArrayCell(self, ast, o):
+        arr, arrType = self.visit(ast.arr, o)
+        listIdx = [self.visit(x, o) for x in ast.idx]
+        code = ""
+        for x in range(len(listIdx)):
+            code += arr
+            code += listIdx[x][0]
+            code += self.emit.emitALOAD(listIdx[x][1], o.frame)
+        return code, listIdx[0][1]
+
+
     def visitId(self, ast, o: Access):
         sym = next(filter(lambda x: x.name == ast.name, o.sym))
         # recover status of stack in frame
-        if o.isLeft: o.frame.push()
-        elif not o.isLeft: o.frame.pop()
+        if not o.isFirst and o.isLeft: o.frame.push()
+        #elif not o.isFirst and not o.isLeft: o.frame.pop()
 
         if type(sym.value) == CName:
             a = self.emit.emitPUTSTATIC(self.className + "/" + sym.name, sym.mtype, o.frame) if o.isLeft else self.emit.emitGETSTATIC(self.className + "/" + sym.name, sym.mtype, o.frame)
@@ -506,7 +521,7 @@ class CodeGenVisitor(BaseVisitor):
         return a, sym.mtype
 
     def visitAssign(self,ast,o):
-        right, rightType = self.visit(ast.rhs, Access(o.frame, o.sym, False, False))
+        right, rightType = self.visit(ast.rhs, Access(o.frame, o.sym, False, True))
         left, leftType = self.visit(ast.lhs, Access(o.frame, o.sym, True, False))
         self.emit.printout(right + left)
 
@@ -538,7 +553,7 @@ class CodeGenVisitor(BaseVisitor):
         self.emit.printout(self.emit.emitLABEL(labelE, o.frame))
 
     def visitWhile(self, ast, o):
-        expCode, expType = self.visit(ast.exp, Access(o.frame, o.sym, False, False))
+        expCode, expType = self.visit(ast.exp, Access(o.frame, o.sym, False, True))
         
         labelS = o.frame.getNewLabel() # label start
         labelE = o.frame.getNewLabel() # label end
@@ -572,7 +587,7 @@ class CodeGenVisitor(BaseVisitor):
 
         hasReturnStmt = True in [self.visit(x, varList) for x in ast.sl[1]]
         
-        expCode, expType = self.visit(ast.exp, Access(o.frame, o.sym, False, False))
+        expCode, expType = self.visit(ast.exp, Access(o.frame, o.sym, False, True))
         self.emit.printout(expCode)
         self.emit.printout(self.emit.emitIFFALSE(labelE, o.frame))
 
@@ -651,22 +666,10 @@ class CodeGenVisitor(BaseVisitor):
     def visitStringLiteral(self, ast: StringLiteral, o: Access):
         return self.emit.emitPUSHCONST("\"" + ast.value + "\"", StringType(), o.frame), StringType()
 
-    def visitArrayLiteral(self, ast, param):
-        valueType = [self.visit(x, param) for x in ast.value]
-
-        dimen1 = len(valueType)
-        dimen2 = 0
-        dimen3 = 0
-        for x in ast.value:
-            varType = varTypleft = self.visit(x, param)
-            if type(varTypleft) == ArrayType:
-                dimen2 = len(x.value) if dimen2 < len(x.value) else dimen2
-                for y in x.value:
-                    varType = varTypright = self.visit(y, param)
-                    if type(varTypright) == ArrayType:
-                        dimen3 = len(y.value) if dimen3 < len(y.value) else dimen3
-        dimen = [dimen1, dimen2, dimen3] if dimen3 > 0 else [dimen1, dimen2] if dimen2 > 0 else [dimen1]
-        return ArrayType(dimen, varType)
+    def visitArrayLiteral(self, ast, o):
+        array = Type.getTypeFromLiteral(ast)
+        valueType = [self.visit(x, o) for x in ast.value]
+        return valueType, array
 
 class Checker:
     @staticmethod
@@ -750,7 +753,7 @@ class Checker:
                 symbol.updateMember(mtype = varType)
         elif type(symbol.mtype) == ArrayType:
             if type(symbol.mtype.eleType) == Unknown or type(symbol.mtype.eleType) == type(sideType):
-                varType = ArrayType(symbol.mtype.dimen, sideType)
+                varType = ArrayType(sideType, symbol.mtype.dimen)
                 symbol.updateMember(mtype = varType)
         else:
             varType = sideType
@@ -1167,4 +1170,4 @@ class StaticChecker(BaseVisitor):
                     if type(varType2) == ArrayType:
                         dimen3 = len(y.value) if dimen3 < len(y.value) else dimen3
         dimen = [dimen1, dimen2, dimen3] if dimen3 > 0 else [dimen1, dimen2] if dimen2 > 0 else [dimen1]
-        return ArrayType(dimen, varType)
+        return ArrayType(varType, dimen)
