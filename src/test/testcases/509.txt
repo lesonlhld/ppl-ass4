@@ -1,0 +1,4 @@
+Function: main
+                   Body:
+                   print(string_of_bool(1<2));
+                   EndBody.
