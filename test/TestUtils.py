@@ -159,7 +159,7 @@ class TestCodeGen():
         \"\"\"Created automatically\"\"\"""" + (("""
         input = r\"\"\"""" + input + """\"\"\"""") if type(input) is str else ("""
         input = """ + str(input))) + """
-        expect = \"""")
+        expect = r\"\"\"""")
 
         solpath = "./test/solutions/"
         dest = open(solpath + str(num) + ".txt","w")
@@ -200,7 +200,7 @@ class TestCodeGen():
         line = dest.read()
 
 
-        testfile.write(line + """\"
+        testfile.write(line + """\"\"\"
         self.assertTrue(TestCodeGen.test(input,expect,"""+str(TestCodeGen._TestCodeGen__count)+"""))
         """)
         testfile.close()

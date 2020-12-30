@@ -577,7 +577,7 @@ class Emitter():
     def emitRETURN(self, in_, frame):
         #in_: Type
         #frame: Frame
-
+        
         if type(in_) is cgen.IntType:
             frame.pop()
             return self.jvm.emitIRETURN()

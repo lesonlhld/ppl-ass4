@@ -7,6 +7,6 @@
         Body:
             Var: y=0;
             y = sum();
-            printStrLn(string_of_int(y));
+            printStrLn(string_of_int(y+1));
             Return;
         EndBody.

@@ -25,7 +25,6 @@ Label6:
 	iconst_0
 Label7:
 	ifle Label3
-Label4:
 	goto Label2
 Label3:
 Label5:

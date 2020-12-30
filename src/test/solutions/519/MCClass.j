@@ -10,30 +10,30 @@
 Label0:
 	iconst_0
 	istore_1
-Label4:
+Label2:
 	iload_1
 	bipush 10
-	if_icmpge Label2
+	if_icmpge Label6
 	iconst_1
-	goto Label3
-Label2:
+	goto Label7
+Label6:
 	iconst_0
-Label3:
-	ifle Label5
+Label7:
+	ifle Label3
 	iload_1
 	invokestatic io/string_of_int(I)Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
-Label6:
+Label4:
 	iload_1
 	iconst_2
 	iadd
 	istore_1
-	goto Label4
+	goto Label2
+Label3:
 Label5:
-Label7:
 Label1:
 	return
-.limit stack 6
+.limit stack 5
 .limit locals 2
 .end method
 

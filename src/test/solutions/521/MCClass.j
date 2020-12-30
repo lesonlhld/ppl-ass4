@@ -7,9 +7,8 @@ Label0:
 	iconst_0
 	ireturn
 Label1:
-	return
 .limit stack 1
-.limit locals 1
+.limit locals 0
 .end method
 
 .method public static main([Ljava/lang/String;)V
@@ -21,11 +20,12 @@ Label0:
 	invokestatic MCClass/sum()I
 	istore_1
 	iload_1
+	iconst_1
+	iadd
 	invokestatic io/string_of_int(I)Ljava/lang/String;
 	invokestatic io/printStrLn(Ljava/lang/String;)V
 	return
 Label1:
-	return
 .limit stack 4
 .limit locals 2
 .end method
