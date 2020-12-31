@@ -55,7 +55,10 @@ class Type(ABC):
                     for y in x.value:
                         varType = varType2 = Type.getTypeFromLiteral(y)
                         if type(varType2) == ArrayType:
+                            varType = Type.getTypeFromLiteral(y.value)
                             dimen3 = len(y.value) if dimen3 < len(y.value) else dimen3
+                            varType = ArrayType(varType)
+                    varType = ArrayType(varType)
             dimen = [dimen1, dimen2, dimen3] if dimen3 > 0 else [dimen1, dimen2] if dimen2 > 0 else [dimen1]
             return ArrayType(varType, dimen)
         else:
@@ -400,14 +403,30 @@ class CodeGenVisitor(BaseVisitor):
             self.emit.printout(self.emit.emitVAR(idx, varName, initType, frame.getStartLabel(), frame.getEndLabel(), frame))
             o.sym = [Symbol(varName, initType, Index(idx))] + o.sym
             if type(initType) == ArrayType:
-                self.emit.printout(self.visit(IntLiteral(len(init)), Access(frame, o.sym, False, True))[0])
-                self.emit.printout(self.emit.emitWRITEVAR2(varName, init[0][1]))
-                self.emit.printout(self.emit.emitWRITEVAR(varName, initType, idx, frame))
-                for x in range(len(init)):
-                    self.emit.printout(self.emit.emitREADVAR(varName, initType, idx, frame))
-                    self.emit.printout(self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
-                    self.emit.printout(init[x][0])
-                    self.emit.printout(self.emit.emitASTORE(init[x][1], frame))
+                if type(initType.eleType) == ArrayType:
+                    for x in range(len(var.varDimen)):
+                        self.emit.printout(self.visit(IntLiteral(var.varDimen[x]), Access(frame, o.sym, False, True))[0])
+                    self.emit.printout(self.emit.emitWRITEVAR2(initType))
+                    self.emit.printout(self.emit.emitWRITEVAR(varName, initType, idx, frame))
+                    for x in range(var.varDimen[0]):
+                        for y in range(var.varDimen[1]):
+                            frame.push()
+                            self.emit.printout(self.emit.emitREADVAR(varName, initType, idx, frame))
+                            self.emit.printout(self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
+                            self.emit.printout(self.emit.emitALOAD(initType.eleType, frame))
+                            self.emit.printout(self.visit(IntLiteral(y), Access(frame, o.sym, False, True))[0])
+                            self.emit.printout(init[x][0][y][0])
+                            self.emit.printout(self.emit.emitASTORE(initType.eleType.eleType, frame))
+
+                else:
+                    self.emit.printout(self.visit(IntLiteral(len(init)), Access(frame, o.sym, False, True))[0])
+                    self.emit.printout(self.emit.emitWRITEVAR2(init[0][1]))
+                    self.emit.printout(self.emit.emitWRITEVAR(varName, initType, idx, frame))
+                    for x in range(len(init)):
+                        self.emit.printout(self.emit.emitREADVAR(varName, initType, idx, frame))
+                        self.emit.printout(self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
+                        self.emit.printout(init[x][0])
+                        self.emit.printout(self.emit.emitASTORE(init[x][1], frame))
             else:
                 var, varType = self.visit(var.variable, Access(frame, o.sym, True, False))
                 self.emit.printout(init + var)
@@ -421,8 +440,8 @@ class CodeGenVisitor(BaseVisitor):
         self.genMethod(func, o.sym, frame)
 
     def visitBinaryOp(self, ast, o):
-        left, leftType = self.visit(ast.left,Access(o.frame, o.sym, False, False))
-        right, rightType = self.visit(ast.right,Access(o.frame, o.sym, False, False))
+        left, leftType = self.visit(ast.left, Access(o.frame, o.sym, False, False))
+        right, rightType = self.visit(ast.right, Access(o.frame, o.sym, False, False))
 
         if ast.op in ['==', '!=', '<', '>', '<=', '>=', '=/=', '<.', '>.', '<=.', '>=.', '&&', '||']:
             mType = BoolType()
@@ -451,11 +470,14 @@ class CodeGenVisitor(BaseVisitor):
         elif ast.op in ['=/=', '<.', '>.', '<=.', '>=.']:
             if ast.op == '=/=':
                 ast.op = '!=.'
-            w = left + right + self.emit.emitREOP(ast.op[:-1], mType, o.frame)
+            if ast.op in ['>.', '>=.']:
+                w = left + right + self.emit.emitREOP(ast.op, mType, o.frame)
+            else:
+                w = right + left + self.emit.emitREOP(ast.op, mType, o.frame)
         return w, mType
 
     def visitUnaryOp(self, ast: UnaryOp, o):
-        body, bodyType = self.visit(ast.body, o)
+        body, bodyType = self.visit(ast.body, Access(o.frame, o.sym, False, False))
 
         if ast.op == '-':
             return body + self.emit.emitNEGOP(IntType(), o.frame), IntType()
@@ -499,11 +521,13 @@ class CodeGenVisitor(BaseVisitor):
     def visitArrayCell(self, ast, o):
         arr, arrType = self.visit(ast.arr, o)
         listIdx = [self.visit(x, o) for x in ast.idx]
+        if not o.isFirst and o.isLeft: o.frame.push()
         code = ""
         for x in range(len(listIdx)):
             code += arr
             code += listIdx[x][0]
-            code += self.emit.emitALOAD(listIdx[x][1], o.frame)
+            if not o.isLeft:
+                code += self.emit.emitALOAD(listIdx[x][1], o.frame)
         return code, listIdx[0][1]
 
 
@@ -523,7 +547,11 @@ class CodeGenVisitor(BaseVisitor):
     def visitAssign(self,ast,o):
         right, rightType = self.visit(ast.rhs, Access(o.frame, o.sym, False, True))
         left, leftType = self.visit(ast.lhs, Access(o.frame, o.sym, True, False))
-        self.emit.printout(right + left)
+        if type(ast.lhs) == ArrayCell:
+            code = self.emit.emitASTORE(leftType, o.frame)
+            self.emit.printout(left + right + code)
+        else:
+            self.emit.printout(right + left)
 
     def visitIf(self, ast, o):
         label = [o.frame.getNewLabel() for x in range(len(ast.ifthenStmt))]

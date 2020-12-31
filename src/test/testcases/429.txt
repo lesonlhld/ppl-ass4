@@ -1,0 +1,8 @@
+
+        Function: main
+        Body:
+            Var: a[5]={2,3,5,7,8},x=0;
+            x = -(-15+(45*2)*(35+108+a[4]))*int_of_string("21");
+            printLn();
+            printStrLn(string_of_int(x));
+        EndBody.

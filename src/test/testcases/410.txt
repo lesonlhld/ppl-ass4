@@ -1,0 +1,16 @@
+
+Function: fact
+Parameter: n
+Body:
+If n == 0 Then
+Return 1;
+Else
+Return n * fact (n - 1);
+EndIf.
+EndBody.
+Function: main
+Body:
+Var:x = 10;
+x = fact(x);
+print(string_of_int(x));
+EndBody.

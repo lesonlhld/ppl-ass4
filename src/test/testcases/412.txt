@@ -1,0 +1,17 @@
+
+        Function: fact
+        Parameter: n
+        Body:
+            If n == 0 Then
+                Return 1;
+            ElseIf (n>0) Then
+                Return n * fact (n - 1);
+            Else
+                Return n;
+            EndIf.
+        EndBody.
+        Function: main
+        Body:
+        printStrLn(string_of_int(fact(3)));
+        print(string_of_int(fact(-5)));
+        EndBody.

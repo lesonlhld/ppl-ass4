@@ -84,7 +84,7 @@ class Emitter():
         #typ: Type
         #frame: Frame
         
-        if type(typ) is cgen.IntType:
+        if type(typ) in [cgen.IntType, cgen.BoolType]:
             return self.emitPUSHICONST(in_, frame)
         elif type(typ) is cgen.StringType:
             frame.push()
@@ -136,7 +136,6 @@ class Emitter():
         #fromLabel: Int
         #toLabel: Int
         #frame: Frame
-        
         return self.jvm.emitVAR(in_, varName, self.getJVMType(inType), fromLabel, toLabel)
 
     def emitREADVAR(self, name, inType, index, frame):
@@ -147,7 +146,7 @@ class Emitter():
         #... -> ..., value
         
         frame.push()
-        if type(inType) is cgen.IntType:
+        if type(inType) in [cgen.IntType, cgen.BoolType]:
             return self.jvm.emitILOAD(index)
         elif type(inType) is cgen.FloatType:
             return self.jvm.emitFLOAD(index)
@@ -181,7 +180,7 @@ class Emitter():
         
         frame.pop()
 
-        if type(inType) is cgen.IntType:
+        if type(inType) in [cgen.IntType, cgen.BoolType]:
             return self.jvm.emitISTORE(index)
         elif type(inType) is cgen.FloatType:
             return self.jvm.emitFSTORE(index)
@@ -193,22 +192,22 @@ class Emitter():
     ''' generate the second instruction for array cell access
     *
     '''
-    def emitWRITEVAR2(self, name, inType):
+    def emitWRITEVAR2(self, inType):
         #name: String
         #typ: Type
         #frame: Frame
         #..., value -> ...
         
-        typeIn = type(inType)
-        if typeIn is cgen.IntType:
+        if type(inType) is cgen.IntType:
             typeIn = "int"
-        elif typeIn is cgen.FloatType:
+        elif type(inType) is cgen.FloatType:
             typeIn = "float"
-        elif typeIn is cgen.StringType:
+        elif type(inType) is cgen.StringType:
             typeIn = "String"
-        elif typeIn is cgen.BoolType:
+        elif type(inType) is cgen.BoolType:
             typeIn = "boolean"
-            
+        elif type(inType) is cgen.ArrayType:
+                return self.jvm.emitMULTIANEWARRAY(self.getJVMType(inType), str(inType.dimen[0][0]))
         return self.jvm.emitNEWARRAY(typeIn)
 
     ''' generate the field (static) directive for a class mutable or immutable attribute.
@@ -328,12 +327,12 @@ class Emitter():
         label1 = frame.getNewLabel()
         label2 = frame.getNewLabel()
         result = list()
-        result.append(emitIFTRUE(label1, frame))
-        result.append(emitPUSHCONST("true", in_, frame))
-        result.append(emitGOTO(label2, frame))
-        result.append(emitLABEL(label1, frame))
-        result.append(emitPUSHCONST("false", in_, frame))
-        result.append(emitLABEL(label2, frame))
+        result.append(self.emitIFTRUE(label1, frame))
+        result.append(self.emitPUSHCONST("true", in_, frame))
+        result.append(self.emitGOTO(label2, frame))
+        result.append(self.emitLABEL(label1, frame))
+        result.append(self.emitPUSHCONST("false", in_, frame))
+        result.append(self.emitLABEL(label2, frame))
         return ''.join(result)
 
     '''
@@ -426,24 +425,36 @@ class Emitter():
 
         frame.pop()
         frame.pop()
-        if op == ">":
-            result.append(self.jvm.emitIFICMPLE(labelF))
-        elif op == ">=":
-            result.append(self.jvm.emitIFICMPLT(labelF))
-        elif op == "<":
-            result.append(self.jvm.emitIFICMPGE(labelF))
-        elif op == "<=":
-            result.append(self.jvm.emitIFICMPGT(labelF))
-        elif op == "!=":
-            result.append(self.jvm.emitIFICMPEQ(labelF))
-        elif op == "==":
-            result.append(self.jvm.emitIFICMPNE(labelF))
-        result.append(self.emitPUSHCONST("1", cgen.IntType(), frame))
-        frame.pop()
-        result.append(self.emitGOTO(labelO, frame))
-        result.append(self.emitLABEL(labelF, frame))
-        result.append(self.emitPUSHCONST("0", cgen.IntType(), frame))
-        result.append(self.emitLABEL(labelO, frame))
+        if "." not in op:
+            if op == ">":
+                result.append(self.jvm.emitIFICMPLE(labelF))
+            elif op == ">=":
+                result.append(self.jvm.emitIFICMPLT(labelF))
+            elif op == "<":
+                result.append(self.jvm.emitIFICMPGE(labelF))
+            elif op == "<=":
+                result.append(self.jvm.emitIFICMPGT(labelF))
+            elif op == "!=":
+                result.append(self.jvm.emitIFICMPEQ(labelF))
+            elif op == "==":
+                result.append(self.jvm.emitIFICMPNE(labelF))
+            result.append(self.emitPUSHCONST("1", cgen.IntType(), frame))
+            frame.pop()
+            result.append(self.emitGOTO(labelO, frame))
+            result.append(self.emitLABEL(labelF, frame))
+            result.append(self.emitPUSHCONST("0", cgen.IntType(), frame))
+            result.append(self.emitLABEL(labelO, frame))
+        else:
+            result.append(self.jvm.emitFCMPL())
+            if "=" in op:
+                result.append(self.jvm.emitIFLT(labelF))
+                result.append(self.emitPUSHCONST("1", cgen.IntType(), frame))
+                frame.pop()
+                result.append(self.emitGOTO(labelO, frame))
+                result.append(self.emitLABEL(labelF, frame))
+                result.append(self.emitPUSHCONST("0", cgen.IntType(), frame))
+                result.append(self.emitLABEL(labelO, frame))
+
         return ''.join(result)
 
     def emitRELOP(self, op, in_, trueLabel, falseLabel, frame):
@@ -587,10 +598,18 @@ class Emitter():
         #in_: Type
         #frame: Frame
         
-        if type(in_) is cgen.IntType:
+        if type(in_) in [cgen.IntType, cgen.BoolType]:
             frame.pop()
             return self.jvm.emitIRETURN()
+        elif type(in_) is cgen.FloatType:
+            frame.pop()
+            return self.jvm.emitFRETURN()
+        elif type(in_) is cgen.ArrayType:
+            frame.pop()
+            return self.jvm.emitARETURN()
         elif type(in_) is cgen.VoidType:
+            return self.jvm.emitRETURN()
+        else:
             return self.jvm.emitRETURN()
 
     ''' generate code that represents a label	

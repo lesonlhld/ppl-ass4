@@ -297,275 +297,299 @@ class CheckCodeGenSuite(unittest.TestCase):
 #         expect = "123"
 #         self.assertTrue(TestCodeGen.test(input,expect,523))
 
-    # def test_404(self):
-    #     """Created automatically"""
-    #     input = r""" 
-    #     Var: a = True, d = "string\b";
-    #     **this  is comment**
-    #     Function: main
-    #     Parameter: a[123], b , x
-    #     Body:
-    #     Var:y;
-    #         Do
-    #         Var:y; 
-    #         y = y + 1;
-    #             main(a,y,d);
-    #         While (x+y) > 3 EndDo.
-    #     EndBody.
-    #     """
-    #     expect = str(TypeCannotBeInferred(CallStmt(Id("main"),[Id("a"),Id("y"),Id("d")])))
-    #     self.assertTrue(TestCodeGen.test(input,expect,404))
+#     def test_404(self):
+#         """Created automatically"""
+#         input = r""" 
+#         Var: a = True, d = "string\b";
+#         **this  is comment**
+#         Function: main
+#         Parameter: a[123], b , x
+#         Body:
+#         Var:y;
+#             Do
+#             Var:y; 
+#             y = y + 1;
+#                 main(a,y,d);
+#             While (x+y) > 3 EndDo.
+#         EndBody.
+#         """
+#         expect = str(TypeCannotBeInferred(CallStmt(Id("main"),[Id("a"),Id("y"),Id("d")])))
+#         self.assertTrue(TestCodeGen.test(input,expect,404))
         
-    def test_405(self):
-        """Created automatically"""
-        input = r""" Function: main
-    Body:
-        Var: a = 123;
-        If a % 3 == 0 Then
-            printStrLn("a % 3 == 0");
-        ElseIf a % 3 == 1 Then
-            printStrLn("a % 3 == 1");
-        Else
-            printStrLn("a % 3 == 2");
-        EndIf.
-    EndBody.
-        """
-        expect = str()
-        self.assertTrue(TestCodeGen.test(input,expect,405))
+#     def test_405(self):
+#         """Created automatically"""
+#         input = r""" Function: main
+#     Body:
+#         Var: a = 123;
+#         If a % 3 == 0 Then
+#             printStrLn("a % 3 == 0");
+#         ElseIf a % 3 == 1 Then
+#             printStrLn("a % 3 == 1");
+#         Else
+#             printStrLn("a % 3 == 2");
+#         EndIf.
+#     EndBody.
+#         """
+#         expect = str()
+#         self.assertTrue(TestCodeGen.test(input,expect,405))
         
-    def test_406(self):
-        """Created automatically"""
-        input = r"""
-        Function: foo
-        Body:
-            Var: a[4]={1,2,3,4};
-            Return a;
-        EndBody.
-        Function: main
-        Body:
-            Var: a[4]={1,2,3,4};
-            foo()[2] = a[1];
-            print(string_of_int(foo()[2]));
-        EndBody.
-        """
-        expect = ""
-        self.assertTrue(TestCodeGen.test(input,expect,406))
+#     def test_406(self):
+#         """Created automatically"""
+#         input = r"""
+#         Function: foo
+#         Body:
+#             Var: a[4]={1,2,3,4};
+#             Return a;
+#         EndBody.
+#         Function: main
+#         Body:
+#             Var: a[4]={1,2,3,4};
+#             foo()[2] = a[1];
+#             print(string_of_int(foo()[2]));
+#         EndBody.
+#         """
+#         expect = "3"
+#         self.assertTrue(TestCodeGen.test(input,expect,406))
         
-    def test_407(self):
-        """Created automatically"""
-        input = r"""
-        Function: foo
-        Body:
-            Var: a[4]={1,2,3,4};
-            Return a;
-        EndBody.
-        Function: main
-        Body:
-            print(string_of_int(foo()[2]));
-        EndBody.
-        """
-        expect = ""
-        self.assertTrue(TestCodeGen.test(input,expect,407))
+#     def test_407(self):
+#         """Created automatically"""
+#         input = r"""
+#         Function: foo
+#         Body:
+#             Var: a[4]={1,2,3,4};
+#             Return a;
+#         EndBody.
+#         Function: main
+#         Body:
+#             print(string_of_int(foo()[2]));
+#         EndBody.
+#         """
+#         expect = "3"
+#         self.assertTrue(TestCodeGen.test(input,expect,407))
         
-    def test_408(self):
-        """Created automatically"""
-        input = r""" 
-        Function: main
-        Body:
-            While (True) Do
-                print("1");
-            EndWhile.
-        EndBody.
-        """
-        expect = str()
-        self.assertTrue(TestCodeGen.test(input,expect,408))
-        
-    def test_410(self):
-        """Created automatically"""
-        input = r"""
-        Var: x = 0;
-Function: fact
-Parameter: n
-Body:
-If n == 0 Then
-Return 1;
-Else
-Return n * fact (n - 1);
-EndIf.
-EndBody.
-Function: main
-Body:
-x = 10;
-x = fact(x);
-print(sting_of_int(x));
-EndBody."""
-        expect = ""
-        self.assertTrue(TestCodeGen.test(input,expect,410))
+#     def test_410(self):
+#         """Created automatically"""
+#         input = r"""
+# Function: fact
+# Parameter: n
+# Body:
+# If n == 0 Then
+# Return 1;
+# Else
+# Return n * fact (n - 1);
+# EndIf.
+# EndBody.
+# Function: main
+# Body:
+# Var:x = 10;
+# x = fact(x);
+# print(string_of_int(x));
+# EndBody."""
+#         expect = "3628800"
+#         self.assertTrue(TestCodeGen.test(input,expect,410))
         
         
-    def test_412(self):
-        """Created automatically"""
-        input = r"""
-        Function: fact
-        Parameter: n
-        Body:
-            If n == 0 Then
-                Return 1;
-            ElseIf (n>0) Then
-                Return n * fact (n - 1);
-            Else
-                Return n;
-            EndIf.
-        EndBody.
-        Function: main
-        Body:
-        printStrLn(string_of_int(3));
-        print(string_of_int(-5));
-        EndBody."""
-        expect = str()
-        self.assertTrue(TestCodeGen.test(input,expect,412))
+#     def test_412(self):
+#         """Created automatically"""
+#         input = r"""
+#         Function: fact
+#         Parameter: n
+#         Body:
+#             If n == 0 Then
+#                 Return 1;
+#             ElseIf (n>0) Then
+#                 Return n * fact (n - 1);
+#             Else
+#                 Return n;
+#             EndIf.
+#         EndBody.
+#         Function: main
+#         Body:
+#         printStrLn(string_of_int(fact(3)));
+#         print(string_of_int(fact(-5)));
+#         EndBody."""
+#         expect = r"""6
+# -5"""
+#         self.assertTrue(TestCodeGen.test(input,expect,412))
         
         
-    def test_414(self):
-        """Created automatically"""
-        input = r"""Function: main
-        Body:
-            Var: i = 0;
-            Do
-                Var: k = 10;
-                i = i + 1;
-            While i <= 10 
-            EndDo.
-        EndBody."""
-        expect = str()
-        self.assertTrue(TestCodeGen.test(input,expect,414))
+#     def test_414(self):
+#         """Created automatically"""
+#         input = r"""Function: main
+#         Body:
+#             Var: i = 0;
+#             Do
+#                 Var: k = 10;
+#                 i = i + 1;
+#             While i <= 10 
+#             EndDo.
+#         EndBody."""
+#         expect = str()
+#         self.assertTrue(TestCodeGen.test(input,expect,414))
         
-    def test_419(self):
-        """Created automatically"""
-        input = r"""
-        Function: main
-            Body:
-            Var:x=0,y=1,j=0,i=0;
-                For (i=0, True, 3) Do
-                    x = y + i;
-                    y = y + 1;
-                    If i%3 == 0 Then
-                        Break;
-                    EndIf.
-                EndFor.
-                printStrLn(string_of_int(i));
-            EndBody.
-            """
-        expect = str()
-        self.assertTrue(TestCodeGen.test(input,expect,419))
+#     def test_416(self):
+#         """Created automatically"""
+#         input = r"""Function: main 
+#         Body:
+#         Var: n=101.0;
+#             If n <. 100.0 Then
+#             n=n*.3.3;
+#             ElseIf n>=.101.0 Then
+#             n=n\.5.3;
+#             EndIf.
+#             print(string_of_float(n));
+#         EndBody.
+#         """
+#         expect = "19.056602"
+#         self.assertTrue(TestCodeGen.test(input,expect,416))
+
+#     def test_419(self):
+#         """Created automatically"""
+#         input = r"""
+#         Function: main
+#             Body:
+#             Var:x=0,y=1,j=0,i=0;
+#                 For (i=0, True, 3) Do
+#                     x = y + i;
+#                     y = y + 1;
+#                     If i%3 == 0 Then
+#                         Break;
+#                     EndIf.
+#                 EndFor.
+#                 printStrLn(string_of_int(i));
+#             EndBody.
+#             """
+#         expect = str()
+#         self.assertTrue(TestCodeGen.test(input,expect,419))
         
-    def test_420(self):
-        """Created automatically"""
-        input = r"""Function: main 
-        Parameter: varrr
-        Body:
-            Var: x =1;
-            Do
-                Var: x =1.5;
-                x= x+.1.5;
-                printStrLn(string_of_float(x));
-            While x>1 
-            EndDo.
-        EndBody."""
-        expect = str()
-        self.assertTrue(TestCodeGen.test(input,expect,420))
+#     def test_420(self):
+#         """Created automatically"""
+#         input = r"""Function: main 
+#         Body:
+#             Var: x =1;
+#             Do
+#                 Var: x =1.5;
+#                 x= x+.1.5;
+#                 printStrLn(string_of_float(x));
+#             While x>1 
+#             EndDo.
+#         EndBody."""
+#         expect = "3.0"
+#         self.assertTrue(TestCodeGen.test(input,expect,420))
         
         
-    def test_422(self):
-        """Created automatically"""
-        input = r"""Function:main
-        Var: a =True,b=0;
-        Body:
-        If!a Then
-        b=5; 
-        Else
-        While(b<3) Do
-        b=b+1;
-        EndWhile.
-        EndIf.
-        printLn();
-        Print(string_of_int(b));
-        EndBody."""
-        expect = str()
-        self.assertTrue(TestCodeGen.test(input,expect,422))
+#     def test_422(self):
+#         """Created automatically"""
+#         input = r"""Function:main
+#         Body:
+#         Var: a =True,b=0;
+#         If!a Then
+#         b=5; 
+#         Else
+#         While(b<3) Do
+#         b=b+1;
+#         EndWhile.
+#         EndIf.
+#         printLn();
+#         print(string_of_int(b));
+#         EndBody."""
+#         expect = str()
+#         self.assertTrue(TestCodeGen.test(input,expect,422))
         
-    def test_423(self):
-        """Created automatically"""
-        input = r"""Function: main 
-        Body:
-            If n <=. 1.2E-4 Then
-            n=n*.3.3;
-            ElseIf n>.100.2 Then
-            n=n\.5;
-            EndIf.
-        EndBody.
-        """
-        expect = ""
-        self.assertTrue(TestCodeGen.test(input,expect,423))
+#     def test_423(self):
+#         """Created automatically"""
+#         input = r"""Function: main 
+#         Body:
+#         Var: n=1.0;
+#             If n <. 3.0 Then
+#             n=n*.3.3;
+#             ElseIf n>.100.2 Then
+#             n=n\.5.3;
+#             EndIf.
+#             print(string_of_float(n));
+#         EndBody.
+#         """
+#         expect = "3.3"
+#         self.assertTrue(TestCodeGen.test(input,expect,423))
         
-    def test_424(self):
-        """Created automatically"""
-        input = r"""Function: main 
-        Body:
-        Var: k=0,i=0,j=False,f=11;
-            If ((k<1)&&(i!=0))||(k>5)||!j Then
-                f=f%3;
-            EndIf.
-            print(string_of_int(f))
-        EndBody."""
-        expect = ""
-        self.assertTrue(TestCodeGen.test(input,expect,424))
+#     def test_421(self):
+#         """Created automatically"""
+#         input = r"""Function: main 
+#         Body:
+#         Var: n=100.0;
+#             If n <. 3.0 Then
+#             n=n*.3.3;
+#             ElseIf n>.100.2 Then
+#             n=n\.5.3;
+#             EndIf.
+#             print(string_of_float(n));
+#         EndBody.
+#         """
+#         expect = "100.0"
+#         self.assertTrue(TestCodeGen.test(input,expect,421))
+        
+#     def test_415(self):
+#         """Created automatically"""
+#         input = r"""Function: main 
+#         Body:
+#         Var: n=123.0;
+#             If n <. 3.0 Then
+#             n=n*.3.3;
+#             ElseIf n>.100.2 Then
+#             n=n\.5.3;
+#             EndIf.
+#             print(string_of_float(n));
+#         EndBody.
+#         """
+#         expect = "23.207546"
+#         self.assertTrue(TestCodeGen.test(input,expect,415))
+        
+#     def test_424(self):
+#         """Created automatically"""
+#         input = r"""Function: main 
+#         Body:
+#         Var: k=0,i=0,j=False,f=11;
+#             If ((k<1)&&(i!=0))||(k>5)||!j Then
+#                 f=f%3;
+#             EndIf.
+#             print(string_of_int(f));
+#         EndBody."""
+#         expect = "2"
+#         self.assertTrue(TestCodeGen.test(input,expect,424))
         
     def test_425(self):
         """Created automatically"""
-        input = r"""Function: main 
-        Parameter: n
+        input = r"""Function: main
         Body:
-            Var: a[3] = {1,2,3}, c[2][3] = {{1,3},{3,5,7}};
-            a[2] = a[c[1][1]] + 4;
+            Var: a[3] = {1,2,3}, c[2][3] = {{1,3,5},{3,5,7}};
         EndBody."""
         expect = ""
         self.assertTrue(TestCodeGen.test(input,expect,425))
         
-    def test_427(self):
-        """Created automatically"""
-        input = r"""
-        Function: main 
-        Body:
-            Var: var=True,x=False;
-            Var: ilv=4e3, nvh=2.3;
-            var = (nvh=/=123.45);
-            x = var && (ilv <. nvh);
-        EndBody."""
-        expect = ""
-        self.assertTrue(TestCodeGen.test(input,expect,427))
-        
-#     def test_428(self):
+#     def test_427(self):
 #         """Created automatically"""
-#         input = r"""Var: a;
+#         input = r"""
 #         Function: main 
-#         Parameter: n, arr[3][4][5]
 #         Body:
-#             a = 3*.4.5\0e-2+arr[3-main("call")];
+#             Var: var=True,x=False;
+#             Var: ilv=4e3, nvh=2.3;
+#             var = (nvh=/=123.45);
+#             x = var && (ilv <. nvh);
 #         EndBody."""
-#         expect = str(TypeMismatchInExpression(BinaryOp("*.",IntLiteral(3),FloatLiteral(4.5))))
-#         self.assertTrue(TestCodeGen.test(input,expect,428))
+#         expect = ""
+#         self.assertTrue(TestCodeGen.test(input,expect,427))
         
 #     def test_429(self):
 #         """Created automatically"""
 #         input = r"""
-#         Var: a[5];
-#         Function: main 
-#         Parameter: x
+#         Function: main
 #         Body:
-#             x = -(-15.e-1+(-.45.1*.2.3)*(35+108+a[4]));
+#             Var: a[5]={2,3,5,7,8},x=0;
+#             x = -(-15+(45*2)*(35+108+a[4]))*int_of_string("21");
+#             printLn();
+#             printStrLn(string_of_int(x));
 #         EndBody."""
-#         expect = str(TypeMismatchInExpression(UnaryOp("-",FloatLiteral(1.5))))
+#         expect = ""
 #         self.assertTrue(TestCodeGen.test(input,expect,429))
         
 #     def test_430(self):

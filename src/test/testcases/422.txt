@@ -1,0 +1,13 @@
+Function:main
+        Body:
+        Var: a =True,b=0;
+        If!a Then
+        b=5; 
+        Else
+        While(b<3) Do
+        b=b+1;
+        EndWhile.
+        EndIf.
+        printLn();
+        print(string_of_int(b));
+        EndBody.
