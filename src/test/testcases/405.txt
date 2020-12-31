@@ -1,0 +1,12 @@
+ Function: main
+    Body:
+        Var: a = 123;
+        If a % 3 == 0 Then
+            printStrLn("a % 3 == 0");
+        ElseIf a % 3 == 1 Then
+            printStrLn("a % 3 == 1");
+        Else
+            printStrLn("a % 3 == 2");
+        EndIf.
+    EndBody.
+        
