@@ -1,0 +1,19 @@
+
+        Function: main
+        Body:
+        Var: a=0,b=0,c=0,d=0;
+            a = -1082000;
+            b = -0X123BCD;
+            c = -0o21345;
+            d = -a;
+            print(string_of_int(c));
+            c = -call(a);
+            print(string_of_int(c));
+        EndBody.
+        Function: call
+            Parameter: s
+            Body:
+                print(string_of_int(s));
+                Return s;
+            EndBody.
+                

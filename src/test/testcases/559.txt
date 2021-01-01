@@ -1,0 +1,12 @@
+Function: main
+        Body:
+            Var: i = 0;
+            Do
+                Var: k = 10;
+                If i>0 Then
+                    print(string_of_int(k%i));
+                EndIf.
+                i = i + 1;
+            While i <= 10 
+            EndDo.
+        EndBody.

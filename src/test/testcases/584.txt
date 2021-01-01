@@ -1,0 +1,11 @@
+
+        Function: call
+        Parameter: a, b, c, d, e, f, g
+        Body:
+            Return string_of_int(a+b+int_of_float(c)+d+int_of_string(g));
+        EndBody.
+        Function: main
+        Body:
+        Var: a=6, var=214.45, arr[5]={1,67,32,65,23};
+            print(call(a,876,var*.65e-1,arr[3],True,"chuoi~~\n","953"));
+        EndBody.

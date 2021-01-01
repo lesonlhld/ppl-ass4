@@ -1,0 +1,25 @@
+
+        Var: arr[5]={1,2,3,4,5};
+        Function: func1
+        Parameter: x
+        Body:
+        Return x *x%2;
+        EndBody.
+        Function: main
+        Body:
+        Var: a = 1343.74;
+        Var: arr[5]={2761,5832,8533,6834,556};
+            a =float_to_int(-(-(func1(46)+23) * -func2(a)+arr[3]))\. 0.75;
+            print(string_of_float(a));
+        EndBody.
+        Function: func2
+        Parameter: y
+        Body:
+        Var: z=1543.0;
+        Var: i = 0;
+        While (i < 5) Do
+            z = z +. y;
+            i = i + 1;
+        EndWhile.
+        Return int_of_float(z);
+        EndBody.

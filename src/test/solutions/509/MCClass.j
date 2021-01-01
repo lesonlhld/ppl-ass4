@@ -4,21 +4,14 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
+.var 1 is x Ljava/lang/String; from Label0 to Label1
+	ldc "\tHello moi nguoi @@~!@#$%^&***** \n"
+	astore_1
 Label0:
-	iconst_1
-	iconst_2
-	if_icmpge Label2
-	iconst_1
-	goto Label3
-Label2:
-	iconst_0
-Label3:
-	invokestatic io/string_of_bool(Z)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 3
-.limit locals 1
+.limit stack 2
+.limit locals 2
 .end method
 
 .method public <init>()V

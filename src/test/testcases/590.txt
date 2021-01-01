@@ -1,0 +1,48 @@
+
+        Function: func2 
+        Parameter: n
+        Body: 
+            If n == 0 Then
+                Return 1;
+            Else
+                Return n * func2 (n - 1);
+            EndIf.
+        EndBody.
+        Function: goo 
+        Parameter: n
+        Body: ** Xin chao**
+        Var: string = "Xin chao";
+        print(string);
+        Return 108*n;
+        EndBody.
+        Function: main
+        Body:
+        Var: a=123;
+            a =func1(func2(3))+23 - foo(goo(func1(a)));
+            print(string_of_int(a));
+        EndBody.
+        Function: func1
+        Parameter: x
+        Body:
+        Var: a=0, b=4324, c=8235;
+            If((b%15>=7)&&(c%30<=15)) Then
+                a = b - c;
+            Else
+                a = b + c;
+            EndIf.
+            x = x -a;
+            Return x;
+        EndBody.
+        Function: foo 
+        Parameter: n
+        Body: 
+            While(1) Do
+                If n%2==0 Then
+                    Break;
+                Else
+                    n=n\2;
+                EndIf.
+            EndWhile.
+            Return n;
+        EndBody.
+        

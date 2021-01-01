@@ -54,6 +54,8 @@ class Emitter():
                 return self.jvm.emitBIPUSH(i)
             elif i >= -32768 and i <= 32767:
                 return self.jvm.emitSIPUSH(i)
+            else:
+                return self.jvm.emitLDC(str(i))    
         elif type(in_) is str:
             if in_ == "true":
                 return self.emitPUSHICONST(1, frame)
@@ -102,6 +104,8 @@ class Emitter():
         frame.pop()
         if type(in_) is cgen.IntType:
             return self.jvm.emitIALOAD()
+        elif type(in_) is cgen.FloatType:
+            return self.jvm.emitFALOAD()
         elif type(in_) is cgen.ArrayType or type(in_) is cgen.ClassType or type(in_) is cgen.StringType:
             return self.jvm.emitAALOAD()
         else:
@@ -115,8 +119,10 @@ class Emitter():
         frame.pop()
         frame.pop()
         frame.pop()
-        if type(in_) is cgen.IntType:
+        if type(in_) in [cgen.IntType, cgen.BoolType]:
             return self.jvm.emitIASTORE()
+        elif type(in_) is cgen.FloatType:
+            return self.jvm.emitFASTORE()
         elif type(in_) is cgen.ArrayType or type(in_) is cgen.ClassType or type(in_) is cgen.StringType:
             return self.jvm.emitAASTORE()
         else:
@@ -207,7 +213,7 @@ class Emitter():
         elif type(inType) is cgen.BoolType:
             typeIn = "boolean"
         elif type(inType) is cgen.ArrayType:
-                return self.jvm.emitMULTIANEWARRAY(self.getJVMType(inType), str(inType.dimen[0][0]))
+                return self.jvm.emitMULTIANEWARRAY(self.getJVMType(inType), str(2))
         return self.jvm.emitNEWARRAY(typeIn)
 
     ''' generate the field (static) directive for a class mutable or immutable attribute.
@@ -610,7 +616,7 @@ class Emitter():
         elif type(in_) is cgen.VoidType:
             return self.jvm.emitRETURN()
         else:
-            return self.jvm.emitRETURN()
+            return self.jvm.emitARETURN()
 
     ''' generate code that represents a label	
     *   @param label the label

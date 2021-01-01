@@ -4,30 +4,68 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is n I from Label0 to Label1
+.var 1 is a [I from Label0 to Label1
+	iconst_3
+	newarray int
+	astore_1
+	aload_1
+	iconst_0
 	iconst_1
-	istore_1
+	iastore
+	aload_1
+	iconst_1
+	iconst_2
+	iastore
+	aload_1
+	iconst_2
+	iconst_3
+	iastore
+.var 2 is c [[I from Label0 to Label1
+	iconst_2
+	iconst_3
+	multianewarray [[I 2
+	astore_2
+	aload_2
+	iconst_0
+	aaload
+	iconst_0
+	iconst_1
+	iastore
+	aload_2
+	iconst_0
+	aaload
+	iconst_1
+	iconst_3
+	iastore
+	aload_2
+	iconst_0
+	aaload
+	iconst_2
+	iconst_5
+	iastore
+	aload_2
+	iconst_1
+	aaload
+	iconst_0
+	iconst_3
+	iastore
+	aload_2
+	iconst_1
+	aaload
+	iconst_1
+	iconst_5
+	iastore
+	aload_2
+	iconst_1
+	aaload
+	iconst_2
+	bipush 7
+	iastore
 Label0:
-	iload_1
-	iconst_0
-	if_icmpge Label4
-	iconst_1
-	goto Label5
-Label4:
-	iconst_0
-Label5:
-	ifle Label2
-	ldc "n < 0"
-	invokestatic io/print(Ljava/lang/String;)V
-	goto Label3
-Label2:
-	ldc "n >= 0"
-	invokestatic io/print(Ljava/lang/String;)V
-Label3:
 Label1:
 	return
-.limit stack 4
-.limit locals 2
+.limit stack 13
+.limit locals 3
 .end method
 
 .method public <init>()V

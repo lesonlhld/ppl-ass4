@@ -4,18 +4,14 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
+.var 1 is x Ljava/lang/String; from Label0 to Label1
+	ldc "Chung Xon"
+	astore_1
 Label0:
-	iconst_3
-	i2f
-	iconst_2
-	i2f
-	fdiv
-	invokestatic io/string_of_float(F)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
 .limit stack 2
-.limit locals 1
+.limit locals 2
 .end method
 
 .method public <init>()V

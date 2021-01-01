@@ -1,0 +1,13 @@
+
+        Var: a=1.0;
+        Function: main 
+        Body:
+            a=4325.43674;
+            a = a +. 432.57523 -. float_to_int(foo(int_of_float(a)));
+            print(string_of_float(a));
+        EndBody.
+        Function: foo
+        Parameter: x
+        Body:
+        Return x*(x%12)+x\(x%12);
+        EndBody.

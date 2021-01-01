@@ -1,11 +1,4 @@
 Function: main
-                    Body:
-                    Var: n = -1;
-                    If n == 0 Then
-                        print("n < 0");
-                    ElseIf (n>0) Then
-                        print("n > 0");
-                    Else
-                        print("n = 0");
-                    EndIf.
-                    EndBody.
+                   Body: 
+                        print("120");
+                   EndBody.

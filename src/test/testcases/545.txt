@@ -1,0 +1,10 @@
+Function: main
+        Body:
+        Var: n = 120,  array[2][3] = {{867,345,987},{76,12,744}};
+            If n > 10 Then
+                If n%11 < 10 Then 
+                n = n * n % 9;
+                EndIf.
+                printStrLn(string_of_int(n));
+            EndIf.
+        EndBody.

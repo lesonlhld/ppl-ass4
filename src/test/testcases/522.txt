@@ -1,16 +1,6 @@
-
-        Function: sum
-        Parameter: x
-        Body:
-            Var: i=0;
-            For (i = 0 , i < 5, 1) Do
-                x = x + i;
-            EndFor.
-            Return x;
-        EndBody.
-        Function: main
-        Body:
-            Var: y=0;
-            y = sum(0);
-            print(string_of_int(y));
-        EndBody.
+Function: main
+                   Body:
+                   printStrLn(string_of_int(int_of_float(float_of_string("12.2"))));
+                   printLn();
+                   print(string_of_float(float_to_int(int_of_float(float_of_string("12.8")))));
+                   EndBody.

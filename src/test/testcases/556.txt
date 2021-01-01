@@ -1,0 +1,8 @@
+Function: main
+                    Body:
+                    Var: i = 0;
+                    Do
+                        print(string_of_int(i));
+                        i = i + 1;
+                    While (i<2) EndDo.
+                    EndBody.

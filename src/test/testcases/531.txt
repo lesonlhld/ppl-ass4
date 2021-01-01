@@ -1,0 +1,6 @@
+Function: main
+        Body:
+        Var: x = False, a = 1.e-2, b = 20; 
+            x = ((a <=. 2.3e-13) || (b == 21) || (b != 235));
+            print(string_of_bool(x));
+        EndBody.

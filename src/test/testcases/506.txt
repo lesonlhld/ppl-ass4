@@ -1,4 +1,4 @@
 Function: main
                    Body:
-                   print(string_of_int(1+2));
+                   Var: x = 32.4e-1;
                    EndBody.

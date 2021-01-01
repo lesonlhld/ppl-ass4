@@ -1,0 +1,17 @@
+** this is a comment **
+        Function: foo
+        Parameter: a[5], b
+        Body:
+            Var: i = 0;
+            While (i < 5) Do
+                a[i] = b +. a[i]*.74.431;
+                printStrLn(string_of_float(a[i]));
+                i = i + 1;
+            EndWhile.
+        EndBody.
+        Function: main
+        Body:
+        Var:c[5]={13.4,52.63,25e2,1.3543e-2,5823.35};
+        Var: temp = 2344.2;
+        foo(c,temp);
+        EndBody.

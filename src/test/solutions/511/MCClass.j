@@ -4,14 +4,27 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-Label0:
+.var 1 is x [F from Label0 to Label1
+	iconst_3
+	newarray float
+	astore_1
+	aload_1
 	iconst_0
-	invokestatic io/string_of_bool(Z)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
+	ldc 1.2
+	fastore
+	aload_1
+	iconst_1
+	ldc 2.3
+	fastore
+	aload_1
+	iconst_2
+	ldc 3.4
+	fastore
+Label0:
 Label1:
 	return
-.limit stack 2
-.limit locals 1
+.limit stack 6
+.limit locals 2
 .end method
 
 .method public <init>()V

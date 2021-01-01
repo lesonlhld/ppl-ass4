@@ -4,13 +4,10 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is str F from Label0 to Label1
-	ldc 12.32
-	fstore_1
+.var 1 is x I from Label0 to Label1
+	sipush 668
+	istore_1
 Label0:
-	fload_1
-	invokestatic io/string_of_float(F)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
 .limit stack 2

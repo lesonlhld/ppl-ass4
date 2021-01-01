@@ -1,4 +1,4 @@
 Function: main
                    Body:
-                   print(string_of_bool(1<2));
+                   Var: x = "\tHello moi nguoi @@~!@#$%^&***** \n";
                    EndBody.

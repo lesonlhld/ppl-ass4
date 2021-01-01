@@ -1,0 +1,9 @@
+
+        Function: main 
+        Body:
+            Var: var=True,x=False;
+            Var: ilv=4e3, nvh=2.3;
+            var = (nvh=/=123.45);
+            x = var && (ilv <. nvh);
+            print(string_of_bool(x));
+        EndBody.

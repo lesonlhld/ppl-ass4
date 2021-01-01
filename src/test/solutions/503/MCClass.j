@@ -4,12 +4,10 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is x Ljava/lang/String; from Label0 to Label1
-	ldc "120"
-	astore_1
+.var 1 is x I from Label0 to Label1
+	ldc 1194684
+	istore_1
 Label0:
-	aload_1
-	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
 .limit stack 2

@@ -1,0 +1,12 @@
+
+        Function: main
+        Body:
+        Var: i =0, x=15;
+            For (i = 1, i <= x*x,i*i+1)
+            Do x=x+1;
+            print(string_of_int(i));
+            print(", ");
+            print(string_of_int(x));
+            printLn();
+            EndFor.
+        EndBody.

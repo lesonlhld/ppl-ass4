@@ -1,5 +1,4 @@
 Function: main
                    Body:
-                   Var: x = "120";
-                   print(x);
+                   Var: x = 0x123ABC;
                    EndBody.

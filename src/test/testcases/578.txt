@@ -1,0 +1,15 @@
+Function: main
+        Body:
+        Var:i = 10;
+            While !False Do
+                If i< 0 Then
+                    Break;
+                ElseIf i%2 == 0 Then
+                    i=i-1;
+                    Continue;
+                Else
+                    print(string_of_int(i));
+                EndIf.
+                i=i-1;
+            EndWhile.
+        EndBody.

@@ -1,0 +1,14 @@
+
+        Function: main
+            Body:
+                Var: x[3][2] = { {212,529}, {272,398}, {247,954} };
+                Var: y[3][2] = { {652,654}, {256,214}, {158,765} };
+                Var: i=0,j=0;
+                For( i=0,i<3,1) Do
+                    For(j=0,j<2,1) Do
+                        print(string_of_int(x[i][j]+y[i][j]));
+                        print(" ");
+                    EndFor.
+                    printLn();
+                EndFor.
+            EndBody.

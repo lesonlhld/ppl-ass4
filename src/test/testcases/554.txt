@@ -1,0 +1,11 @@
+ 
+        Function: main
+        Body:
+        Var: a[3] = {1,2,3};
+            Var: i = 0;
+            While (i < 3) Do
+                print(string_of_int(a[i]));
+                i = i + 1;
+            EndWhile.
+        EndBody.
+        

@@ -1,0 +1,15 @@
+Function: main 
+        Body:
+        Var:x=100;
+            While x>1 Do
+            Var: i=0,a = 10;
+                For (i = 100,True, -(i-6)) Do
+                    If -a>-3 Then
+                        Break;
+                    EndIf.
+                    a = a -3;
+                    x=x-a*10;
+                EndFor.
+            EndWhile.
+            print(string_of_int(x));
+        EndBody.

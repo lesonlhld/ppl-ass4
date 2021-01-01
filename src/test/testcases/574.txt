@@ -1,0 +1,8 @@
+Function: main
+                    Body:
+                    Var: i=0, result=0,x=9;
+                        For (i = 1, i <= x*x*x,i + x ) Do
+                            result = i * i + i \ --1 % i--i;
+                        EndFor.
+                        print(string_of_int(result));
+                    EndBody.

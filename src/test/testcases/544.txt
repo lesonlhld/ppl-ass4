@@ -1,0 +1,13 @@
+
+        Function: main
+        Body:
+        Var: n=1, i=5.5;
+            If i <. 4.5 Then
+                printStrLn(string_of_float(i));
+            ElseIf n > 10 Then 
+                print("Else If");
+            Else
+                n=int_of_float(i)-1;
+                print(string_of_int(n));
+            EndIf.
+            EndBody.

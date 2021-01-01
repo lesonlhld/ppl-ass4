@@ -1,4 +1,7 @@
-Function: main
-                   Body: 
-                        print(string_of_int(120));
-                   EndBody.
+
+        Var:x="";
+        Function: main 
+        Body:
+        x="hello";
+        print(x);
+        EndBody.

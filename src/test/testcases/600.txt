@@ -1,0 +1,56 @@
+
+Function: abs
+Parameter: x
+Body:
+If x>=0 Then
+Return x;
+Else
+Return -x;
+EndIf.
+EndBody.
+
+Function: ok
+Parameter: x2,y2,a[20]
+Body:
+    Var: i =0;
+    For(i = 1, i < x2, 1) Do
+        If((a[i] == y2) || (abs(i-x2) == abs(a[i] - y2))) Then
+            Return False;
+        EndIf.
+    EndFor.
+    Return True;
+EndBody.
+ 
+Function: xuat
+Parameter: n,a[20]
+Body:
+    Var: i=0;
+    For(i=1, i<=n, 1) Do
+        print(" ");
+        print(string_of_int(a[i]));
+    EndFor.
+    printLn();
+EndBody.
+ 
+Function: try
+Parameter: i, n,a[20]
+Body:
+Var: j=0;
+    For(j = 1,j<=n,1) Do
+        If (ok(i,j,a)) Then
+            a[i] = j; 
+            If (i==n) Then
+                xuat(n,a);
+            EndIf.
+            try(i+1,n,a);
+        EndIf.
+    EndFor.
+EndBody.
+ 
+    Function: main
+    Body:
+        Var: a[20]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        Var: n=5; 
+        try(1,n,a);
+    EndBody.
+    

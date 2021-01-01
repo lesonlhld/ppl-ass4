@@ -1,0 +1,25 @@
+
+        Var: m =0,i=0;
+        Function: main
+        Body:
+        Var:a=1,b=5645;
+            i=1;
+            m = test2(a,b);
+            i=2;
+            m = test2(a,m);
+            printStrLn(string_of_int(m));
+        EndBody.
+        Function: test2
+        Parameter: x,y
+        Body:
+            Do
+                If((y%11)%6>=4) Then
+                    y=y*x;
+                EndIf.
+                x=x+1;
+            While x<10
+            EndDo.
+            print("Lap lan ");
+            printStrLn(string_of_int(i));
+            Return y;
+        EndBody.

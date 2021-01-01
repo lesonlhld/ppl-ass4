@@ -1,0 +1,10 @@
+
+        Function: foo
+        Parameter: x
+        Body:
+            Return string_of_bool(!x);
+        EndBody.
+        Function: main 
+        Body:
+            print(foo(True));
+        EndBody.

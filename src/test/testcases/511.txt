@@ -1,4 +1,4 @@
 Function: main
                    Body:
-                   print(string_of_bool(False));
+                   Var: x[3] = {1.2,2.3,3.4};
                    EndBody.

@@ -1,9 +1,4 @@
 Function: main
-                    Body:
-                    Var: n = -1;
-                    If n < 0 Then
-                        print("n < 0");
-                    Else
-                        print("n >= 0");
-                    EndIf.
-                    EndBody.
+        Body:
+            Var: a[2][2] = {{"a","b"},{"c","d"}}, c[2][3] = {{1e-2,3.5,5.0},{3.1,5e2,7.0e-3}};
+        EndBody.

@@ -324,7 +324,9 @@ class CodeGenVisitor(BaseVisitor):
 
         for x in ast.decl:
             if type(x) == VarDecl:
-                newSym = self.visit(x, MethodEnv(None, None, True))
+                symbol = Symbol.getSymbol(x.variable.name, staticDecl)
+                symbol.updateMember(value = CName(self.className))
+                newSym = self.visit(x, MethodEnv(Frame(symbol.name, symbol.mtype), staticDecl, True))
             else:
                 symbol = Symbol.getSymbol(x.name.name, staticDecl)
                 symbol.updateMember(value = CName(self.className))
@@ -397,6 +399,8 @@ class CodeGenVisitor(BaseVisitor):
         # if isGlobal or frame == None:
         if isGlobal:
             self.emit.printout(self.emit.emitATTRIBUTE(varName, initType, False, ""))
+            # var, varType = self.visit(var.variable, Access(frame, o.sym, True, False))
+            # self.emit.printout(init + var)
             return Symbol(varName, initType)
         else:
             idx = frame.getNewIndex()
@@ -423,6 +427,7 @@ class CodeGenVisitor(BaseVisitor):
                     self.emit.printout(self.emit.emitWRITEVAR2(init[0][1]))
                     self.emit.printout(self.emit.emitWRITEVAR(varName, initType, idx, frame))
                     for x in range(len(init)):
+                        frame.push()
                         self.emit.printout(self.emit.emitREADVAR(varName, initType, idx, frame))
                         self.emit.printout(self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
                         self.emit.printout(init[x][0])
@@ -445,7 +450,7 @@ class CodeGenVisitor(BaseVisitor):
 
         if ast.op in ['==', '!=', '<', '>', '<=', '>=', '=/=', '<.', '>.', '<=.', '>=.', '&&', '||']:
             mType = BoolType()
-        elif FloatType in [type(leftType), type(rightType)] or ast.op == '\\':
+        elif FloatType in [type(leftType), type(rightType)]:
             mType = FloatType()
         else:
             mType = IntType()
@@ -520,15 +525,20 @@ class CodeGenVisitor(BaseVisitor):
 
     def visitArrayCell(self, ast, o):
         arr, arrType = self.visit(ast.arr, o)
-        listIdx = [self.visit(x, o) for x in ast.idx]
+        listIdx = [self.visit(x, Access(o.frame, o.sym, False, True)) for x in ast.idx]
         if not o.isFirst and o.isLeft: o.frame.push()
-        code = ""
-        for x in range(len(listIdx)):
-            code += arr
+        code = arr
+        for x in range(len(listIdx) - 1):
             code += listIdx[x][0]
             if not o.isLeft:
-                code += self.emit.emitALOAD(listIdx[x][1], o.frame)
-        return code, listIdx[0][1]
+                code += self.emit.emitALOAD(arrType, o.frame)
+        code += listIdx[len(listIdx) - 1][0]
+        if not o.isLeft:
+            if type(arrType.eleType) == ArrayType:
+                code += self.emit.emitALOAD(arrType.eleType.eleType, o.frame)
+            else:
+                code += self.emit.emitALOAD(arrType.eleType, o.frame)
+        return code, arrType
 
 
     def visitId(self, ast, o: Access):
@@ -541,14 +551,14 @@ class CodeGenVisitor(BaseVisitor):
             a = self.emit.emitPUTSTATIC(self.className + "/" + sym.name, sym.mtype, o.frame) if o.isLeft else self.emit.emitGETSTATIC(self.className + "/" + sym.name, sym.mtype, o.frame)
         else:
             index = sym.value.value
-            a = self.emit.emitWRITEVAR(sym.name, sym.mtype, index, o.frame) if o.isLeft else self.emit.emitREADVAR(sym.name, sym.mtype, index, o.frame)
+            a = self.emit.emitWRITEVAR(sym.name, sym.mtype, index, o.frame) if (o.isLeft and type(sym.mtype) != ArrayType) else self.emit.emitREADVAR(sym.name, sym.mtype, index, o.frame)
         return a, sym.mtype
 
     def visitAssign(self,ast,o):
         right, rightType = self.visit(ast.rhs, Access(o.frame, o.sym, False, True))
         left, leftType = self.visit(ast.lhs, Access(o.frame, o.sym, True, False))
         if type(ast.lhs) == ArrayCell:
-            code = self.emit.emitASTORE(leftType, o.frame)
+            code = self.emit.emitASTORE(leftType.eleType, o.frame)
             self.emit.printout(left + right + code)
         else:
             self.emit.printout(right + left)
@@ -563,12 +573,13 @@ class CodeGenVisitor(BaseVisitor):
             self.emit.printout(self.emit.emitIFFALSE(label[x], o.frame))
         
             varList = MethodEnv(o.frame, o.sym)
-            for x in ast.ifthenStmt[x][1]:
-                varList = self.visit(x, varList)
-
-            list(map(lambda x: self.visit(x, varList), ast.ifthenStmt[x][2]))
-            self.emit.printout(self.emit.emitGOTO(labelE, o.frame))
-        
+            for y in ast.ifthenStmt[x][1]:
+                varList = self.visit(y, varList)
+                
+            hasReturnStmt = True in [self.visit(y, varList) for y in ast.ifthenStmt[x][2]]
+            
+            if not hasReturnStmt:
+                self.emit.printout(self.emit.emitGOTO(labelE, o.frame))
             self.emit.printout(self.emit.emitLABEL(label[x], o.frame))
 
         if len(ast.elseStmt[1]) > 0:
@@ -824,8 +835,7 @@ class Checker:
             body = Checker.updateSideType("right", opType, ast, envi)
         elif type(body) == ArrayType and type(body.eleType) != Unknown:
             body = body.eleType
-        if type(body) == type(opType):
-            typeReturn = targetType
+        typeReturn = targetType
 
         Symbol.updateParamType(envi, ast)
         return typeReturn
