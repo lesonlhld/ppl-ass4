@@ -226,4 +226,4 @@ if exist %CD%\src\main\bkit\codegen\CodeGenError_old.py (
 @REM     robocopy %CD%\src\test\solutionsSample\ %CD%\output\test\solutions /move /NFL /NDL /NJH /NJS /nc /ns /np
 @REM )
 
-::pause >nul
+pause >nul

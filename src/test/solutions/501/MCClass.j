@@ -4,10 +4,10 @@
 .field static x Ljava/lang/String;
 
 .method public static main([Ljava/lang/String;)V
-.var 0 is args [Ljava/lang/String; from Label0 to Label1
-Label0:
 	ldc "hello"
 	putstatic MCClass/x Ljava/lang/String;
+.var 0 is args [Ljava/lang/String; from Label0 to Label1
+Label0:
 	getstatic MCClass/x Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:

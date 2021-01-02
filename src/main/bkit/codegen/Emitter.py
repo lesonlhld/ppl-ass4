@@ -209,7 +209,8 @@ class Emitter():
         elif type(inType) is cgen.FloatType:
             typeIn = "float"
         elif type(inType) is cgen.StringType:
-            typeIn = "String"
+            typeIn = "java/lang/String"
+            return self.jvm.emitANEWARRAY(typeIn)
         elif type(inType) is cgen.BoolType:
             typeIn = "boolean"
         elif type(inType) is cgen.ArrayType:

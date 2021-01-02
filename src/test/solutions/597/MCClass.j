@@ -4,6 +4,8 @@
 .field static a F
 
 .method public static main([Ljava/lang/String;)V
+	ldc 1.0
+	putstatic MCClass/a F
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 Label0:
 	ldc 4325.43674
@@ -22,7 +24,7 @@ Label0:
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 3
+.limit stack 4
 .limit locals 1
 .end method
 
@@ -42,7 +44,7 @@ Label0:
 	iadd
 	ireturn
 Label1:
-.limit stack 4
+.limit stack 5
 .limit locals 1
 .end method
 

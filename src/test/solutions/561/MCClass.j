@@ -31,12 +31,18 @@
 .var 2 is i I from Label0 to Label1
 	iconst_0
 	istore_2
+.var 3 is k I from Label0 to Label1
+	bipush 10
+	istore_3
+.var 4 is j I from Label0 to Label1
+	iconst_1
+	istore 4
 Label0:
 	iconst_0
 	istore_2
 Label2:
 	iload_2
-	bipush 10
+	iload_3
 	if_icmpge Label6
 	iconst_1
 	goto Label7
@@ -66,7 +72,9 @@ Label7:
 	invokestatic io/print(Ljava/lang/String;)V
 Label4:
 	iload_2
-	iconst_1
+	iload 4
+	iload 4
+	imul
 	iadd
 	istore_2
 	goto Label2
@@ -74,8 +82,8 @@ Label3:
 Label5:
 Label1:
 	return
-.limit stack 14
-.limit locals 3
+.limit stack 17
+.limit locals 5
 .end method
 
 .method public <init>()V

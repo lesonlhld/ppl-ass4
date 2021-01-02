@@ -1,4 +1,8 @@
-Function: main
-                   Body:
-                   Var: x = 0;
-                   EndBody.
+
+        Var:x[3]={"1","2","3"};
+        Var:y[3]={1,2,3};
+        Function: main 
+        Body:
+        print(x[1]);
+        print(string_of_int(y[1]));
+        EndBody.

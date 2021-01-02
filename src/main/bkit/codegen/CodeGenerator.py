@@ -313,6 +313,7 @@ class CodeGenVisitor(BaseVisitor):
         self.className = "MCClass"
         self.path = dir_
         self.emit = Emitter(self.path + "/" + self.className + ".j")
+        self.initGlobalVardecl = ""
 
     def visitProgram(self, ast, c):
         #ast: Program
@@ -364,9 +365,12 @@ class CodeGenVisitor(BaseVisitor):
         isMain = methodName == "main" and len(funcDecl.param) == 0 and type(frame.returnType) is VoidType
         methodType = MType(paramType, frame.returnType if type(frame.returnType) != Unknown else VoidType())
         self.emit.printout(self.emit.emitMETHOD(methodName, methodType, True, frame))
+        if isMain and self.initGlobalVardecl != "":
+            self.emit.printout(self.initGlobalVardecl)
 
         frame.enterScope(True)
 
+        frame.push()
         startLabel, endLabel = frame.getStartLabel(), frame.getEndLabel()
         if isMain:
             varname, varindex = "args", frame.getNewIndex()
@@ -399,8 +403,37 @@ class CodeGenVisitor(BaseVisitor):
         # if isGlobal or frame == None:
         if isGlobal:
             self.emit.printout(self.emit.emitATTRIBUTE(varName, initType, False, ""))
-            # var, varType = self.visit(var.variable, Access(frame, o.sym, True, False))
-            # self.emit.printout(init + var)
+            varCode, varType = self.visit(var.variable, Access(frame, o.sym, True, False))
+            if type(initType) == ArrayType:
+                if type(initType.eleType) == ArrayType:
+                    for x in range(len(var.varDimen)):
+                        self.initGlobalVardecl += (self.visit(IntLiteral(var.varDimen[x]), Access(frame, o.sym, False, True))[0])
+                    self.initGlobalVardecl += (self.emit.emitWRITEVAR2(initType))
+                    self.initGlobalVardecl += (varCode)
+                    varCode2, varType = self.visit(var.variable, Access(frame, o.sym, False, False))
+                    for x in range(var.varDimen[0]):
+                        for y in range(var.varDimen[1]):
+                            frame.push()
+                            self.initGlobalVardecl += (varCode2)
+                            self.initGlobalVardecl += (self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
+                            self.initGlobalVardecl += (self.emit.emitALOAD(initType.eleType, frame))
+                            self.initGlobalVardecl += (self.visit(IntLiteral(y), Access(frame, o.sym, False, True))[0])
+                            self.initGlobalVardecl += (init[x][0][y][0])
+                            self.initGlobalVardecl += (self.emit.emitASTORE(init[x][0][y][1], frame))
+
+                else:
+                    self.initGlobalVardecl += (self.visit(IntLiteral(len(init)), Access(frame, o.sym, False, True))[0])
+                    self.initGlobalVardecl += (self.emit.emitWRITEVAR2(init[0][1]))
+                    self.initGlobalVardecl += (varCode)
+                    varCode2, varType = self.visit(var.variable, Access(frame, o.sym, False, False))
+                    for x in range(len(init)):
+                        frame.push()
+                        self.initGlobalVardecl += (varCode2)
+                        self.initGlobalVardecl += (self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
+                        self.initGlobalVardecl += (init[x][0])
+                        self.initGlobalVardecl += (self.emit.emitASTORE(init[x][1], frame))
+            else:
+                self.initGlobalVardecl += (init + varCode)
             return Symbol(varName, initType)
         else:
             idx = frame.getNewIndex()
@@ -433,8 +466,8 @@ class CodeGenVisitor(BaseVisitor):
                         self.emit.printout(init[x][0])
                         self.emit.printout(self.emit.emitASTORE(init[x][1], frame))
             else:
-                var, varType = self.visit(var.variable, Access(frame, o.sym, True, False))
-                self.emit.printout(init + var)
+                varCode2, varType = self.visit(var.variable, Access(frame, o.sym, True, False))
+                self.emit.printout(init + varCode2)
             return MethodEnv(frame, o.sym)
 
     def visitFuncDecl(self, func, o):

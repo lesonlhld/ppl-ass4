@@ -1,4 +1,7 @@
-Function: main
-                   Body:
-                   Var: x = 0o1234;
-                   EndBody.
+
+        Var:x="hello";
+        Function: main 
+        Body:
+        x="Hello World";
+        print(x);
+        EndBody.

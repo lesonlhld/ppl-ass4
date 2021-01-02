@@ -5,6 +5,10 @@
 .field static y I
 
 .method public static main([Ljava/lang/String;)V
+	iconst_0
+	putstatic MCClass/x I
+	iconst_0
+	putstatic MCClass/y I
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 Label0:
 	iconst_1
@@ -16,7 +20,7 @@ Label0:
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 3
+.limit stack 4
 .limit locals 1
 .end method
 
@@ -27,7 +31,7 @@ Label0:
 	iadd
 	ireturn
 Label1:
-.limit stack 2
+.limit stack 3
 .limit locals 0
 .end method
 

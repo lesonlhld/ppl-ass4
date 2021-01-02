@@ -8,10 +8,9 @@ class CheckCodeGenSuite(unittest.TestCase):
     def test_600(self):
         """Created automatically"""
         input = r"""
-        Var:x="";
+        Var:x="hello";
         Function: main 
         Body:
-        x="hello";
         print(x);
         EndBody."""
         expect = "hello"
@@ -19,11 +18,15 @@ class CheckCodeGenSuite(unittest.TestCase):
 
     def test_601(self):
         """Created automatically"""
-        input = r"""Function: main
-                   Body:
-                   Var: x = 0;
-                   EndBody."""
-        expect = r""""""
+        input = r"""
+        Var:x[3]={"1","2","3"};
+        Var:y[3]={1,2,3};
+        Function: main 
+        Body:
+        print(x[1]);
+        print(string_of_int(y[1]));
+        EndBody."""
+        expect = r"""22"""
         self.assertTrue(TestCodeGen.test(input,expect,601))
 
     def test_602(self):
@@ -31,17 +34,23 @@ class CheckCodeGenSuite(unittest.TestCase):
         input = r"""Function: main
                    Body:
                    Var: x = 0x123ABC;
+                   Var: y = 0o1234;
+                    print(string_of_int(x));
+                    print(string_of_int(y));
                    EndBody."""
-        expect = r""""""
+        expect = r"""1194684668"""
         self.assertTrue(TestCodeGen.test(input,expect,602))
 
     def test_603(self):
         """Created automatically"""
-        input = r"""Function: main
-                   Body:
-                   Var: x = 0o1234;
-                   EndBody."""
-        expect = r""""""
+        input = r"""
+        Var:x="hello";
+        Function: main 
+        Body:
+        x="Hello World";
+        print(x);
+        EndBody."""
+        expect = "Hello World"
         self.assertTrue(TestCodeGen.test(input,expect,603))
 
     def test_604(self):
@@ -248,10 +257,12 @@ class CheckCodeGenSuite(unittest.TestCase):
         
     def test_625(self):
         """Created automatically"""
-        input = r"""Function: main
-                   Body:
-                   print(string_of_int(1*2));
-                   EndBody."""
+        input = r"""
+        Function: main 
+        Body:
+        Var:x[3]={"1","2","3"};
+        print(x[1]);
+        EndBody."""
         expect = r"""2"""
         self.assertTrue(TestCodeGen.test(input,expect,625))
         
@@ -773,8 +784,8 @@ oke
         input = r"""
         Function: main 
         Body:
-        Var: n[5]={3.34,6.67,8.03,32.57,54.108},i=0;
-            For (i = 0, i < 10, 1) Do
+        Var: n[5]={3.34,6.67,8.03,32.57,54.108},i=0,k=10,j=1;
+            For (i = 0, i < k, j*j) Do
                 n[i%5]=n[i%5]+.float_to_int(i);
                 print(string_of_float(n[i%5]));
             EndFor.
@@ -785,14 +796,17 @@ oke
     def test_661(self):
         """Created automatically"""
         input = r"""
-        Function: main
+        Var:x[2][2]={{"1","2"},{"3","4"}};
+        Function: main 
         Body:
-            Var: i=0, k=100;
-            For (i=2, i < k, i*i) Do
-                print(string_of_int(i));
+        Var: i=0, j=0;
+        For( i=0,i<2,1) Do
+            For(j=0,j<2,1) Do
+                print(x[i][j]);
             EndFor.
+        EndFor.
         EndBody."""
-        expect = "2642"
+        expect = "1234"
         self.assertTrue(TestCodeGen.test(input,expect,661))
         
     def test_662(self):
@@ -866,9 +880,9 @@ oke
                     printLn();
                 EndFor.
             EndBody."""
-        expect = r"""864 1183
-528 612
-405 1719
+        expect = r"""864 1183 
+528 612 
+405 1719 
 """
         self.assertTrue(TestCodeGen.test(input,expect,665))
 
@@ -997,9 +1011,9 @@ oke
             i = i + 1;
         EndWhile.
         EndBody."""
-        expect = r"""114 834 217
-568 471 651
-831 246 123
+        expect = r"""114 834 217 
+568 471 651 
+831 246 123 
 """
         self.assertTrue(TestCodeGen.test(input,expect,671))
 
@@ -1102,7 +1116,8 @@ oke
                 printStrLn(string_of_int(x+y));
             EndBody.
             """
-        expect = "-2112565168"
+        expect = r"""-2112565168
+"""
         self.assertTrue(TestCodeGen.test(input,expect,676))
         
     def test_677(self):

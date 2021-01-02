@@ -1,7 +1,6 @@
 
-        Var:x="";
+        Var:x="hello";
         Function: main 
         Body:
-        x="hello";
         print(x);
         EndBody.

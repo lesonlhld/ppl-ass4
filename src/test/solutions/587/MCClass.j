@@ -23,7 +23,7 @@ Label0:
 	aload_0
 	areturn
 Label1:
-.limit stack 6
+.limit stack 7
 .limit locals 1
 .end method
 
@@ -37,7 +37,7 @@ Label0:
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 2
+.limit stack 3
 .limit locals 1
 .end method
 

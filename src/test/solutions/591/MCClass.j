@@ -56,7 +56,7 @@ Label7:
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 12
+.limit stack 13
 .limit locals 5
 .end method
 
@@ -86,7 +86,7 @@ Label3:
 	imul
 	ireturn
 Label1:
-.limit stack 5
+.limit stack 6
 .limit locals 2
 .end method
 

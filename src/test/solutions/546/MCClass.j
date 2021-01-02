@@ -86,7 +86,7 @@ Label2:
 Label3:
 Label1:
 	return
-.limit stack 14
+.limit stack 15
 .limit locals 3
 .end method
 

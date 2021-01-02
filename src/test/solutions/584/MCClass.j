@@ -25,7 +25,7 @@ Label0:
 	invokestatic io/string_of_int(I)Ljava/lang/String;
 	areturn
 Label1:
-.limit stack 2
+.limit stack 3
 .limit locals 7
 .end method
 
@@ -77,7 +77,7 @@ Label0:
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 15
+.limit stack 16
 .limit locals 4
 .end method
 

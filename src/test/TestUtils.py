@@ -176,4 +176,5 @@ class TestCodeGen():
             dest.close()
         dest = open(solpath + str(num) + ".txt","r")
         line = dest.read()
+        print(line)
         return line == expect

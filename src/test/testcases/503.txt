@@ -1,4 +1,7 @@
 Function: main
                    Body:
                    Var: x = 0x123ABC;
+                   Var: y = 0o1234;
+                    print(string_of_int(x));
+                    print(string_of_int(y));
                    EndBody.

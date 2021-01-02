@@ -34,7 +34,7 @@ Label7:
 	isub
 	ireturn
 Label1:
-.limit stack 6
+.limit stack 7
 .limit locals 2
 .end method
 
@@ -80,7 +80,7 @@ Label5:
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 8
+.limit stack 9
 .limit locals 4
 .end method
 

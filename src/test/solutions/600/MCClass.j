@@ -23,7 +23,7 @@ Label2:
 Label3:
 Label1:
 	return
-.limit stack 3
+.limit stack 4
 .limit locals 1
 .end method
 
@@ -90,7 +90,7 @@ Label5:
 	iconst_1
 	ireturn
 Label1:
-.limit stack 11
+.limit stack 12
 .limit locals 4
 .end method
 
@@ -131,7 +131,7 @@ Label5:
 	invokestatic io/printLn()V
 Label1:
 	return
-.limit stack 6
+.limit stack 7
 .limit locals 3
 .end method
 
@@ -198,7 +198,7 @@ Label3:
 Label5:
 Label1:
 	return
-.limit stack 11
+.limit stack 12
 .limit locals 4
 .end method
 
@@ -298,7 +298,7 @@ Label0:
 	invokestatic MCClass/try(II[I)V
 Label1:
 	return
-.limit stack 24
+.limit stack 25
 .limit locals 3
 .end method
 

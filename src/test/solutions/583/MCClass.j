@@ -15,7 +15,7 @@ Label3:
 	invokestatic io/string_of_bool(Z)Ljava/lang/String;
 	areturn
 Label1:
-.limit stack 4
+.limit stack 5
 .limit locals 1
 .end method
 
@@ -27,7 +27,7 @@ Label0:
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 2
+.limit stack 3
 .limit locals 1
 .end method
 

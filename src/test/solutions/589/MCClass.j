@@ -13,11 +13,34 @@ Label0:
 	irem
 	ireturn
 Label1:
-.limit stack 2
+.limit stack 3
 .limit locals 1
 .end method
 
 .method public static main([Ljava/lang/String;)V
+	iconst_5
+	newarray int
+	putstatic MCClass/arr [I
+	getstatic MCClass/arr [I
+	iconst_0
+	iconst_1
+	iastore
+	getstatic MCClass/arr [I
+	iconst_1
+	iconst_2
+	iastore
+	getstatic MCClass/arr [I
+	iconst_2
+	iconst_3
+	iastore
+	getstatic MCClass/arr [I
+	iconst_3
+	iconst_4
+	iastore
+	getstatic MCClass/arr [I
+	iconst_4
+	iconst_5
+	iastore
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 .var 1 is a F from Label0 to Label1
 	ldc 1343.74
@@ -70,7 +93,7 @@ Label0:
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 9
+.limit stack 10
 .limit locals 3
 .end method
 
@@ -109,7 +132,7 @@ Label7:
 	invokestatic io/int_of_float(F)I
 	ireturn
 Label1:
-.limit stack 7
+.limit stack 8
 .limit locals 3
 .end method
 

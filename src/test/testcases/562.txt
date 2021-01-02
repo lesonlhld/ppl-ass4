@@ -1,8 +1,11 @@
 
-        Function: main
+        Var:x[2][2]={{"1","2"},{"3","4"}};
+        Function: main 
         Body:
-            Var: i=0, k=100;
-            For (i=2, i < k, i*i) Do
-                print(string_of_int(i));
+        Var: i=0, j=0;
+        For( i=0,i<2,1) Do
+            For(j=0,j<2,1) Do
+                print(x[i][j]);
             EndFor.
+        EndFor.
         EndBody.

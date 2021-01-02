@@ -38,7 +38,7 @@ Label3:
 Label5:
 Label1:
 	return
-.limit stack 7
+.limit stack 8
 .limit locals 3
 .end method
 
@@ -65,7 +65,7 @@ Label0:
 	invokestatic MCClass/foo([F)V
 Label1:
 	return
-.limit stack 6
+.limit stack 7
 .limit locals 2
 .end method
 
