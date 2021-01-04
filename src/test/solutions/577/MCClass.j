@@ -36,12 +36,12 @@ Label2:
 	iconst_3
 	irem
 	iconst_0
-	if_icmpne Label8
+	if_icmpne Label10
 	iconst_1
-	goto Label9
-Label8:
+	goto Label11
+Label10:
 	iconst_0
-Label9:
+Label11:
 	ifle Label6
 	goto Label5
 	goto Label7

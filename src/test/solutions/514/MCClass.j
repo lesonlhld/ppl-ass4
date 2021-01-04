@@ -4,13 +4,24 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
+.var 1 is x I from Label0 to Label1
+	bipush 6
+	istore_1
 Label0:
-	ldc "120"
+	iload_1
+	iconst_5
+	if_icmple Label4
+	iconst_1
+	goto Label5
+Label4:
+	iconst_0
+Label5:
+	invokestatic io/string_of_bool(Z)Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 2
-.limit locals 1
+.limit stack 5
+.limit locals 2
 .end method
 
 .method public <init>()V

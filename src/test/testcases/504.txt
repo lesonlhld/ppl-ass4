@@ -1,7 +1,4 @@
-
-        Var:x="hello";
-        Function: main 
-        Body:
-        x="Hello World";
-        print(x);
-        EndBody.
+Function: main
+                   Body: 
+                        print(string_of_int(5 * 6));
+                   EndBody.

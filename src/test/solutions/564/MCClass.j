@@ -66,25 +66,25 @@ Label0:
 Label2:
 	iload 5
 	iload_1
-	if_icmpge Label6
+	if_icmpge Label8
 	iconst_1
-	goto Label7
-Label6:
+	goto Label9
+Label8:
 	iconst_0
-Label7:
+Label9:
 	ifle Label3
 	iconst_0
 	istore 6
-Label8:
+Label10:
 	iload 6
 	iload_2
-	if_icmpge Label12
+	if_icmpge Label16
 	iconst_1
-	goto Label13
-Label12:
+	goto Label17
+Label16:
 	iconst_0
-Label13:
-	ifle Label9
+Label17:
+	ifle Label11
 	iload 4
 	aload_3
 	iload 5
@@ -93,14 +93,14 @@ Label13:
 	iaload
 	iadd
 	istore 4
-Label10:
+Label12:
 	iload 6
 	iconst_1
 	iadd
 	istore 6
-	goto Label8
-Label9:
+	goto Label10
 Label11:
+Label13:
 Label4:
 	iload 5
 	iconst_1

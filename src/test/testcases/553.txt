@@ -1,11 +1,7 @@
-Function: main
+
+                Function: main
                     Body:
-                    Var: i = 0;
-                        While (True) Do
-                            print(string_of_int(i));
-                            i = i + 1;
-                            If i == 5 Then
-                                Break;
-                            EndIf.   
-                        EndWhile.
+                        Var: x[3] = {1,2,3};
+                        x[1] = 4;
+                        print(string_of_int(x[1]));
                     EndBody.

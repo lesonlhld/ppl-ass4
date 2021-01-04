@@ -291,7 +291,7 @@ class CheckCodeGenSuite(unittest.TestCase):
             x = var && (ilv <. nvh);
             print(string_of_bool(x));
         EndBody."""
-        expect = r"""true"""
+        expect = r"""false"""
         self.assertTrue(TestCodeGen.test(input,expect,529))
         
     def test_530(self):

@@ -1,4 +1,14 @@
 Function: main
-                   Body:
-                   print(string_of_float(3.0\.2.0));
+                   Body: 
+                        Var: x = 6;
+                        If (x % 4 == 0) Then
+                            x = 0;
+                        ElseIf (x % 4 == 1) Then
+                            x = 1;
+                        ElseIf (x % 4 == 2) Then
+                            x = 2;
+                        Else
+                            x = 3;
+                        EndIf.
+                        print(string_of_int(x));
                    EndBody.

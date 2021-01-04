@@ -1,4 +1,6 @@
 Function: main
-        Body:
-            print(string_of_bool(!bool_of_string("False")));
-        EndBody.
+                   Body: 
+                        Var: x = 6, y = 5.5;
+                        x = x \ 2 + int_of_float(y) * 2 - 1;
+                        print(string_of_int(x));
+                   EndBody.

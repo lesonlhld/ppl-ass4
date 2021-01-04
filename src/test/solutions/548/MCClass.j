@@ -13,24 +13,24 @@ Label2:
 	ifle Label3
 	iload_1
 	iconst_0
-	if_icmpge Label9
+	if_icmpge Label11
 	iconst_1
-	goto Label10
-Label9:
+	goto Label12
+Label11:
 	iconst_0
-Label10:
+Label12:
 	ifle Label6
 	goto Label5
 	goto Label8
 Label6:
 	iload_1
 	iconst_1
-	if_icmple Label11
+	if_icmple Label15
 	iconst_1
-	goto Label12
-Label11:
+	goto Label16
+Label15:
 	iconst_0
-Label12:
+Label16:
 	ifle Label7
 	iload_1
 	iconst_3

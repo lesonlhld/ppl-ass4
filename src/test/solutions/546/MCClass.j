@@ -4,90 +4,35 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is n I from Label0 to Label1
-	bipush 120
+.var 1 is a I from Label0 to Label1
+	iconst_1
 	istore_1
-.var 2 is array [[I from Label0 to Label1
+.var 2 is b I from Label0 to Label1
 	iconst_2
-	iconst_3
-	multianewarray [[I 2
-	astore_2
-	aload_2
-	iconst_0
-	aaload
-	iconst_0
-	sipush 867
-	iastore
-	aload_2
-	iconst_0
-	aaload
-	iconst_1
-	sipush 345
-	iastore
-	aload_2
-	iconst_0
-	aaload
-	iconst_2
-	sipush 987
-	iastore
-	aload_2
-	iconst_1
-	aaload
-	iconst_0
-	bipush 76
-	iastore
-	aload_2
-	iconst_1
-	aaload
-	iconst_1
-	bipush 12
-	iastore
-	aload_2
-	iconst_1
-	aaload
-	iconst_2
-	sipush 744
-	iastore
+	istore_2
 Label0:
 	iload_1
-	bipush 10
-	if_icmple Label4
-	iconst_1
-	goto Label5
-Label4:
-	iconst_0
-Label5:
-	ifle Label2
-	iload_1
-	bipush 11
-	irem
-	bipush 10
-	if_icmpgt Label8
-	iconst_1
-	goto Label9
-Label8:
-	iconst_0
-Label9:
-	ifle Label6
-	iload_1
-	iload_1
-	imul
-	bipush 9
-	irem
-	istore_1
-	goto Label7
-Label6:
-Label7:
-	iload_1
+	iload_2
+	invokestatic MCClass/sum(II)I
 	invokestatic io/string_of_int(I)Ljava/lang/String;
-	invokestatic io/printStrLn(Ljava/lang/String;)V
-	goto Label3
-Label2:
-Label3:
+	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 15
+.limit stack 5
 .limit locals 3
+.end method
+
+.method public static sum(II)I
+.var 0 is x I from Label0 to Label1
+.var 1 is y I from Label0 to Label1
+Label0:
+	iload_0
+	iload_1
+	iadd
+	ireturn
+Label1:
+.limit stack 3
+.limit locals 2
 .end method
 
 .method public <init>()V

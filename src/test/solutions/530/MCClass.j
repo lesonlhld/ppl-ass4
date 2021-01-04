@@ -4,61 +4,77 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is a [I from Label0 to Label1
-	iconst_5
-	newarray int
-	astore_1
-	aload_1
-	iconst_0
-	iconst_2
-	iastore
-	aload_1
-	iconst_1
-	iconst_3
-	iastore
-	aload_1
-	iconst_2
-	iconst_5
-	iastore
-	aload_1
-	iconst_3
+.var 1 is x I from Label0 to Label1
 	bipush 7
-	iastore
-	aload_1
+	istore_1
+Label0:
+	iload_1
 	iconst_4
-	bipush 8
-	iastore
-.var 2 is x I from Label0 to Label1
+	irem
+	iconst_0
+	if_icmpne Label8
+	iconst_1
+	goto Label9
+Label8:
+	iconst_0
+Label9:
+	ifle Label2
+.var 2 is y I from Label0 to Label1
 	iconst_0
 	istore_2
-Label0:
-	bipush 15
-	ineg
-	bipush 45
-	iconst_2
-	imul
-	bipush 35
-	bipush 108
-	iadd
-	aload_1
-	iconst_4
-	iaload
-	iadd
-	imul
-	iadd
-	ineg
-	ldc "21"
-	invokestatic io/int_of_string(Ljava/lang/String;)I
-	imul
-	istore_2
-	invokestatic io/printLn()V
 	iload_2
+	istore_1
+	goto Label5
+Label2:
+	iload_1
+	iconst_4
+	irem
+	iconst_1
+	if_icmpne Label12
+	iconst_1
+	goto Label13
+Label12:
+	iconst_0
+Label13:
+	ifle Label3
+.var 3 is y I from Label0 to Label1
+	iconst_1
+	istore_3
+	iload_3
+	istore_1
+	goto Label5
+Label3:
+	iload_1
+	iconst_4
+	irem
+	iconst_2
+	if_icmpne Label16
+	iconst_1
+	goto Label17
+Label16:
+	iconst_0
+Label17:
+	ifle Label4
+.var 4 is y I from Label0 to Label1
+	iconst_2
+	istore 4
+	iload 4
+	istore_1
+	goto Label5
+Label4:
+.var 5 is y I from Label0 to Label1
+	iconst_3
+	istore 5
+	iload 5
+	istore_1
+Label5:
+	iload_1
 	invokestatic io/string_of_int(I)Ljava/lang/String;
-	invokestatic io/printStrLn(Ljava/lang/String;)V
+	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 12
-.limit locals 3
+.limit stack 17
+.limit locals 6
 .end method
 
 .method public <init>()V

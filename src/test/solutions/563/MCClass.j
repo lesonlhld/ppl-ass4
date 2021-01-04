@@ -18,12 +18,12 @@ Label2:
 	iload_2
 	iload_2
 	imul
-	if_icmpgt Label6
+	if_icmpgt Label8
 	iconst_1
-	goto Label7
-Label6:
+	goto Label9
+Label8:
 	iconst_0
-Label7:
+Label9:
 	ifle Label3
 	iload_2
 	iconst_1

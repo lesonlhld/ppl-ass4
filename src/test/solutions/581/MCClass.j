@@ -7,24 +7,24 @@
 Label0:
 	iload_0
 	iconst_0
-	if_icmpne Label5
+	if_icmpne Label7
 	iconst_1
-	goto Label6
-Label5:
+	goto Label8
+Label7:
 	iconst_0
-Label6:
+Label8:
 	ifle Label2
 	iconst_1
 	ireturn
 Label2:
 	iload_0
 	iconst_0
-	if_icmple Label7
+	if_icmple Label11
 	iconst_1
-	goto Label8
-Label7:
+	goto Label12
+Label11:
 	iconst_0
-Label8:
+Label12:
 	ifle Label3
 	iload_0
 	iload_0

@@ -1,5 +1,5 @@
 Function: main
-                   Body:
-                   Var: str = 123.2e-1;
-                   print(string_of_float(str));
+                   Body: 
+                        Var: x = 6;
+                        print(string_of_bool(x == 6));
                    EndBody.

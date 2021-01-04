@@ -1,101 +1,81 @@
 .source MCClass.java
 .class public MCClass
 .super java.lang.Object
+.field static x [Ljava/lang/String;
 
 .method public static main([Ljava/lang/String;)V
+	iconst_3
+	anewarray java/lang/String
+	putstatic MCClass/x [Ljava/lang/String;
+	getstatic MCClass/x [Ljava/lang/String;
+	iconst_0
+	ldc "Hello"
+	aastore
+	getstatic MCClass/x [Ljava/lang/String;
+	iconst_1
+	ldc "World"
+	aastore
+	getstatic MCClass/x [Ljava/lang/String;
+	iconst_2
+	ldc "!"
+	aastore
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is n I from Label0 to Label1
+.var 1 is i I from Label0 to Label1
 	iconst_0
 	istore_1
-.var 2 is t1 I from Label0 to Label1
-	iconst_0
-	istore_2
-.var 3 is t2 I from Label0 to Label1
-	iconst_1
-	istore_3
-.var 4 is nextTerm I from Label0 to Label1
-	iconst_0
-	istore 4
-.var 5 is i I from Label0 to Label1
-	iconst_0
-	istore 5
 Label0:
-	ldc "Enter the number of terms: "
-	invokestatic io/print(Ljava/lang/String;)V
-	bipush 15
+	iconst_0
 	istore_1
-	ldc "Fibonacci Series: "
-	invokestatic io/print(Ljava/lang/String;)V
-	iload_1
-	invokestatic io/string_of_int(I)Ljava/lang/String;
-	invokestatic io/printStrLn(Ljava/lang/String;)V
-	iconst_0
-	istore 5
 Label2:
-	iload 5
 	iload_1
-	if_icmpge Label6
+	iconst_3
+	if_icmpge Label8
 	iconst_1
-	goto Label7
-Label6:
-	iconst_0
-Label7:
-	ifle Label3
-	iload 5
-	iconst_0
-	if_icmpne Label10
-	iconst_1
-	goto Label11
-Label10:
-	iconst_0
-Label11:
-	ifle Label8
-	iload_2
-	invokestatic io/string_of_int(I)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
-	goto Label4
 	goto Label9
 Label8:
-Label9:
-	iload 5
-	iconst_1
-	if_icmpne Label14
-	iconst_1
-	goto Label15
-Label14:
 	iconst_0
-Label15:
-	ifle Label12
-	iload_3
-	invokestatic io/string_of_int(I)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
-	goto Label4
-	goto Label13
-Label12:
-Label13:
-	iload_2
-	iload_3
-	iadd
-	istore 4
-	iload_3
-	istore_2
-	iload 4
-	istore_3
-	iload 4
-	invokestatic io/string_of_int(I)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
+Label9:
+	ifle Label3
+	getstatic MCClass/x [Ljava/lang/String;
+	iload_1
+	ldc "i"
+	aastore
 Label4:
-	iload 5
+	iload_1
 	iconst_1
 	iadd
-	istore 5
+	istore_1
 	goto Label2
 Label3:
 Label5:
+	iconst_0
+	istore_1
+Label10:
+	iload_1
+	iconst_3
+	if_icmpge Label16
+	iconst_1
+	goto Label17
+Label16:
+	iconst_0
+Label17:
+	ifle Label11
+	getstatic MCClass/x [Ljava/lang/String;
+	iload_1
+	aaload
+	invokestatic io/print(Ljava/lang/String;)V
+Label12:
+	iload_1
+	iconst_1
+	iadd
+	istore_1
+	goto Label10
+Label11:
+Label13:
 Label1:
 	return
-.limit stack 18
-.limit locals 6
+.limit stack 12
+.limit locals 2
 .end method
 
 .method public <init>()V

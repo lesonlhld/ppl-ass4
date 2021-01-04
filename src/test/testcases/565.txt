@@ -1,11 +1,7 @@
-Function: main
-        Body:
-        Var:factorial=1,n=0,i=0;
-        print("Enter integer: ");
-        n=3;
-        printStrLn(string_of_int(n));
-        For (i=1, i<n, 1) Do
-            factorial=factorial*i;
-        EndFor.
-        print(string_of_int(factorial));
-        EndBody.
+
+                Function: main
+                    Body:
+                        Var: x[3] = {True,False,True};
+                        x[1] = True;
+                        print(string_of_bool(x[1]));
+                    EndBody.

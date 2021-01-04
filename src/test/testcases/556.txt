@@ -1,8 +1,13 @@
-Function: main
-                    Body:
-                    Var: i = 0;
-                    Do
-                        print(string_of_int(i));
-                        i = i + 1;
-                    While (i<2) EndDo.
-                    EndBody.
+
+                Var: x[3] = {1,2,3};
+                Function: main
+                   Body: 
+                        Var: i = 0;
+                        x = {4,5,6};
+                        For (i = 0, i < 3, 1) Do
+                            x[i] = x[i] * 2 + 1;
+                        EndFor.
+                        For (i = 0, i < 3, 1) Do
+                            print(string_of_int(x[i]));
+                        EndFor.
+                   EndBody.

@@ -1,4 +1,5 @@
 Function: main
                    Body: 
-                        print("120");
+                        Var: x = 6;
+                        print(string_of_bool(x > 5));
                    EndBody.

@@ -445,22 +445,26 @@ class Emitter():
                 result.append(self.jvm.emitIFICMPEQ(labelF))
             elif op == "==":
                 result.append(self.jvm.emitIFICMPNE(labelF))
-            result.append(self.emitPUSHCONST("1", cgen.IntType(), frame))
-            frame.pop()
-            result.append(self.emitGOTO(labelO, frame))
-            result.append(self.emitLABEL(labelF, frame))
-            result.append(self.emitPUSHCONST("0", cgen.IntType(), frame))
-            result.append(self.emitLABEL(labelO, frame))
         else:
+            op = op[:-1]
             result.append(self.jvm.emitFCMPL())
-            if "=" in op:
+            if op == ">":
+                result.append(self.jvm.emitIFLE(labelF))
+            elif op == ">=":
                 result.append(self.jvm.emitIFLT(labelF))
-                result.append(self.emitPUSHCONST("1", cgen.IntType(), frame))
-                frame.pop()
-                result.append(self.emitGOTO(labelO, frame))
-                result.append(self.emitLABEL(labelF, frame))
-                result.append(self.emitPUSHCONST("0", cgen.IntType(), frame))
-                result.append(self.emitLABEL(labelO, frame))
+            elif op == "<":
+                result.append(self.jvm.emitIFGE(labelF))
+            elif op == "<=":
+                result.append(self.jvm.emitIFGT(labelF))
+            elif op == "!=":
+                result.append(self.jvm.emitIFEQ(labelF))
+        result.append(self.emitPUSHCONST("1", cgen.IntType(), frame))
+        frame.pop()
+        result.append(self.emitGOTO(labelO, frame))
+        result.append(self.emitLABEL(labelF, frame))
+        result.append(self.emitPUSHCONST("0", cgen.IntType(), frame))
+        result.append(self.emitLABEL(labelO, frame))
+
 
         return ''.join(result)
 

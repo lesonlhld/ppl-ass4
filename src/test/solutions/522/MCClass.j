@@ -4,23 +4,26 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
+.var 1 is x I from Label0 to Label1
+	bipush 6
+	istore_1
+.var 2 is y I from Label0 to Label1
+	iconst_5
+	istore_2
 Label0:
-	ldc "12.2"
-	invokestatic io/float_of_string(Ljava/lang/String;)F
-	invokestatic io/int_of_float(F)I
+	iload_1
+	iload_2
+	iadd
+	iconst_1
+	isub
+	istore_1
+	iload_1
 	invokestatic io/string_of_int(I)Ljava/lang/String;
-	invokestatic io/printStrLn(Ljava/lang/String;)V
-	invokestatic io/printLn()V
-	ldc "12.8"
-	invokestatic io/float_of_string(Ljava/lang/String;)F
-	invokestatic io/int_of_float(F)I
-	invokestatic io/float_to_int(I)F
-	invokestatic io/string_of_float(F)Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 2
-.limit locals 1
+.limit stack 5
+.limit locals 3
 .end method
 
 .method public <init>()V

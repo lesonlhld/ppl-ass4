@@ -21,12 +21,12 @@ Label2:
 	invokestatic io/printStrLn(Ljava/lang/String;)V
 	iload_1
 	iconst_1
-	if_icmple Label6
+	if_icmple Label8
 	iconst_1
-	goto Label7
-Label6:
+	goto Label9
+Label8:
 	iconst_0
-Label7:
+Label9:
 	ifle Label3
 	goto Label2
 Label3:

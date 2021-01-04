@@ -1,15 +1,8 @@
 
-        Function: foo
-            Parameter: x[3]
-            Body:
-            Var: i =0;
-                For(i=0,i<3,1) Do
-                    Var: y = 2;
-                    printStrLn(string_of_float(x[i]));
-                EndFor.
-            EndBody.
-        Function: main
-            Body:
-            Var: x[3] = {1.1,2.2,3.3};
-                foo(x);
-            EndBody.
+                Function: main
+                   Body:
+                        Var: x = "Hello", y = "World";
+                        y = x;
+                        print(x);
+                        print(y);
+                   EndBody.

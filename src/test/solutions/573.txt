@@ -1,2 +1,1 @@
-Enter the number of terms: Fibonacci Series: 15
-01123581321345589144233377
+iii

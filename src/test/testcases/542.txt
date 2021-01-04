@@ -1,8 +1,11 @@
-Function: main 
-        Body:
-        Var: k=0,i=0,j=False,f=11;
-            If ((k<1)&&(i!=0))||(k>5)||!j Then
-                f=f%3;
-            EndIf.
-            print(string_of_int(f));
-        EndBody.
+
+                Var: x = 0;
+                Function: foo
+                    Body:
+                        x = 1;
+                    EndBody.
+                Function: main
+                    Body: 
+                        foo();
+                        print(string_of_int(x));
+                    EndBody.

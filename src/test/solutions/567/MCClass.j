@@ -22,82 +22,82 @@ Label0:
 Label2:
 	iload_3
 	iload_2
-	if_icmpge Label6
+	if_icmpge Label8
 	iconst_1
-	goto Label7
-Label6:
+	goto Label9
+Label8:
 	iconst_0
-Label7:
+Label9:
 	ifle Label3
 	invokestatic io/printLn()V
 	iload_2
 	iconst_2
 	idiv
 	iload_3
-	if_icmpge Label10
+	if_icmpge Label14
 	iconst_1
-	goto Label11
-Label10:
-	iconst_0
-Label11:
-	ifle Label8
-	iconst_0
-	istore 4
-Label12:
-	iload 4
-	iload_2
-	iconst_2
-	idiv
-	if_icmpge Label16
-	iconst_1
-	goto Label17
-Label16:
-	iconst_0
-Label17:
-	ifle Label13
-	ldc " "
-	invokestatic io/print(Ljava/lang/String;)V
+	goto Label15
 Label14:
-	iload 4
-	iconst_1
-	iadd
-	istore 4
-	goto Label12
-Label13:
+	iconst_0
 Label15:
-	aload_1
-	invokestatic io/print(Ljava/lang/String;)V
-	goto Label9
-Label8:
+	ifle Label10
 	iconst_0
 	istore 4
-Label18:
+Label16:
 	iload 4
 	iload_2
 	iconst_2
 	idiv
-	iload_3
-	isub
 	if_icmpge Label22
 	iconst_1
 	goto Label23
 Label22:
 	iconst_0
 Label23:
-	ifle Label19
+	ifle Label17
 	ldc " "
 	invokestatic io/print(Ljava/lang/String;)V
-Label20:
+Label18:
 	iload 4
 	iconst_1
 	iadd
 	istore 4
-	goto Label18
+	goto Label16
+Label17:
 Label19:
-Label21:
+	aload_1
+	invokestatic io/print(Ljava/lang/String;)V
+	goto Label11
+Label10:
 	iconst_0
 	istore 4
 Label24:
+	iload 4
+	iload_2
+	iconst_2
+	idiv
+	iload_3
+	isub
+	if_icmpge Label30
+	iconst_1
+	goto Label31
+Label30:
+	iconst_0
+Label31:
+	ifle Label25
+	ldc " "
+	invokestatic io/print(Ljava/lang/String;)V
+Label26:
+	iload 4
+	iconst_1
+	iadd
+	istore 4
+	goto Label24
+Label25:
+Label27:
+	iconst_0
+	istore 4
+Label32:
 	iload 4
 	iload_2
 	iload_2
@@ -108,24 +108,24 @@ Label24:
 	iconst_2
 	imul
 	isub
-	if_icmpge Label28
+	if_icmpge Label38
 	iconst_1
-	goto Label29
-Label28:
+	goto Label39
+Label38:
 	iconst_0
-Label29:
-	ifle Label25
+Label39:
+	ifle Label33
 	aload_1
 	invokestatic io/print(Ljava/lang/String;)V
-Label26:
+Label34:
 	iload 4
 	iconst_1
 	iadd
 	istore 4
-	goto Label24
-Label25:
-Label27:
-Label9:
+	goto Label32
+Label33:
+Label35:
+Label11:
 Label4:
 	iload_3
 	iconst_1

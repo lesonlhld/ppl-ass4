@@ -18,12 +18,12 @@ Label2:
 	istore_1
 	iload_1
 	iconst_2
-	if_icmpge Label6
+	if_icmpge Label8
 	iconst_1
-	goto Label7
-Label6:
+	goto Label9
+Label8:
 	iconst_0
-Label7:
+Label9:
 	ifle Label3
 	goto Label2
 Label3:

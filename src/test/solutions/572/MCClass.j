@@ -67,20 +67,20 @@
 	iconst_0
 	istore_2
 Label0:
-Label4:
+Label6:
 	iload_2
 	iconst_3
-	if_icmpge Label2
+	if_icmpge Label4
 	iconst_1
-	goto Label3
-Label2:
+	goto Label5
+Label4:
 	iconst_0
-Label3:
-	ifle Label5
+Label5:
+	ifle Label7
 .var 3 is j I from Label0 to Label1
 	iconst_0
 	istore_3
-Label8:
+Label10:
 	aload_1
 	iload_2
 	aaload
@@ -96,25 +96,25 @@ Label8:
 	istore_3
 	iload_3
 	iconst_3
-	if_icmpge Label12
+	if_icmpge Label16
 	iconst_1
-	goto Label13
-Label12:
+	goto Label17
+Label16:
 	iconst_0
-Label13:
-	ifle Label9
-	goto Label8
-Label9:
+Label17:
+	ifle Label11
+	goto Label10
 Label11:
+Label13:
 	invokestatic io/printLn()V
 	iload_2
 	iconst_1
 	iadd
 	istore_2
-Label6:
-	goto Label4
-Label5:
+Label8:
+	goto Label6
 Label7:
+Label9:
 Label1:
 	return
 .limit stack 20

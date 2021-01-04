@@ -23,24 +23,24 @@ Label5:
 	istore_2
 	goto Label3
 Label2:
-Label8:
+Label10:
 	iload_2
 	iconst_3
-	if_icmpge Label6
+	if_icmpge Label8
 	iconst_1
-	goto Label7
-Label6:
+	goto Label9
+Label8:
 	iconst_0
-Label7:
-	ifle Label9
+Label9:
+	ifle Label11
 	iload_2
 	iconst_1
 	iadd
 	istore_2
-Label10:
-	goto Label8
-Label9:
+Label12:
+	goto Label10
 Label11:
+Label13:
 Label3:
 	invokestatic io/printLn()V
 	iload_2

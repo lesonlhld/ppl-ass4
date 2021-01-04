@@ -1,89 +1,97 @@
 .source MCClass.java
 .class public MCClass
 .super java.lang.Object
+.field static x [F
 
 .method public static main([Ljava/lang/String;)V
-.var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is n [F from Label0 to Label1
 	iconst_5
 	newarray float
-	astore_1
-	aload_1
+	putstatic MCClass/x [F
+	getstatic MCClass/x [F
 	iconst_0
-	ldc 3.34
+	ldc 1.1
 	fastore
-	aload_1
+	getstatic MCClass/x [F
 	iconst_1
-	ldc 6.67
+	ldc 2.2
 	fastore
-	aload_1
+	getstatic MCClass/x [F
 	iconst_2
-	ldc 8.03
+	ldc 3.3
 	fastore
-	aload_1
+	getstatic MCClass/x [F
 	iconst_3
-	ldc 32.57
+	ldc 4.4
 	fastore
-	aload_1
+	getstatic MCClass/x [F
 	iconst_4
-	ldc 54.108
+	ldc 5.5
 	fastore
-.var 2 is i I from Label0 to Label1
+.var 0 is args [Ljava/lang/String; from Label0 to Label1
+.var 1 is i I from Label0 to Label1
 	iconst_0
-	istore_2
-.var 3 is k I from Label0 to Label1
-	bipush 10
-	istore_3
-.var 4 is j I from Label0 to Label1
-	iconst_1
-	istore 4
+	istore_1
 Label0:
 	iconst_0
-	istore_2
+	istore_1
 Label2:
-	iload_2
-	iload_3
-	if_icmpge Label6
+	iload_1
+	iconst_5
+	if_icmpge Label8
 	iconst_1
-	goto Label7
-Label6:
+	goto Label9
+Label8:
 	iconst_0
-Label7:
+Label9:
 	ifle Label3
-	aload_1
-	iload_2
-	iconst_5
-	irem
-	aload_1
-	iload_2
-	iconst_5
-	irem
+	getstatic MCClass/x [F
+	iload_1
+	getstatic MCClass/x [F
+	iload_1
 	faload
-	iload_2
+	iconst_2
 	invokestatic io/float_to_int(I)F
+	fmul
+	ldc 1.0
 	fadd
 	fastore
-	aload_1
-	iload_2
-	iconst_5
-	irem
-	faload
-	invokestatic io/string_of_float(F)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
 Label4:
-	iload_2
-	iload 4
-	iload 4
-	imul
+	iload_1
+	iconst_1
 	iadd
-	istore_2
+	istore_1
 	goto Label2
 Label3:
 Label5:
+	iconst_0
+	istore_1
+Label10:
+	iload_1
+	iconst_5
+	if_icmpge Label16
+	iconst_1
+	goto Label17
+Label16:
+	iconst_0
+Label17:
+	ifle Label11
+	getstatic MCClass/x [F
+	iload_1
+	faload
+	invokestatic io/string_of_float(F)Ljava/lang/String;
+	invokestatic io/print(Ljava/lang/String;)V
+Label12:
+	iload_1
+	iconst_1
+	iadd
+	istore_1
+	goto Label10
+Label11:
+Label13:
 Label1:
 	return
-.limit stack 17
-.limit locals 5
+.limit stack 12
+.limit locals 2
 .end method
 
 .method public <init>()V

@@ -1,92 +1,88 @@
 .source MCClass.java
 .class public MCClass
 .super java.lang.Object
+.field static x [I
 
-.method public static main([Ljava/lang/String;)V
-.var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is octalNumber I from Label0 to Label1
-	sipush 23313
+.method public static sum([I)I
+.var 0 is x [I from Label0 to Label1
+.var 1 is s I from Label0 to Label1
+	iconst_0
 	istore_1
-.var 2 is decimalNumber I from Label0 to Label1
+.var 2 is i I from Label0 to Label1
 	iconst_0
 	istore_2
-.var 3 is i I from Label0 to Label1
-	iconst_0
-	istore_3
-.var 4 is rem I from Label0 to Label1
-	iconst_0
-	istore 4
 Label0:
-Label4:
-	iload_1
 	iconst_0
-	if_icmpeq Label2
-	iconst_1
-	goto Label3
+	istore_2
 Label2:
-	iconst_0
-Label3:
-	ifle Label5
-	iload_1
-	bipush 10
-	irem
-	istore 4
-	iload_1
-	bipush 10
-	idiv
-	istore_1
 	iload_2
-	iload 4
-	bipush 8
-	iload_3
-	invokestatic MCClass/pow(II)I
-	imul
+	iconst_5
+	if_icmpge Label8
+	iconst_1
+	goto Label9
+Label8:
+	iconst_0
+Label9:
+	ifle Label3
+	iload_1
+	aload_0
+	iload_2
+	iaload
+	iadd
+	istore_1
+Label4:
+	iload_2
+	iconst_1
 	iadd
 	istore_2
-	iload_3
-	iconst_1
-	iadd
-	istore_3
-Label6:
-	goto Label4
+	goto Label2
+Label3:
 Label5:
-Label7:
-	iload_2
-	invokestatic io/string_of_int(I)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
+	iload_1
+	ireturn
 Label1:
-	return
-.limit stack 13
-.limit locals 5
+.limit stack 9
+.limit locals 3
 .end method
 
-.method public static pow(II)I
-.var 0 is x I from Label0 to Label1
+.method public static main([Ljava/lang/String;)V
+	iconst_5
+	newarray int
+	putstatic MCClass/x [I
+	getstatic MCClass/x [I
+	iconst_0
+	iconst_1
+	iastore
+	getstatic MCClass/x [I
+	iconst_1
+	iconst_2
+	iastore
+	getstatic MCClass/x [I
+	iconst_2
+	iconst_3
+	iastore
+	getstatic MCClass/x [I
+	iconst_3
+	iconst_4
+	iastore
+	getstatic MCClass/x [I
+	iconst_4
+	iconst_5
+	iastore
+.var 0 is args [Ljava/lang/String; from Label0 to Label1
 .var 1 is y I from Label0 to Label1
+	iconst_0
+	istore_1
 Label0:
-	iload_0
-	iconst_0
-	if_icmpne Label4
-	iconst_1
-	goto Label5
-Label4:
-	iconst_0
-Label5:
-	ifle Label2
-	iconst_1
-	ireturn
-Label2:
-Label3:
-	iload_0
-	iload_0
-	iconst_1
-	isub
+	getstatic MCClass/x [I
+	invokestatic MCClass/sum([I)I
+	istore_1
 	iload_1
-	invokestatic MCClass/pow(II)I
-	imul
-	ireturn
+	invokestatic io/string_of_int(I)Ljava/lang/String;
+	invokestatic io/print(Ljava/lang/String;)V
+	return
 Label1:
-.limit stack 6
+.limit stack 4
 .limit locals 2
 .end method
 

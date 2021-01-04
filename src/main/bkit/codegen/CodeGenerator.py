@@ -95,7 +95,10 @@ class ArrayType(Type):
     def __init__(self,et,*s):
         self.eleType = et #Type
         self.dimen = s   #List[int]  
-
+    def __str__(self):
+        return "ArrayType(" + str(self.eleType) +"," + printlist(self.dimen) + ")"
+def printlist(lst,f=str,start="[",sepa=",",ending="]"):
+	return start + sepa.join(f(i) for i in lst) + ending
 class Kind(ABC):
     __metaclass__ = ABCMeta
     pass
@@ -313,7 +316,7 @@ class CodeGenVisitor(BaseVisitor):
         self.className = "MCClass"
         self.path = dir_
         self.emit = Emitter(self.path + "/" + self.className + ".j")
-        self.initGlobalVardecl = ""
+        self.initGlobalVardecl = []
 
     def visitProgram(self, ast, c):
         #ast: Program
@@ -365,8 +368,9 @@ class CodeGenVisitor(BaseVisitor):
         isMain = methodName == "main" and len(funcDecl.param) == 0 and type(frame.returnType) is VoidType
         methodType = MType(paramType, frame.returnType if type(frame.returnType) != Unknown else VoidType())
         self.emit.printout(self.emit.emitMETHOD(methodName, methodType, True, frame))
-        if isMain and self.initGlobalVardecl != "":
-            self.emit.printout(self.initGlobalVardecl)
+        if isMain and self.initGlobalVardecl != []:
+            for x in self.initGlobalVardecl:
+                self.emit.printout(x)
 
         frame.enterScope(True)
 
@@ -403,37 +407,38 @@ class CodeGenVisitor(BaseVisitor):
         # if isGlobal or frame == None:
         if isGlobal:
             self.emit.printout(self.emit.emitATTRIBUTE(varName, initType, False, ""))
-            varCode, varType = self.visit(var.variable, Access(frame, o.sym, True, False))
+            varCode, varType = self.visit(var.variable, Access(frame, o.sym, True, True))
             if type(initType) == ArrayType:
                 if type(initType.eleType) == ArrayType:
                     for x in range(len(var.varDimen)):
-                        self.initGlobalVardecl += (self.visit(IntLiteral(var.varDimen[x]), Access(frame, o.sym, False, True))[0])
-                    self.initGlobalVardecl += (self.emit.emitWRITEVAR2(initType))
-                    self.initGlobalVardecl += (varCode)
+                        self.initGlobalVardecl.append(self.visit(IntLiteral(var.varDimen[x]), Access(frame, o.sym, False, True))[0])
+                    self.initGlobalVardecl.append(self.emit.emitWRITEVAR2(initType))
+                    self.initGlobalVardecl.append(varCode)
                     varCode2, varType = self.visit(var.variable, Access(frame, o.sym, False, False))
                     for x in range(var.varDimen[0]):
                         for y in range(var.varDimen[1]):
                             frame.push()
-                            self.initGlobalVardecl += (varCode2)
-                            self.initGlobalVardecl += (self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
-                            self.initGlobalVardecl += (self.emit.emitALOAD(initType.eleType, frame))
-                            self.initGlobalVardecl += (self.visit(IntLiteral(y), Access(frame, o.sym, False, True))[0])
-                            self.initGlobalVardecl += (init[x][0][y][0])
-                            self.initGlobalVardecl += (self.emit.emitASTORE(init[x][0][y][1], frame))
+                            self.initGlobalVardecl.append(varCode2)
+                            self.initGlobalVardecl.append(self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
+                            self.initGlobalVardecl.append(self.emit.emitALOAD(initType.eleType, frame))
+                            self.initGlobalVardecl.append(self.visit(IntLiteral(y), Access(frame, o.sym, False, True))[0])
+                            self.initGlobalVardecl.append(init[x][0][y][0])
+                            self.initGlobalVardecl.append(self.emit.emitASTORE(init[x][0][y][1], frame))
 
                 else:
-                    self.initGlobalVardecl += (self.visit(IntLiteral(len(init)), Access(frame, o.sym, False, True))[0])
-                    self.initGlobalVardecl += (self.emit.emitWRITEVAR2(init[0][1]))
-                    self.initGlobalVardecl += (varCode)
+                    self.initGlobalVardecl.append(self.visit(IntLiteral(len(init)), Access(frame, o.sym, False, True))[0])
+                    self.initGlobalVardecl.append(self.emit.emitWRITEVAR2(init[0][1]))
+                    self.initGlobalVardecl.append(varCode)
                     varCode2, varType = self.visit(var.variable, Access(frame, o.sym, False, False))
                     for x in range(len(init)):
                         frame.push()
-                        self.initGlobalVardecl += (varCode2)
-                        self.initGlobalVardecl += (self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
-                        self.initGlobalVardecl += (init[x][0])
-                        self.initGlobalVardecl += (self.emit.emitASTORE(init[x][1], frame))
+                        self.initGlobalVardecl.append(varCode2)
+                        self.initGlobalVardecl.append(self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
+                        self.initGlobalVardecl.append(init[x][0])
+                        self.initGlobalVardecl.append(self.emit.emitASTORE(init[x][1], frame))
             else:
-                self.initGlobalVardecl += (init + varCode)
+                self.initGlobalVardecl.append(init + varCode)
+                
             return Symbol(varName, initType)
         else:
             idx = frame.getNewIndex()
@@ -480,38 +485,37 @@ class CodeGenVisitor(BaseVisitor):
     def visitBinaryOp(self, ast, o):
         left, leftType = self.visit(ast.left, Access(o.frame, o.sym, False, False))
         right, rightType = self.visit(ast.right, Access(o.frame, o.sym, False, False))
-
         if ast.op in ['==', '!=', '<', '>', '<=', '>=', '=/=', '<.', '>.', '<=.', '>=.', '&&', '||']:
             mType = BoolType()
-        elif FloatType in [type(leftType), type(rightType)]:
+        if FloatType in [type(leftType), type(rightType)]:
             mType = FloatType()
         else:
             mType = IntType()
 
-        if type(leftType) == IntType and type(mType) == FloatType:
-            left = left + self.emit.emitI2F(o.frame)
-        if type(rightType) == IntType and type(mType) == FloatType:
-            right = right + self.emit.emitI2F(o.frame)
-
-        if ast.op in ['+', '-', '+.', '-.']:
-            w = left + right + self.emit.emitADDOP(ast.op[0], mType, o.frame)
-        elif ast.op in ['*', '\\', '*.', '\\.']:
-            w = left + right + self.emit.emitMULOP(ast.op[0], mType, o.frame)
-        elif ast.op in ['%']:
-            w = left + right + self.emit.emitMOD(o.frame)
-        elif ast.op in ['&&']:
-            w = left + right + self.emit.emitANDOP(o.frame)
-        elif ast.op in ['||']:
-            w = left + right + self.emit.emitOROP(o.frame)
-        elif ast.op in ['==', '!=', '<', '>', '<=', '>=']:
-            w = left + right + self.emit.emitREOP(ast.op, mType, o.frame)
-        elif ast.op in ['=/=', '<.', '>.', '<=.', '>=.']:
-            if ast.op == '=/=':
-                ast.op = '!=.'
-            if ast.op in ['>.', '>=.']:
+        if ast.op in ['+', '-', '+.', '-.', '*', '\\', '*.', '\\.', '%']:
+            if type(leftType) == IntType and type(mType) == FloatType:
+                left = left + self.emit.emitI2F(o.frame)
+            if type(rightType) == IntType and type(mType) == FloatType:
+                right = right + self.emit.emitI2F(o.frame)
+            if ast.op in ['+', '-', '+.', '-.']:
+                w = left + right + self.emit.emitADDOP(ast.op[0], mType, o.frame)
+            elif ast.op in ['*', '\\', '*.', '\\.']:
+                w = left + right + self.emit.emitMULOP(ast.op[0], mType, o.frame)
+            elif ast.op in ['%']:
+                w = left + right + self.emit.emitMOD(o.frame)
+        elif ast.op in ['==', '!=', '<', '>', '<=', '>=', '=/=', '<.', '>.', '<=.', '>=.', '&&', '||']:
+            label1 = o.frame.getNewLabel()
+            label2 = o.frame.getNewLabel()
+            if ast.op in ['&&']:
+                w = left + self.emit.emitIFFALSE(label1, o.frame) + self.emit.emitPUSHICONST(1, o.frame) + right + self.emit.emitANDOP(o.frame) + self.emit.emitGOTO(label2, o.frame) + self.emit.emitLABEL(label1, o.frame) + self.emit.emitPUSHICONST(0, o.frame) + self.emit.emitLABEL(label2, o.frame)
+            elif ast.op in ['||']:
+                w = left + self.emit.emitIFTRUE(label1, o.frame) + self.emit.emitPUSHICONST(0, o.frame) + right + self.emit.emitOROP(o.frame) + self.emit.emitGOTO(label2, o.frame) + self.emit.emitLABEL(label1, o.frame) + self.emit.emitPUSHICONST(1, o.frame) + self.emit.emitLABEL(label2, o.frame)
+            elif ast.op in ['==', '!=', '<', '>', '<=', '>=']:
                 w = left + right + self.emit.emitREOP(ast.op, mType, o.frame)
-            else:
-                w = right + left + self.emit.emitREOP(ast.op, mType, o.frame)
+            elif ast.op in ['=/=', '<.', '>.', '<=.', '>=.']:
+                if ast.op == '=/=':
+                    ast.op = '!=.'
+                w = left + right + self.emit.emitREOP(ast.op, mType, o.frame)
         return w, mType
 
     def visitUnaryOp(self, ast: UnaryOp, o):
@@ -546,6 +550,7 @@ class CodeGenVisitor(BaseVisitor):
             pCode, pType = self.visit(x, Access(frame, symbols, False, True))
             if type(paramTypes[idx]) is FloatType and type(pType) is IntType:
                 pCode = pCode + self.emit.emitI2F(frame)
+            
             paramsCode = paramsCode + pCode
             idx = idx + 1
         
@@ -569,9 +574,12 @@ class CodeGenVisitor(BaseVisitor):
         if not o.isLeft:
             if type(arrType.eleType) == ArrayType:
                 code += self.emit.emitALOAD(arrType.eleType.eleType, o.frame)
+                return code, arrType.eleType.eleType
             else:
                 code += self.emit.emitALOAD(arrType.eleType, o.frame)
-        return code, arrType
+                return code, arrType.eleType
+        else:
+            return code, arrType
 
 
     def visitId(self, ast, o: Access):
@@ -579,9 +587,9 @@ class CodeGenVisitor(BaseVisitor):
         # recover status of stack in frame
         if not o.isFirst and o.isLeft: o.frame.push()
         #elif not o.isFirst and not o.isLeft: o.frame.pop()
-
+        
         if type(sym.value) == CName:
-            a = self.emit.emitPUTSTATIC(self.className + "/" + sym.name, sym.mtype, o.frame) if o.isLeft else self.emit.emitGETSTATIC(self.className + "/" + sym.name, sym.mtype, o.frame)
+            a = self.emit.emitPUTSTATIC(self.className + "/" + sym.name, sym.mtype, o.frame) if ((o.isFirst and o.isLeft) or (o.isLeft and type(sym.mtype) != ArrayType)) else self.emit.emitGETSTATIC(self.className + "/" + sym.name, sym.mtype, o.frame)
         else:
             index = sym.value.value
             a = self.emit.emitWRITEVAR(sym.name, sym.mtype, index, o.frame) if (o.isLeft and type(sym.mtype) != ArrayType) else self.emit.emitREADVAR(sym.name, sym.mtype, index, o.frame)

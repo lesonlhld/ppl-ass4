@@ -1,20 +1,17 @@
-Function: main
-        Body:
-            Var: octalNumber = 0o55421;
-            Var: decimalNumber = 0, i = 0, rem=0;
-            While (octalNumber != 0) Do
-                rem = octalNumber % 10;
-                octalNumber =octalNumber \ 10;
-                decimalNumber =decimalNumber  + rem * pow(8,i);
-                i=i+1;
-            EndWhile.
-            print(string_of_int(decimalNumber));
-        EndBody.
-        Function: pow
-        Parameter: x,y
-        Body:
-        If x == 0 Then
-        Return 1;
-        EndIf.
-        Return x * pow(x-1,y);
-        EndBody.
+Var: x[5] = {1,2,3,4,5};
+        Function: sum
+            Parameter: x[5]
+                Body:
+                    Var: s = 0, i = 0;
+                    For (i = 0 , i < 5, 1) Do
+                        s = s + x[i];
+                    EndFor.
+                    Return s;
+                EndBody.
+        Function: main
+            Body:
+                Var: y = 0;
+                y = sum(x);
+                print(string_of_int(y));
+                Return;
+            EndBody.

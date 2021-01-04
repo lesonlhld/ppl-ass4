@@ -4,36 +4,26 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is i I from Label0 to Label1
+.var 1 is x [Ljava/lang/String; from Label0 to Label1
+	iconst_3
+	anewarray java/lang/String
+	astore_1
+	aload_1
 	iconst_0
-	istore_1
+	ldc "Hello"
+	aastore
+	aload_1
+	iconst_1
+	ldc "World"
+	aastore
+	aload_1
+	iconst_2
+	ldc "!"
+	aastore
 Label0:
+	aload_1
 	iconst_1
-	istore_1
-Label2:
-	iload_1
-	bipush 15
-	irem
-	bipush 9
-	if_icmpeq Label6
-	iconst_1
-	goto Label7
-Label6:
-	iconst_0
-Label7:
-	ifle Label3
-Label4:
-	iload_1
-	iload_1
-	bipush 20
-	imul
-	iadd
-	istore_1
-	goto Label2
-Label3:
-Label5:
-	iload_1
-	invokestatic io/string_of_int(I)Ljava/lang/String;
+	aaload
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return

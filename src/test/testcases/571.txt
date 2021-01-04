@@ -1,15 +1,7 @@
-Function: main 
-        Body:
-            Var: i = 0,c=True;
-            While i<=423 Do
-                Var: b =True, a=False;
-                b=i<100;
-                a = (!(b && c)||!(a&&b)&&((i+1)==234)); 
-                i = i + 3; **cmt**
-                If i==212 Then Break;
-                EndIf.
-                c=a;
-            EndWhile.
-            print(string_of_bool(c));
-        EndBody.
-        
+
+                Function: main
+                    Body:
+                        Var: x[3] = {"Hello","World","!"};
+                        x[1] = "Long";
+                        print(x[1]);
+                    EndBody.

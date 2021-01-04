@@ -1,19 +1,16 @@
-
-            Function: sqrt
-            Parameter: x
+Var: x = 5;
+        Function: fact
+            Parameter: n
+                Body:
+                    If n == 0 Then
+                        Return 1;
+                    Else
+                        Return n * fact (n - 1);
+                    EndIf.
+                EndBody.
+        Function: main
             Body:
-                Var: i=0;
-                While (i*i) < x Do
-                    i = i - -1;
-                EndWhile.
-                Return i-1;
-            EndBody.
-            Function: main
-            Body:
-            Var: n=5,x=0;
-                Var: i=0;
-                For (i = 0, i < sqrt(n), 2) Do
-                    x = i + n;
-                EndFor.
-                print(string_of_int(x));
+                x = 10;
+                print(string_of_int(fact(x)));
+                Return;
             EndBody.

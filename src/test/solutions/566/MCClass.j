@@ -98,25 +98,25 @@ Label0:
 Label2:
 	iload_3
 	iconst_3
-	if_icmpge Label6
+	if_icmpge Label8
 	iconst_1
-	goto Label7
-Label6:
+	goto Label9
+Label8:
 	iconst_0
-Label7:
+Label9:
 	ifle Label3
 	iconst_0
 	istore 4
-Label8:
+Label10:
 	iload 4
 	iconst_2
-	if_icmpge Label12
+	if_icmpge Label16
 	iconst_1
-	goto Label13
-Label12:
+	goto Label17
+Label16:
 	iconst_0
-Label13:
-	ifle Label9
+Label17:
+	ifle Label11
 	aload_1
 	iload_3
 	aaload
@@ -132,14 +132,14 @@ Label13:
 	invokestatic io/print(Ljava/lang/String;)V
 	ldc " "
 	invokestatic io/print(Ljava/lang/String;)V
-Label10:
+Label12:
 	iload 4
 	iconst_1
 	iadd
 	istore 4
-	goto Label8
-Label9:
+	goto Label10
 Label11:
+Label13:
 	invokestatic io/printLn()V
 Label4:
 	iload_3

@@ -4,40 +4,33 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is n F from Label0 to Label1
-	ldc 101.0
-	fstore_1
-Label0:
-	ldc 100.0
-	fload_1
-	fcmpl
-	ifle Label2
-	fload_1
-	ldc 3.3
-	fmul
-	fstore_1
-	goto Label4
-Label2:
-	fload_1
-	ldc 101.0
-	fcmpl
-	iflt Label7
-	iconst_1
-	goto Label8
-Label7:
+.var 1 is x I from Label0 to Label1
 	iconst_0
+	istore_1
+Label0:
+	iconst_1
+	istore_1
+Label2:
+	iload_1
+	iconst_5
+	if_icmpgt Label8
+	iconst_1
+	goto Label9
 Label8:
+	iconst_0
+Label9:
 	ifle Label3
-	fload_1
-	ldc 5.3
-	fdiv
-	fstore_1
-	goto Label4
-Label3:
-Label4:
-	fload_1
-	invokestatic io/string_of_float(F)Ljava/lang/String;
+	iload_1
+	invokestatic io/string_of_int(I)Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
+Label4:
+	iload_1
+	iconst_1
+	iadd
+	istore_1
+	goto Label2
+Label3:
+Label5:
 Label1:
 	return
 .limit stack 6

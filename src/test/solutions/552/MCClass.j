@@ -8,16 +8,16 @@
 	iconst_0
 	istore_1
 Label0:
-Label4:
+Label6:
 	iload_1
 	iconst_5
-	if_icmpge Label2
+	if_icmpge Label4
 	iconst_1
-	goto Label3
-Label2:
+	goto Label5
+Label4:
 	iconst_0
-Label3:
-	ifle Label5
+Label5:
+	ifle Label7
 	iload_1
 	invokestatic io/string_of_int(I)Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
@@ -25,10 +25,10 @@ Label3:
 	iconst_1
 	iadd
 	istore_1
-Label6:
-	goto Label4
-Label5:
+Label8:
+	goto Label6
 Label7:
+Label9:
 Label1:
 	return
 .limit stack 6

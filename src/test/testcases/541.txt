@@ -1,11 +1,10 @@
-Function: main 
-        Body:
-        Var: n=123.0;
-            If n <. 3.0 Then
-            n=n*.3.3;
-            ElseIf n>.100.2 Then
-            n=n\.5.3;
-            EndIf.
-            print(string_of_float(n));
-        EndBody.
-        
+
+                Function: foo
+                Parameter: x
+                Body:
+                    print(string_of_int(x));
+                EndBody.
+                Function: main
+                   Body: 
+                        foo(1);
+                   EndBody.

@@ -1,6 +1,6 @@
 Function: main
-                   Body:
-                   printStrLn(string_of_int(int_of_float(float_of_string("12.2"))));
-                   printLn();
-                   print(string_of_float(float_to_int(int_of_float(float_of_string("12.8")))));
+                   Body: 
+                        Var: x = 6, y = 5;
+                        x = x + y - 1;
+                        print(string_of_int(x));
                    EndBody.

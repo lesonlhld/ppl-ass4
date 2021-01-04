@@ -4,21 +4,32 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-Label0:
-Label2:
+.var 1 is x [I from Label0 to Label1
+	iconst_3
+	newarray int
+	astore_1
+	aload_1
+	iconst_0
 	iconst_1
-	ifle Label3
-	ldc "Hello World"
-	invokestatic io/printStrLn(Ljava/lang/String;)V
-	goto Label5
-Label4:
-	goto Label2
-Label3:
-Label5:
+	iastore
+	aload_1
+	iconst_1
+	iconst_2
+	iastore
+	aload_1
+	iconst_2
+	iconst_3
+	iastore
+Label0:
+	aload_1
+	iconst_1
+	iaload
+	invokestatic io/string_of_int(I)Ljava/lang/String;
+	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 3
-.limit locals 1
+.limit stack 7
+.limit locals 2
 .end method
 
 .method public <init>()V

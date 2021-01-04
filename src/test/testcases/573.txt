@@ -1,24 +1,12 @@
-Function: main
-        Body:
-        Var: n = 0;
-            Var: t1 = 0, t2 = 1, nextTerm = 0, i = 0;
-            print("Enter the number of terms: ");
-            n = 15;
-            print("Fibonacci Series: ");
-            printStrLn(string_of_int(n));
-            For (i = 0, i < n, 1) Do
-                If(i == 0) Then
-                    print(string_of_int(t1));
-                    Continue;
-                EndIf.
-                If(i == 1) Then
-                    print(string_of_int(t2));
-                    Continue;
-                EndIf.
-                nextTerm = t1 + t2;
-                t1 = t2;
-                t2 = nextTerm;
-                
-                print(string_of_int(nextTerm));
-            EndFor.
-        EndBody.
+
+                Var: x[3] = {"Hello", "World", "!"};
+                Function: main
+                   Body: 
+                        Var: i = 0;
+                        For (i = 0, i < 3, 1) Do
+                            x[i] = "i";
+                        EndFor.
+                        For (i = 0, i < 3, 1) Do
+                            print(x[i]);
+                        EndFor.
+                   EndBody.

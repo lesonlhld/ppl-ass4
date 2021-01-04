@@ -4,7 +4,7 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is a [I from Label0 to Label1
+.var 1 is x [I from Label0 to Label1
 	iconst_3
 	newarray int
 	astore_1
@@ -24,32 +24,44 @@
 	iconst_0
 	istore_2
 Label0:
-Label4:
+	aload_1
+	iconst_1
+	aload_1
+	iconst_0
+	iaload
+	aload_1
+	iconst_2
+	iaload
+	iadd
+	iastore
+	iconst_0
+	istore_2
+Label2:
 	iload_2
 	iconst_3
-	if_icmpge Label2
+	if_icmpge Label8
 	iconst_1
-	goto Label3
-Label2:
+	goto Label9
+Label8:
 	iconst_0
-Label3:
-	ifle Label5
+Label9:
+	ifle Label3
 	aload_1
 	iload_2
 	iaload
 	invokestatic io/string_of_int(I)Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
+Label4:
 	iload_2
 	iconst_1
 	iadd
 	istore_2
-Label6:
-	goto Label4
+	goto Label2
+Label3:
 Label5:
-Label7:
 Label1:
 	return
-.limit stack 9
+.limit stack 12
 .limit locals 3
 .end method
 

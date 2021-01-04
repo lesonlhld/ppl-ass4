@@ -8,16 +8,16 @@
 	bipush 100
 	istore_1
 Label0:
-Label4:
+Label6:
 	iload_1
 	iconst_1
-	if_icmple Label2
+	if_icmple Label4
 	iconst_1
-	goto Label3
-Label2:
+	goto Label5
+Label4:
 	iconst_0
-Label3:
-	ifle Label5
+Label5:
+	ifle Label7
 .var 2 is i I from Label0 to Label1
 	iconst_0
 	istore_2
@@ -26,24 +26,24 @@ Label3:
 	istore_3
 	bipush 100
 	istore_2
-Label8:
+Label10:
 	iconst_1
-	ifle Label9
+	ifle Label11
 	iload_3
 	ineg
 	iconst_3
 	ineg
-	if_icmple Label14
+	if_icmple Label18
 	iconst_1
+	goto Label19
+Label18:
+	iconst_0
+Label19:
+	ifle Label14
+	goto Label13
 	goto Label15
 Label14:
-	iconst_0
 Label15:
-	ifle Label12
-	goto Label11
-	goto Label13
-Label12:
-Label13:
 	iload_3
 	iconst_3
 	isub
@@ -54,7 +54,7 @@ Label13:
 	imul
 	isub
 	istore_1
-Label10:
+Label12:
 	iload_2
 	iload_2
 	bipush 6
@@ -62,13 +62,13 @@ Label10:
 	ineg
 	iadd
 	istore_2
-	goto Label8
-Label9:
+	goto Label10
 Label11:
-Label6:
-	goto Label4
-Label5:
+Label13:
+Label8:
+	goto Label6
 Label7:
+Label9:
 	iload_1
 	invokestatic io/string_of_int(I)Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
