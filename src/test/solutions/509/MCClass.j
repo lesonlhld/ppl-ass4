@@ -4,28 +4,13 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is x I from Label0 to Label1
-	bipush 6
-	istore_1
+.var 1 is x Ljava/lang/String; from Label0 to Label1
+	ldc "\tHello moi nguoi @@~!@#$%^&***** \n"
+	astore_1
 Label0:
-	iconst_5
-	iload_1
-	iconst_4
-	idiv
-	iadd
-	iconst_2
-	iconst_3
-	imul
-	isub
-	bipush 7
-	iconst_2
-	irem
-	iadd
-	invokestatic io/string_of_int(I)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 4
+.limit stack 2
 .limit locals 2
 .end method
 

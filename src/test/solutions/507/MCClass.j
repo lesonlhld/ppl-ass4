@@ -4,26 +4,14 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
+.var 1 is x Z from Label0 to Label1
+	iconst_1
+	istore_1
 Label0:
-	iconst_5
-	bipush 6
-	iconst_4
-	idiv
-	iadd
-	iconst_2
-	iconst_3
-	imul
-	isub
-	bipush 7
-	iconst_2
-	irem
-	iadd
-	invokestatic io/string_of_int(I)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 4
-.limit locals 1
+.limit stack 3
+.limit locals 2
 .end method
 
 .method public <init>()V

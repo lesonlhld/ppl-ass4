@@ -1,5 +1,5 @@
 Function: main
-                   Body: 
-                        Var: x = 6;
-                        print(string_of_float(5.5 +. -.-.-.float_to_int(x)));
-                   EndBody.
+        Body:
+            Var: a[3] = {1,2,3}, c[2][3] = {{1,3,5},{3,5,7}};
+            print(string_of_int(c[1][2]));
+        EndBody.

@@ -1,11 +1,9 @@
 Function: main
-                   Body: 
-                        Var: x = 5, y = 3;
-                        Do
-                            x = x + 1;
-                            y = y - 1;
-                        While (y > 0)
-                        EndDo.
-                        print(string_of_int(x));
-                        print(string_of_int(y));
-                   EndBody.
+                    Body:
+                    Var: n = 1;
+                    If n < 0 Then
+                        print("n < 0");
+                    Else
+                        print("n >= 0");
+                    EndIf.
+                    EndBody.

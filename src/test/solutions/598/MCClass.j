@@ -2,52 +2,32 @@
 .class public MCClass
 .super java.lang.Object
 
+.method public static sum()I
+Label0:
+	iconst_0
+	ireturn
+Label1:
+.limit stack 2
+.limit locals 0
+.end method
+
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is x I from Label0 to Label1
-	iconst_5
+.var 1 is y I from Label0 to Label1
+	iconst_0
 	istore_1
-.var 2 is y I from Label0 to Label1
-	iconst_0
-	istore_2
 Label0:
+	invokestatic MCClass/sum()I
+	istore_1
 	iload_1
-	iload_2
-	if_icmpge Label6
 	iconst_1
-	goto Label7
-Label6:
-	iconst_0
-Label7:
-	ifle Label12
-	iconst_1
-	iload_1
-	iload_2
-	idiv
-	iconst_1
-	if_icmple Label10
-	iconst_1
-	goto Label11
-Label10:
-	iconst_0
-Label11:
-	iand
-	goto Label13
-Label12:
-	iconst_0
-Label13:
-	ifle Label2
-	ldc "Hello"
-	invokestatic io/print(Ljava/lang/String;)V
-	goto Label3
-Label2:
-	ldc "World"
-	invokestatic io/print(Ljava/lang/String;)V
-Label3:
-Label1:
+	iadd
+	invokestatic io/string_of_int(I)Ljava/lang/String;
+	invokestatic io/printStrLn(Ljava/lang/String;)V
 	return
-.limit stack 7
-.limit locals 3
+Label1:
+.limit stack 4
+.limit locals 2
 .end method
 
 .method public <init>()V

@@ -4,71 +4,159 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is x [Z from Label0 to Label1
+.var 1 is x [[I from Label0 to Label1
 	iconst_3
-	newarray boolean
+	anewarray [I
 	dup
 	iconst_0
-	iconst_1
-	bastore
+	iconst_2
+	newarray int
+	dup
+	iconst_0
+	sipush 212
+	iastore
 	dup
 	iconst_1
+	sipush 529
+	iastore
+	aastore
+	dup
+	iconst_1
+	iconst_2
+	newarray int
+	dup
 	iconst_0
-	bastore
+	sipush 272
+	iastore
+	dup
+	iconst_1
+	sipush 398
+	iastore
+	aastore
 	dup
 	iconst_2
+	iconst_2
+	newarray int
+	dup
+	iconst_0
+	sipush 247
+	iastore
+	dup
 	iconst_1
-	bastore
+	sipush 954
+	iastore
+	aastore
 	astore_1
-.var 2 is i I from Label0 to Label1
-	iconst_0
-	istore_2
-Label0:
-	aload_1
-	iconst_1
-	aload_1
-	iconst_0
-	baload
-	ifle Label2
-	iconst_1
-	aload_1
-	iconst_2
-	baload
-	iand
-	goto Label3
-Label2:
-	iconst_0
-Label3:
-	bastore
-	iconst_0
-	istore_2
-Label4:
-	iload_2
+.var 2 is y [[I from Label0 to Label1
 	iconst_3
-	if_icmpge Label10
-	iconst_1
-	goto Label11
-Label10:
+	anewarray [I
+	dup
 	iconst_0
-Label11:
-	ifle Label5
+	iconst_2
+	newarray int
+	dup
+	iconst_0
+	sipush 652
+	iastore
+	dup
+	iconst_1
+	sipush 654
+	iastore
+	aastore
+	dup
+	iconst_1
+	iconst_2
+	newarray int
+	dup
+	iconst_0
+	sipush 256
+	iastore
+	dup
+	iconst_1
+	sipush 214
+	iastore
+	aastore
+	dup
+	iconst_2
+	iconst_2
+	newarray int
+	dup
+	iconst_0
+	sipush 158
+	iastore
+	dup
+	iconst_1
+	sipush 765
+	iastore
+	aastore
+	astore_2
+.var 3 is i I from Label0 to Label1
+	iconst_0
+	istore_3
+.var 4 is j I from Label0 to Label1
+	iconst_0
+	istore 4
+Label0:
+	iconst_0
+	istore_3
+Label2:
+	iload_3
+	iconst_3
+	if_icmpge Label8
+	iconst_1
+	goto Label9
+Label8:
+	iconst_0
+Label9:
+	ifle Label3
+	iconst_0
+	istore 4
+Label10:
+	iload 4
+	iconst_2
+	if_icmpge Label16
+	iconst_1
+	goto Label17
+Label16:
+	iconst_0
+Label17:
+	ifle Label11
 	aload_1
-	iload_2
-	baload
-	invokestatic io/string_of_bool(Z)Ljava/lang/String;
+	iload_3
+	aaload
+	iload 4
+	iaload
+	aload_2
+	iload_3
+	aaload
+	iload 4
+	iaload
+	iadd
+	invokestatic io/string_of_int(I)Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
-Label6:
-	iload_2
+	ldc " "
+	invokestatic io/print(Ljava/lang/String;)V
+Label12:
+	iload 4
 	iconst_1
 	iadd
-	istore_2
-	goto Label4
+	istore 4
+	goto Label10
+Label11:
+Label13:
+	invokestatic io/printLn()V
+Label4:
+	iload_3
+	iconst_1
+	iadd
+	istore_3
+	goto Label2
+Label3:
 Label5:
-Label7:
 Label1:
 	return
-.limit stack 15
-.limit locals 3
+.limit stack 29
+.limit locals 5
 .end method
 
 .method public <init>()V

@@ -1,18 +1,6 @@
 Function: main
-                   Body: 
-                        Var: x = 5;
-                        If (x % 4 == 0) Then
-                            Var: y = 0;
-                            x = y;
-                        ElseIf (x % 4 == 1) Then
-                            Var: y = 1;
-                            x = y;
-                        ElseIf (x % 4 == 2) Then
-                            Var: y = 2;
-                            x = y;
-                        Else
-                            Var: y = 3;
-                            x = y;
-                        EndIf.
-                        print(string_of_int(x));
-                   EndBody.
+        Body:
+        Var: x = False, a = 1.e-2, b = 20; 
+            x = ((a <=. 2.3e-13) || (b == 21) || (b != 235));
+            print(string_of_bool(x));
+        EndBody.

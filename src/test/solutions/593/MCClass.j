@@ -1,132 +1,94 @@
 .source MCClass.java
 .class public MCClass
 .super java.lang.Object
+.field static m I
+.field static i I
 
 .method public static main([Ljava/lang/String;)V
+	iconst_0
+	putstatic MCClass/m I
+	iconst_0
+	putstatic MCClass/i I
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is a [[I from Label0 to Label1
-	iconst_3
-	anewarray [I
-	dup
-	iconst_0
-	iconst_2
-	newarray int
-	dup
-	iconst_0
+.var 1 is a I from Label0 to Label1
 	iconst_1
-	iastore
-	dup
-	iconst_1
-	iconst_2
-	iastore
-	aastore
-	dup
-	iconst_1
-	iconst_2
-	newarray int
-	dup
-	iconst_0
-	iconst_3
-	iastore
-	dup
-	iconst_1
-	iconst_4
-	iastore
-	aastore
-	dup
-	iconst_2
-	iconst_2
-	newarray int
-	dup
-	iconst_0
-	iconst_5
-	iastore
-	dup
-	iconst_1
-	bipush 6
-	iastore
-	aastore
-	astore_1
-.var 2 is i I from Label0 to Label1
-	iconst_0
+	istore_1
+.var 2 is b I from Label0 to Label1
+	sipush 5645
 	istore_2
 Label0:
-Label6:
-	iload_2
-	iconst_3
-	if_icmpge Label4
 	iconst_1
-	goto Label5
-Label4:
-	iconst_0
-Label5:
-	ifle Label7
-.var 3 is j I from Label0 to Label1
-	iconst_0
-	istore_3
+	putstatic MCClass/i I
+	iload_1
 	iload_2
-	iload_3
+	invokestatic MCClass/test2(II)I
+	putstatic MCClass/m I
+	iconst_2
+	putstatic MCClass/i I
+	iload_1
+	getstatic MCClass/m I
+	invokestatic MCClass/test2(II)I
+	putstatic MCClass/m I
+	getstatic MCClass/m I
+	invokestatic io/string_of_int(I)Ljava/lang/String;
+	invokestatic io/printStrLn(Ljava/lang/String;)V
+Label1:
+	return
+.limit stack 28
+.limit locals 3
+.end method
+
+.method public static test2(II)I
+.var 0 is x I from Label0 to Label1
+.var 1 is y I from Label0 to Label1
+Label0:
+Label2:
+	iload_1
+	bipush 11
+	irem
+	bipush 6
+	irem
+	iconst_4
+	if_icmplt Label10
+	iconst_1
+	goto Label11
+Label10:
+	iconst_0
+Label11:
+	ifle Label6
+	iload_1
+	iload_0
+	imul
+	istore_1
+	goto Label7
+Label6:
+Label7:
+	iload_0
+	iconst_1
+	iadd
+	istore_0
+	iload_0
+	bipush 10
 	if_icmpge Label14
 	iconst_1
 	goto Label15
 Label14:
 	iconst_0
 Label15:
-	ifle Label10
-	goto Label8
-	goto Label11
-Label10:
-Label11:
-Label20:
-	iload_3
-	iconst_2
-	if_icmpge Label18
-	iconst_1
-	goto Label19
-Label18:
-	iconst_0
-Label19:
-	ifle Label21
-	aload_1
-	iload_2
-	aaload
-	iload_3
-	iaload
-	invokestatic io/string_of_int(I)Ljava/lang/String;
+	ifle Label3
+	goto Label2
+Label3:
+Label5:
+	ldc "Lap lan "
 	invokestatic io/print(Ljava/lang/String;)V
-	iload_3
-	iconst_1
-	iadd
-	istore_3
-	iload_3
-	iconst_3
-	if_icmpne Label28
-	iconst_1
-	goto Label29
-Label28:
-	iconst_0
-Label29:
-	ifle Label24
-	goto Label22
-	goto Label25
-Label24:
-Label25:
-Label22:
-	goto Label20
-Label21:
-Label23:
-	iload_2
-	iconst_1
-	iadd
-	istore_2
-Label8:
-	goto Label6
-Label7:
-Label9:
-	return
+	getstatic MCClass/i I
+	invokestatic io/string_of_int(I)Ljava/lang/String;
+	invokestatic io/printStrLn(Ljava/lang/String;)V
+	iload_1
+	ireturn
 Label1:
-.limit stack 21
-.limit locals 4
+.limit stack 8
+.limit locals 2
 .end method
 
 .method public <init>()V

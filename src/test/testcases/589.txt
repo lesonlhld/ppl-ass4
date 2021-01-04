@@ -1,36 +1,25 @@
 
-        ** This is a global variable **
-        Var: arr[5] = {5,   7, 1,2, 6};
-
-        ** Sort function **
-        Function: sort
-            Parameter: arr[5]
-            Body:
-                Var: i = 50;
-                For (i = 0, i < 5, 1) Do
-                    Var: j = 3;
-                    For (j = i + 1, j < 5, 1) Do
-                        If arr[i] < arr[j] Then
-                            Var: temp = 0;
-                            temp = arr[i];
-                            arr[i] = arr[j];
-                            arr[j] = temp;
-                        EndIf.
-                    EndFor.
-                EndFor.
-                Return arr;
-            EndBody.
-
-        ** Entry of program **
+        Var: arr[5]={1,2,3,4,5};
+        Function: func1
+        Parameter: x
+        Body:
+        Return x *x%2;
+        EndBody.
         Function: main
-            Body:
-                Var: i = 100;
-                For (i = 0, i < 5, 1) Do
-                    print(string_of_int(arr[i]));
-                EndFor.
-                printLn();
-                arr = sort(arr);
-                For (i = 0, i < 5, 1) Do
-                    print(string_of_int(arr[i]));
-                EndFor.
-            EndBody.
+        Body:
+        Var: a = 1343.74;
+        Var: arr[5]={2761,5832,8533,6834,556};
+            a =float_to_int(-(-(func1(46)+23) * -func2(a)+arr[3]))\. 0.75;
+            print(string_of_float(a));
+        EndBody.
+        Function: func2
+        Parameter: y
+        Body:
+        Var: z=1543.0;
+        Var: i = 0;
+        While (i < 5) Do
+            z = z +. y;
+            i = i + 1;
+        EndWhile.
+        Return int_of_float(z);
+        EndBody.

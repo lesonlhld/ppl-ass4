@@ -1,18 +1,9 @@
-Function: main
-                   Body: 
-                        Var: x = 8;
-                        If (x % 4 == 0) Then
-                            Var: y = 0;
-                            x = y;
-                        ElseIf (x % 4 == 1) Then
-                            Var: y = 1;
-                            x = y;
-                        ElseIf (x % 4 == 2) Then
-                            Var: y = 2;
-                            x = y;
-                        Else
-                            Var: y = 3;
-                            x = y;
-                        EndIf.
-                        print(string_of_int(x));
-                   EndBody.
+
+        Function: main 
+        Body:
+            Var: var=True,x=False;
+            Var: ilv=4e3, nvh=2.3;
+            var = (nvh=/=123.45);
+            x = var && (ilv <. nvh);
+            print(string_of_bool(x));
+        EndBody.

@@ -4,61 +4,64 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is x [[I from Label0 to Label1
-	iconst_3
-	anewarray [I
-	dup
+.var 1 is i I from Label0 to Label1
 	iconst_0
-	iconst_2
-	newarray int
-	dup
+	istore_1
+.var 2 is result I from Label0 to Label1
 	iconst_0
-	iconst_1
-	iastore
-	dup
-	iconst_1
-	iconst_2
-	iastore
-	aastore
-	dup
-	iconst_1
-	iconst_2
-	newarray int
-	dup
-	iconst_0
-	iconst_3
-	iastore
-	dup
-	iconst_1
-	iconst_4
-	iastore
-	aastore
-	dup
-	iconst_2
-	iconst_2
-	newarray int
-	dup
-	iconst_0
-	iconst_5
-	iastore
-	dup
-	iconst_1
-	bipush 6
-	iastore
-	aastore
-	astore_1
+	istore_2
+.var 3 is x I from Label0 to Label1
+	bipush 9
+	istore_3
 Label0:
-	aload_1
-	iconst_0
-	aaload
 	iconst_1
-	iaload
+	istore_1
+Label2:
+	iload_1
+	iload_3
+	iload_3
+	imul
+	iload_3
+	imul
+	if_icmpgt Label8
+	iconst_1
+	goto Label9
+Label8:
+	iconst_0
+Label9:
+	ifle Label3
+	iload_1
+	iload_1
+	imul
+	iload_1
+	iconst_1
+	ineg
+	ineg
+	idiv
+	iload_1
+	irem
+	iadd
+	iload_1
+	ineg
+	isub
+	istore_2
+Label4:
+	iload_1
+	iload_1
+	iload_3
+	iadd
+	iadd
+	istore_1
+	goto Label2
+Label3:
+Label5:
+	iload_2
 	invokestatic io/string_of_int(I)Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 15
-.limit locals 2
+.limit stack 7
+.limit locals 4
 .end method
 
 .method public <init>()V

@@ -1,7 +1,15 @@
-
+ 
                 Function: main
-                    Body:
-                        Var: x[2][2] = {{1,2},{3,4}};
-                        x[0][1] = 5;
-                        print(string_of_int(x[0][1]));
-                    EndBody.
+                Body:
+                    Var: a = 5,b=4.5;
+                    a = a + foo(b);
+                    print(string_of_int(a));
+                EndBody.
+
+                Function: foo
+                Parameter: a
+                Body:
+                    Var: c = 5.5;
+                    Return int_of_float(c+a);
+                EndBody.
+            

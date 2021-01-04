@@ -1,4 +1,4 @@
 Function: main
-                   Body: 
-                        print(string_of_int(10 \ 3));
+                   Body:
+                   Var: x = 1.234;
                    EndBody.

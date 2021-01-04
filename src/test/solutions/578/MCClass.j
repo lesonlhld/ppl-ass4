@@ -1,144 +1,68 @@
 .source MCClass.java
 .class public MCClass
 .super java.lang.Object
-.field static x [[I
 
 .method public static main([Ljava/lang/String;)V
-	iconst_2
-	anewarray [I
-	dup
-	iconst_0
-	iconst_2
-	newarray int
-	dup
-	iconst_0
-	iconst_1
-	iastore
-	dup
-	iconst_1
-	iconst_2
-	iastore
-	aastore
-	dup
-	iconst_1
-	iconst_2
-	newarray int
-	dup
-	iconst_0
-	iconst_3
-	iastore
-	dup
-	iconst_1
-	iconst_4
-	iastore
-	aastore
-	putstatic MCClass/x [[I
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 .var 1 is i I from Label0 to Label1
-	iconst_0
+	bipush 10
 	istore_1
-.var 2 is j I from Label0 to Label1
-	iconst_0
-	istore_2
 Label0:
-	iconst_0
-	istore_1
-Label2:
-	iload_1
-	iconst_2
-	if_icmpge Label8
-	iconst_1
-	goto Label9
-Label8:
-	iconst_0
-Label9:
-	ifle Label3
-	iconst_0
-	istore_2
-Label10:
-	iload_2
-	iconst_2
-	if_icmpge Label16
-	iconst_1
-	goto Label17
-Label16:
-	iconst_0
-Label17:
-	ifle Label11
-	getstatic MCClass/x [[I
-	iload_1
-	iload_2
-	iload_1
-	iload_2
-	iadd
-	aastore
-Label12:
-	iload_2
-	iconst_1
-	iadd
-	istore_2
-	goto Label10
-Label11:
-Label13:
 Label4:
-	iload_1
+	iconst_0
+	ifgt Label2
 	iconst_1
-	iadd
-	istore_1
-	goto Label2
+	goto Label3
+Label2:
+	iconst_0
 Label3:
-Label5:
+	ifle Label5
+	iload_1
 	iconst_0
-	istore_1
+	if_icmpge Label13
+	iconst_1
+	goto Label14
+Label13:
+	iconst_0
+Label14:
+	ifle Label8
+	goto Label7
+	goto Label10
+Label8:
+	iload_1
+	iconst_2
+	irem
+	iconst_0
+	if_icmpne Label17
+	iconst_1
+	goto Label18
+Label17:
+	iconst_0
 Label18:
+	ifle Label9
 	iload_1
-	iconst_2
-	if_icmpge Label24
 	iconst_1
-	goto Label25
-Label24:
-	iconst_0
-Label25:
-	ifle Label19
-	iconst_0
-	istore_2
-Label26:
-	iload_2
-	iconst_2
-	if_icmpge Label32
-	iconst_1
-	goto Label33
-Label32:
-	iconst_0
-Label33:
-	ifle Label27
-	getstatic MCClass/x [[I
+	isub
+	istore_1
+	goto Label6
+	goto Label10
+Label9:
 	iload_1
-	aaload
-	iload_2
-	iaload
 	invokestatic io/string_of_int(I)Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
-Label28:
-	iload_2
-	iconst_1
-	iadd
-	istore_2
-	goto Label26
-Label27:
-Label29:
-Label20:
+Label10:
 	iload_1
 	iconst_1
-	iadd
+	isub
 	istore_1
-	goto Label18
-Label19:
-Label21:
+Label6:
+	goto Label4
+Label5:
+Label7:
 Label1:
 	return
-.limit stack 48
-.limit locals 3
+.limit stack 12
+.limit locals 2
 .end method
 
 .method public <init>()V

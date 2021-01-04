@@ -1,10 +1,14 @@
-Function: main
-                   Body: 
-                        Var: x = 5, y = 3;
-                        While (y > 0) Do
-                            x = x + 1;
-                            y = y - 1;
-                        EndWhile.
-                        print(string_of_int(x));
-                        print(string_of_int(y));
-                   EndBody.
+
+        Function: main
+        Body:
+            Var: a[5]={1,2,3,4,5};
+            Var: i = 0;
+            i = a[1 + foo(2,1)]-1;
+            a[i] = 0x369*3 + 4;
+            print(string_of_int(a[i]));
+        EndBody.
+        Function: foo
+        Parameter: a,b
+        Body:
+            Return a+b;
+        EndBody.

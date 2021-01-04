@@ -4,36 +4,51 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is x [F from Label0 to Label1
-	iconst_3
-	newarray float
-	dup
+.var 1 is i I from Label0 to Label1
 	iconst_0
-	ldc 1.1
-	fastore
-	dup
-	iconst_1
-	ldc 2.2
-	fastore
-	dup
-	iconst_2
-	ldc 3.3
-	fastore
-	astore_1
+	istore_1
 Label0:
-	aload_1
+Label2:
+.var 2 is k I from Label0 to Label1
+	bipush 10
+	istore_2
+	iload_1
+	iconst_0
+	if_icmple Label10
 	iconst_1
-	ldc 4.4
-	fastore
-	aload_1
-	iconst_1
-	faload
-	invokestatic io/string_of_float(F)Ljava/lang/String;
+	goto Label11
+Label10:
+	iconst_0
+Label11:
+	ifle Label6
+	iload_2
+	iload_1
+	irem
+	invokestatic io/string_of_int(I)Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
+	goto Label7
+Label6:
+Label7:
+	iload_1
+	iconst_1
+	iadd
+	istore_1
+	iload_1
+	bipush 10
+	if_icmpgt Label14
+	iconst_1
+	goto Label15
+Label14:
+	iconst_0
+Label15:
+	ifle Label3
+	goto Label2
+Label3:
+Label5:
 Label1:
 	return
-.limit stack 9
-.limit locals 2
+.limit stack 7
+.limit locals 3
 .end method
 
 .method public <init>()V

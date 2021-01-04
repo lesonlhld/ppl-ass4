@@ -1,48 +1,57 @@
 .source MCClass.java
 .class public MCClass
 .super java.lang.Object
-.field static x I
-
-.method public static goo()V
-Label0:
-	getstatic MCClass/x I
-	invokestatic io/string_of_int(I)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
-	iconst_2
-	putstatic MCClass/x I
-Label1:
-	return
-.limit stack 3
-.limit locals 0
-.end method
 
 .method public static main([Ljava/lang/String;)V
-	iconst_0
-	putstatic MCClass/x I
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-Label0:
-	invokestatic MCClass/foo()V
-	getstatic MCClass/x I
-	invokestatic io/string_of_int(I)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
-Label1:
-	return
-.limit stack 13
-.limit locals 1
-.end method
-
-.method public static foo()V
-Label0:
-	getstatic MCClass/x I
-	invokestatic io/string_of_int(I)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
+.var 1 is n I from Label0 to Label1
 	iconst_1
-	putstatic MCClass/x I
-	invokestatic MCClass/goo()V
+	istore_1
+.var 2 is i F from Label0 to Label1
+	ldc 5.5
+	fstore_2
+Label0:
+	fload_2
+	ldc 4.5
+	fcmpl
+	ifge Label7
+	iconst_1
+	goto Label8
+Label7:
+	iconst_0
+Label8:
+	ifle Label2
+	fload_2
+	invokestatic io/string_of_float(F)Ljava/lang/String;
+	invokestatic io/printStrLn(Ljava/lang/String;)V
+	goto Label4
+Label2:
+	iload_1
+	bipush 10
+	if_icmple Label11
+	iconst_1
+	goto Label12
+Label11:
+	iconst_0
+Label12:
+	ifle Label3
+	ldc "Else If"
+	invokestatic io/print(Ljava/lang/String;)V
+	goto Label4
+Label3:
+	fload_2
+	invokestatic io/int_of_float(F)I
+	iconst_1
+	isub
+	istore_1
+	iload_1
+	invokestatic io/string_of_int(I)Ljava/lang/String;
+	invokestatic io/print(Ljava/lang/String;)V
+Label4:
 Label1:
 	return
-.limit stack 3
-.limit locals 0
+.limit stack 7
+.limit locals 3
 .end method
 
 .method public <init>()V

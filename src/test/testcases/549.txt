@@ -1,9 +1,12 @@
-
-                Function: main
-                    Body:
-                        print(foo());
-                    EndBody.
-                Function: foo
-                    Body:
-                        Return "Hello World";
-                    EndBody.
+Function: main 
+        Body:
+            Var: x=20;
+            While True Do
+                If (x>0) && (x<3) Then 
+                printStrLn("oke");
+                Break;
+                Else printStrLn("Error");
+                EndIf.
+                x=x-3;
+            EndWhile.
+        EndBody.

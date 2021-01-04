@@ -1,10 +1,4 @@
 Function: main
-                   Body: 
-                        Var: x = 5, y = 3;
-                        While (y > 0) Do
-                            x = x + y;
-                            y = y - 1;
-                        EndWhile.
-                        printStrLn(string_of_int(x));
-                        print(string_of_int(y));
+                   Body:
+                   print(string_of_int(2*2));
                    EndBody.

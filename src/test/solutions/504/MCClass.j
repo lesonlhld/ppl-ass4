@@ -1,18 +1,20 @@
 .source MCClass.java
 .class public MCClass
 .super java.lang.Object
+.field static x Ljava/lang/String;
 
 .method public static main([Ljava/lang/String;)V
+	ldc "hello"
+	putstatic MCClass/x Ljava/lang/String;
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 Label0:
-	iconst_5
-	bipush 6
-	imul
-	invokestatic io/string_of_int(I)Ljava/lang/String;
+	ldc "Hello World"
+	putstatic MCClass/x Ljava/lang/String;
+	getstatic MCClass/x Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 3
+.limit stack 17
 .limit locals 1
 .end method
 

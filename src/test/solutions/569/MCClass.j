@@ -4,30 +4,40 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is x [Ljava/lang/String; from Label0 to Label1
-	iconst_3
-	anewarray java/lang/String
-	dup
+.var 1 is i I from Label0 to Label1
 	iconst_0
-	ldc "Hello"
-	aastore
-	dup
-	iconst_1
-	ldc "World"
-	aastore
-	dup
-	iconst_2
-	ldc "!"
-	aastore
-	astore_1
+	istore_1
 Label0:
-	aload_1
 	iconst_1
-	aaload
+	istore_1
+Label2:
+	iload_1
+	bipush 15
+	irem
+	bipush 9
+	if_icmpeq Label8
+	iconst_1
+	goto Label9
+Label8:
+	iconst_0
+Label9:
+	ifle Label3
+Label4:
+	iload_1
+	iload_1
+	bipush 20
+	imul
+	iadd
+	istore_1
+	goto Label2
+Label3:
+Label5:
+	iload_1
+	invokestatic io/string_of_int(I)Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 8
+.limit stack 6
 .limit locals 2
 .end method
 

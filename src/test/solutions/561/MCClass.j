@@ -1,42 +1,48 @@
 .source MCClass.java
 .class public MCClass
 .super java.lang.Object
-.field static x [F
 
 .method public static main([Ljava/lang/String;)V
+.var 0 is args [Ljava/lang/String; from Label0 to Label1
+.var 1 is n [F from Label0 to Label1
 	iconst_5
 	newarray float
 	dup
 	iconst_0
-	ldc 1.1
+	ldc 3.34
 	fastore
 	dup
 	iconst_1
-	ldc 2.2
+	ldc 6.67
 	fastore
 	dup
 	iconst_2
-	ldc 3.3
+	ldc 8.03
 	fastore
 	dup
 	iconst_3
-	ldc 4.4
+	ldc 32.57
 	fastore
 	dup
 	iconst_4
-	ldc 5.5
+	ldc 54.108
 	fastore
-	putstatic MCClass/x [F
-.var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is i I from Label0 to Label1
+	astore_1
+.var 2 is i I from Label0 to Label1
 	iconst_0
-	istore_1
+	istore_2
+.var 3 is k I from Label0 to Label1
+	bipush 10
+	istore_3
+.var 4 is j I from Label0 to Label1
+	iconst_1
+	istore 4
 Label0:
 	iconst_0
-	istore_1
+	istore_2
 Label2:
-	iload_1
-	iconst_5
+	iload_2
+	iload_3
 	if_icmpge Label8
 	iconst_1
 	goto Label9
@@ -44,54 +50,40 @@ Label8:
 	iconst_0
 Label9:
 	ifle Label3
-	getstatic MCClass/x [F
-	iload_1
-	getstatic MCClass/x [F
-	iload_1
+	aload_1
+	iload_2
+	iconst_5
+	irem
+	aload_1
+	iload_2
+	iconst_5
+	irem
 	faload
-	iconst_2
+	iload_2
 	invokestatic io/float_to_int(I)F
-	fmul
-	ldc 1.0
 	fadd
 	fastore
-Label4:
-	iload_1
-	iconst_1
-	iadd
-	istore_1
-	goto Label2
-Label3:
-Label5:
-	iconst_0
-	istore_1
-Label10:
-	iload_1
+	aload_1
+	iload_2
 	iconst_5
-	if_icmpge Label16
-	iconst_1
-	goto Label17
-Label16:
-	iconst_0
-Label17:
-	ifle Label11
-	getstatic MCClass/x [F
-	iload_1
+	irem
 	faload
 	invokestatic io/string_of_float(F)Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
-Label12:
-	iload_1
-	iconst_1
+Label4:
+	iload_2
+	iload 4
+	iload 4
+	imul
 	iadd
-	istore_1
-	goto Label10
-Label11:
-Label13:
+	istore_2
+	goto Label2
+Label3:
+Label5:
 Label1:
 	return
-.limit stack 34
-.limit locals 2
+.limit stack 14
+.limit locals 5
 .end method
 
 .method public <init>()V

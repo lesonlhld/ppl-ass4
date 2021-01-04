@@ -1,12 +1,23 @@
 
-                Var: x[3] = {True, False, True};
-                Function: main
-                   Body: 
-                        Var: i = 0;
-                        For (i = 0, i < 3, 1) Do
-                            x[i] = !x[i] || False;
+        Function: main
+            Body:
+                Var: char = "*";
+                Var: n = 11;
+                Var: i=0,j=0;
+                For(i=0,i<n,1) Do
+                    printLn();
+                    If n\2 < i Then
+                        For(j=0,j<n\2,1) Do
+                            print(" ");
                         EndFor.
-                        For (i = 0, i < 3, 1) Do
-                            print(string_of_bool(x[i]));
+                        print(char);
+                    Else
+                        For(j=0,j<(n\2-i),1) Do
+                            print(" ");
                         EndFor.
-                   EndBody.
+                        For(j=0,j<(n-(n\2-i)*2),1) Do
+                            print(char);
+                        EndFor.
+                    EndIf.
+                EndFor.
+            EndBody.

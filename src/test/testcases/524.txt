@@ -1,6 +1,6 @@
 Function: main
-                   Body: 
-                        Var: x = 6, y = 5.5, z = 4;
-                        x = int_of_float(y) + x - z;
-                        print(string_of_int(x));
+                   Body:
+                   Var: str = 123.2e-1;
+                   str = 15.6;
+                   print(string_of_float(str));
                    EndBody.

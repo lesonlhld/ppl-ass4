@@ -1,6 +1,8 @@
 
-                Function: main
-                    Body:
-                        Var: x[3] = {1,2,3};
-                        print(string_of_int(x[1]));
-                    EndBody.
+        Function: main
+        Body:
+            While True Do 
+            printStrLn("Hello World");
+            Break;
+            EndWhile.
+        EndBody.

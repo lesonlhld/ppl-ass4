@@ -1,16 +1,12 @@
 
-                Function: main
-                   Body:
-                        Var: x = 5, y = 6;
-                        no_swap(x,y);
-                        print(string_of_int(x));
-                        print(string_of_int(y));
-                   EndBody.
-                Function: no_swap
-                    Parameter: x, y
-                    Body:
-                        Var: temp = 0;
-                        temp = x;
-                        x = y;
-                        y = temp;
-                    EndBody.
+        Var:x = 0, y=0;
+        Function: main
+        Body:
+            x=1;
+            y=2;
+            print(string_of_int(foo()));
+        EndBody.
+        Function: foo
+        Body:
+            Return x+y;
+        EndBody.

@@ -1,1 +1,2 @@
-true
+Enter integer: 3
+2

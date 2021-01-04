@@ -436,7 +436,7 @@ class CodeGenVisitor(BaseVisitor):
         right, rightType = self.visit(ast.right, Access(o.frame, o.sym, False, False))
         if ast.op in ['==', '!=', '<', '>', '<=', '>=', '=/=', '<.', '>.', '<=.', '>=.', '&&', '||']:
             mType = BoolType()
-        if FloatType in [type(leftType), type(rightType)]:
+        elif FloatType in [type(leftType), type(rightType)]:
             mType = FloatType()
         else:
             mType = IntType()
@@ -524,16 +524,17 @@ class CodeGenVisitor(BaseVisitor):
         listIdx = [self.visit(x, Access(o.frame, o.sym, False, True)) for x in ast.idx]
         if not o.isFirst and o.isLeft: o.frame.push()
         code = arr
-        print(code)
         for x in range(len(listIdx) - 1):
             code += listIdx[x][0]
-            if not o.isLeft:
-                code += self.emit.emitALOAD(arrType, o.frame)
+            code += self.emit.emitALOAD(arrType, o.frame)
             
         code += listIdx[len(listIdx) - 1][0]
         if not o.isLeft:
             if type(arrType.eleType) == ArrayType:
-                code += self.emit.emitALOAD(arrType.eleType.eleType, o.frame)
+                if type(arrType.eleType.eleType) == ArrayType:
+                    code += self.emit.emitALOAD(arrType.eleType.eleType.eleType, o.frame)
+                else:
+                    code += self.emit.emitALOAD(arrType.eleType.eleType, o.frame)
                 return code, arrType.eleType.eleType
             else:
                 code += self.emit.emitALOAD(arrType.eleType, o.frame)
@@ -559,7 +560,7 @@ class CodeGenVisitor(BaseVisitor):
         right, rightType = self.visit(ast.rhs, Access(o.frame, o.sym, False, True))
         left, leftType = self.visit(ast.lhs, Access(o.frame, o.sym, True, False))
         if type(ast.lhs) == ArrayCell:
-            code = self.emit.emitASTORE(leftType.eleType, o.frame)
+            code = self.emit.emitASTORE(rightType, o.frame)
             self.emit.printout(left + right + code)
         else:
             self.emit.printout(right + left)

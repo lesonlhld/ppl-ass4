@@ -1,10 +1,12 @@
-           
+
+        Function: sum
+        Body:
+            Return 0;
+        EndBody.
         Function: main
-            Body:
-                Var: x = 5, y = 0;
-                If ((x < y) && ((x \ y) > 1)) Then
-                    print("Hello");
-                Else
-                    print("World");
-                EndIf.
-            EndBody.
+        Body:
+            Var: y=0;
+            y = sum();
+            printStrLn(string_of_int(y+1));
+            Return;
+        EndBody.
