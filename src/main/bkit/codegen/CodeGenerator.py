@@ -461,15 +461,17 @@ class CodeGenVisitor(BaseVisitor):
                             self.emit.printout(self.emit.emitASTORE(initType.eleType.eleType, frame))
 
                 else:
-                    self.emit.printout(self.visit(IntLiteral(len(init)), Access(frame, o.sym, False, True))[0])
-                    self.emit.printout(self.emit.emitWRITEVAR2(init[0][1]))
+                    self.emit.printout(self.visit(IntLiteral(var.varDimen[0]), Access(frame, o.sym, False, True))[0])
+                    self.emit.printout(self.emit.emitWRITEVAR2(initType))
+                    [self.emit.printout(x) for x in init]
+                    print(init)
                     self.emit.printout(self.emit.emitWRITEVAR(varName, initType, idx, frame))
-                    for x in range(len(init)):
-                        frame.push()
-                        self.emit.printout(self.emit.emitREADVAR(varName, initType, idx, frame))
-                        self.emit.printout(self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
-                        self.emit.printout(init[x][0])
-                        self.emit.printout(self.emit.emitASTORE(init[x][1], frame))
+                    # for x in range(len(init)):
+                    #     frame.push()
+                    #     self.emit.printout(self.emit.emitREADVAR(varName, initType, idx, frame))
+                        # self.emit.printout(self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
+                        # self.emit.printout(init[x][0])
+                        # self.emit.printout(self.emit.emitASTORE(init[x][1], frame))
             else:
                 varCode2, varType = self.visit(var.variable, Access(frame, o.sym, True, False))
                 self.emit.printout(init + varCode2)
@@ -550,8 +552,12 @@ class CodeGenVisitor(BaseVisitor):
             pCode, pType = self.visit(x, Access(frame, symbols, False, True))
             if type(paramTypes[idx]) is FloatType and type(pType) is IntType:
                 pCode = pCode + self.emit.emitI2F(frame)
-            
-            paramsCode = paramsCode + pCode
+            if type(x) == ArrayLiteral:
+                for x in pCode:
+                    paramsCode += x[0]
+            else:
+                paramsCode = paramsCode + pCode
+            print(paramsCode)
             idx = idx + 1
         
         code = paramsCode + self.emit.emitINVOKESTATIC(sym.value.value+"/"+sym.name,sym.mtype,frame)
@@ -748,8 +754,17 @@ class CodeGenVisitor(BaseVisitor):
 
     def visitArrayLiteral(self, ast, o):
         array = Type.getTypeFromLiteral(ast)
-        valueType = [self.visit(x, o) for x in ast.value]
-        return valueType, array
+        value =[]
+        for x in range(len(ast.value)):
+            o.frame.push()
+            init = self.visit(ast.value[x], o)
+            value.append(self.emit.emitDUP)
+            value.append(self.visit(IntLiteral(x), Access(o.frame, o.sym, False, True))[0])
+            value.append(init[0])
+            value.append(self.emit.emitASTORE(init[1], o.frame))
+
+        # value = [self.visit(x, o) for x in ast.value]
+        return value, array
 
 class Checker:
     @staticmethod
