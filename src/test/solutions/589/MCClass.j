@@ -90,34 +90,34 @@ Label5:
 	aload_0
 	areturn
 Label1:
-.limit stack 20
+.limit stack 17
 .limit locals 4
 .end method
 
 .method public static main([Ljava/lang/String;)V
 	iconst_5
 	newarray int
-	putstatic MCClass/arr [I
-	getstatic MCClass/arr [I
+	dup
 	iconst_0
 	iconst_5
 	iastore
-	getstatic MCClass/arr [I
+	dup
 	iconst_1
 	bipush 7
 	iastore
-	getstatic MCClass/arr [I
+	dup
 	iconst_2
 	iconst_1
 	iastore
-	getstatic MCClass/arr [I
+	dup
 	iconst_3
 	iconst_2
 	iastore
-	getstatic MCClass/arr [I
+	dup
 	iconst_4
 	bipush 6
 	iastore
+	putstatic MCClass/arr [I
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 .var 1 is i I from Label0 to Label1
 	bipush 100
@@ -179,7 +179,7 @@ Label11:
 Label13:
 Label1:
 	return
-.limit stack 13
+.limit stack 35
 .limit locals 2
 .end method
 

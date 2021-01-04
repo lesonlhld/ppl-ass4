@@ -6,27 +6,27 @@
 .method public static main([Ljava/lang/String;)V
 	iconst_5
 	newarray float
-	putstatic MCClass/x [F
-	getstatic MCClass/x [F
+	dup
 	iconst_0
 	ldc 1.1
 	fastore
-	getstatic MCClass/x [F
+	dup
 	iconst_1
 	ldc 2.2
 	fastore
-	getstatic MCClass/x [F
+	dup
 	iconst_2
 	ldc 3.3
 	fastore
-	getstatic MCClass/x [F
+	dup
 	iconst_3
 	ldc 4.4
 	fastore
-	getstatic MCClass/x [F
+	dup
 	iconst_4
 	ldc 5.5
 	fastore
+	putstatic MCClass/x [F
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 .var 1 is i I from Label0 to Label1
 	iconst_0
@@ -90,7 +90,7 @@ Label11:
 Label13:
 Label1:
 	return
-.limit stack 12
+.limit stack 34
 .limit locals 2
 .end method
 

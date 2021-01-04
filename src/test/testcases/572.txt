@@ -1,10 +1,16 @@
-
-                Var: x[3] = {"Hello", "World", "!"};
-                Function: main
-                   Body: 
-                        Var: i = 0;
-                        x = {"Hello", "Long", "!"};
-                        For (i = 0, i < 3, 1) Do
-                            print(x[i]);
-                        EndFor.
-                   EndBody.
+Function: main
+        Body:
+        Var: x[3][3] = {{114,834,217},{568,471,651},{831,246,123}};
+        Var: i = 0;
+        While (i < 3) Do
+            Var: j = 0;
+            Do
+                print(string_of_int(x[i][j]));
+                print(" ");
+                j = j + 1;
+            While (j<3)
+            EndDo.
+            printLn();
+            i = i + 1;
+        EndWhile.
+        EndBody.

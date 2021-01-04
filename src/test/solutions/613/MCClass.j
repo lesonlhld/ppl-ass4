@@ -14,45 +14,42 @@ Label1:
 
 .method public static main([Ljava/lang/String;)V
 	iconst_2
-	iconst_3
-	multianewarray [[I 2
-	putstatic MCClass/arr [[I
-	getstatic MCClass/arr [[I
+	anewarray [I
+	dup
 	iconst_0
-	aaload
+	iconst_3
+	newarray int
+	dup
 	iconst_0
 	iconst_1
 	iastore
-	getstatic MCClass/arr [[I
-	iconst_0
-	aaload
+	dup
 	iconst_1
 	iconst_2
 	iastore
-	getstatic MCClass/arr [[I
-	iconst_0
-	aaload
+	dup
 	iconst_2
 	iconst_3
 	iastore
-	getstatic MCClass/arr [[I
+	aastore
+	dup
 	iconst_1
-	aaload
+	iconst_3
+	newarray int
+	dup
 	iconst_0
 	iconst_4
 	iastore
-	getstatic MCClass/arr [[I
-	iconst_1
-	aaload
+	dup
 	iconst_1
 	iconst_5
 	iastore
-	getstatic MCClass/arr [[I
-	iconst_1
-	aaload
+	dup
 	iconst_2
 	bipush 6
 	iastore
+	aastore
+	putstatic MCClass/arr [[I
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 .var 1 is x I from Label0 to Label1
 	iconst_1
@@ -170,7 +167,7 @@ Label19:
 Label21:
 Label1:
 	return
-.limit stack 21
+.limit stack 55
 .limit locals 4
 .end method
 

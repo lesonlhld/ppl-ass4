@@ -6,32 +6,32 @@
 .var 0 is x [I from Label0 to Label1
 	iconst_5
 	newarray int
-	astore_0
-	aload_0
+	dup
 	iconst_0
 	iconst_1
 	iastore
-	aload_0
+	dup
 	iconst_1
 	iconst_2
 	iastore
-	aload_0
+	dup
 	iconst_2
 	iconst_3
 	iastore
-	aload_0
+	dup
 	iconst_3
 	iconst_4
 	iastore
-	aload_0
+	dup
 	iconst_4
 	iconst_5
 	iastore
+	astore_0
 Label0:
 	aload_0
 	areturn
 Label1:
-.limit stack 9
+.limit stack 10
 .limit locals 1
 .end method
 
@@ -52,7 +52,7 @@ Label0:
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 5
+.limit stack 4
 .limit locals 2
 .end method
 

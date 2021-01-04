@@ -1,27 +1,34 @@
 .source MCClass.java
 .class public MCClass
 .super java.lang.Object
+.field static x [Z
 
 .method public static main([Ljava/lang/String;)V
+	iconst_3
+	newarray boolean
+	dup
+	iconst_0
+	iconst_1
+	bastore
+	dup
+	iconst_1
+	iconst_0
+	bastore
+	dup
+	iconst_2
+	iconst_1
+	bastore
+	putstatic MCClass/x [Z
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is char Ljava/lang/String; from Label0 to Label1
-	ldc "*"
-	astore_1
-.var 2 is n I from Label0 to Label1
-	bipush 11
-	istore_2
-.var 3 is i I from Label0 to Label1
+.var 1 is i I from Label0 to Label1
 	iconst_0
-	istore_3
-.var 4 is j I from Label0 to Label1
-	iconst_0
-	istore 4
+	istore_1
 Label0:
 	iconst_0
-	istore_3
+	istore_1
 Label2:
-	iload_3
-	iload_2
+	iload_1
+	iconst_3
 	if_icmpge Label8
 	iconst_1
 	goto Label9
@@ -29,115 +36,63 @@ Label8:
 	iconst_0
 Label9:
 	ifle Label3
-	invokestatic io/printLn()V
-	iload_2
-	iconst_2
-	idiv
-	iload_3
-	if_icmpge Label14
+	getstatic MCClass/x [Z
+	iload_1
+	getstatic MCClass/x [Z
+	iload_1
+	baload
+	ifgt Label10
 	iconst_1
-	goto Label15
-Label14:
-	iconst_0
-Label15:
-	ifle Label10
-	iconst_0
-	istore 4
-Label16:
-	iload 4
-	iload_2
-	iconst_2
-	idiv
-	if_icmpge Label22
-	iconst_1
-	goto Label23
-Label22:
-	iconst_0
-Label23:
-	ifle Label17
-	ldc " "
-	invokestatic io/print(Ljava/lang/String;)V
-Label18:
-	iload 4
-	iconst_1
-	iadd
-	istore 4
-	goto Label16
-Label17:
-Label19:
-	aload_1
-	invokestatic io/print(Ljava/lang/String;)V
 	goto Label11
 Label10:
 	iconst_0
-	istore 4
-Label24:
-	iload 4
-	iload_2
-	iconst_2
-	idiv
-	iload_3
-	isub
-	if_icmpge Label30
-	iconst_1
-	goto Label31
-Label30:
-	iconst_0
-Label31:
-	ifle Label25
-	ldc " "
-	invokestatic io/print(Ljava/lang/String;)V
-Label26:
-	iload 4
-	iconst_1
-	iadd
-	istore 4
-	goto Label24
-Label25:
-Label27:
-	iconst_0
-	istore 4
-Label32:
-	iload 4
-	iload_2
-	iload_2
-	iconst_2
-	idiv
-	iload_3
-	isub
-	iconst_2
-	imul
-	isub
-	if_icmpge Label38
-	iconst_1
-	goto Label39
-Label38:
-	iconst_0
-Label39:
-	ifle Label33
-	aload_1
-	invokestatic io/print(Ljava/lang/String;)V
-Label34:
-	iload 4
-	iconst_1
-	iadd
-	istore 4
-	goto Label32
-Label33:
-Label35:
 Label11:
+	ifgt Label12
+	iconst_0
+	iconst_0
+	ior
+	goto Label13
+Label12:
+	iconst_1
+Label13:
+	bastore
 Label4:
-	iload_3
+	iload_1
 	iconst_1
 	iadd
-	istore_3
+	istore_1
 	goto Label2
 Label3:
 Label5:
+	iconst_0
+	istore_1
+Label14:
+	iload_1
+	iconst_3
+	if_icmpge Label20
+	iconst_1
+	goto Label21
+Label20:
+	iconst_0
+Label21:
+	ifle Label15
+	getstatic MCClass/x [Z
+	iload_1
+	baload
+	invokestatic io/string_of_bool(Z)Ljava/lang/String;
+	invokestatic io/print(Ljava/lang/String;)V
+Label16:
+	iload_1
+	iconst_1
+	iadd
+	istore_1
+	goto Label14
+Label15:
+Label17:
 Label1:
 	return
-.limit stack 21
-.limit locals 5
+.limit stack 31
+.limit locals 2
 .end method
 
 .method public <init>()V

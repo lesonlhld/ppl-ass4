@@ -41,34 +41,34 @@ Label5:
 	iload_1
 	ireturn
 Label1:
-.limit stack 9
+.limit stack 7
 .limit locals 3
 .end method
 
 .method public static main([Ljava/lang/String;)V
 	iconst_5
 	newarray int
-	putstatic MCClass/x [I
-	getstatic MCClass/x [I
+	dup
 	iconst_0
 	iconst_1
 	iastore
-	getstatic MCClass/x [I
+	dup
 	iconst_1
 	iconst_2
 	iastore
-	getstatic MCClass/x [I
+	dup
 	iconst_2
 	iconst_3
 	iastore
-	getstatic MCClass/x [I
+	dup
 	iconst_3
 	iconst_4
 	iastore
-	getstatic MCClass/x [I
+	dup
 	iconst_4
 	iconst_5
 	iastore
+	putstatic MCClass/x [I
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 .var 1 is y I from Label0 to Label1
 	iconst_0
@@ -82,7 +82,7 @@ Label0:
 	invokestatic io/print(Ljava/lang/String;)V
 	return
 Label1:
-.limit stack 4
+.limit stack 26
 .limit locals 2
 .end method
 

@@ -104,6 +104,8 @@ class Emitter():
         frame.pop()
         if type(in_) is cgen.IntType:
             return self.jvm.emitIALOAD()
+        elif type(in_) is cgen.BoolType:
+            return self.jvm.emitBALOAD()
         elif type(in_) is cgen.FloatType:
             return self.jvm.emitFALOAD()
         elif type(in_) is cgen.ArrayType or type(in_) is cgen.ClassType or type(in_) is cgen.StringType:
@@ -119,8 +121,10 @@ class Emitter():
         frame.pop()
         frame.pop()
         frame.pop()
-        if type(in_) in [cgen.IntType, cgen.BoolType]:
+        if type(in_) is cgen.IntType:
             return self.jvm.emitIASTORE()
+        elif type(in_) is cgen.BoolType:
+            return self.jvm.emitBASTORE()
         elif type(in_) is cgen.FloatType:
             return self.jvm.emitFASTORE()
         elif type(in_) is cgen.ArrayType or type(in_) is cgen.ClassType or type(in_) is cgen.StringType:
@@ -214,7 +218,7 @@ class Emitter():
         elif type(inType) is cgen.BoolType:
             typeIn = "boolean"
         elif type(inType) is cgen.ArrayType:
-                return self.jvm.emitMULTIANEWARRAY(self.getJVMType(inType), str(2))
+            return self.jvm.emitANEWARRAY(self.getJVMType(inType))
         return self.jvm.emitNEWARRAY(typeIn)
 
     ''' generate the field (static) directive for a class mutable or immutable attribute.

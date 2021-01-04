@@ -31,7 +31,7 @@ Label0:
 	fload_2
 	freturn
 Label1:
-.limit stack 5
+.limit stack 4
 .limit locals 3
 .end method
 
@@ -51,7 +51,7 @@ Label0:
 	invokestatic io/printStrLn(Ljava/lang/String;)V
 	return
 Label1:
-.limit stack 5
+.limit stack 3
 .limit locals 3
 .end method
 

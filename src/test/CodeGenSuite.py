@@ -4,11 +4,14 @@ from AST import *
 
 
 class CheckCodeGenSuite(unittest.TestCase):
-    def test_full_program_7(self):
+    def test_array_26(self):
+        """Simple program: int main() {} """
         input = """
-        Function: main
-            Body:
-            Var: x[5] = {1,2,3,4,5};
-            EndBody."""
-        expect = ""
+                Function: main
+                    Body:
+                        Var: x[2][2] = {{1,2},{3,4}};
+                        x[0][1] = 5;
+                        print(string_of_int(x[0][1]));
+                    EndBody."""
+        expect = "5"
         self.assertTrue(TestCodeGen.test(input,expect,555))

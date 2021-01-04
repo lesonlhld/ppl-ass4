@@ -4,51 +4,34 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is x I from Label0 to Label1
-	ldc 6452342
+.var 1 is a I from Label0 to Label1
+	iconst_1
 	istore_1
+.var 2 is b I from Label0 to Label1
+	iconst_2
+	istore_2
 Label0:
-Label2:
-	iconst_1
-	ifle Label3
 	iload_1
-	iconst_0
-	if_icmpge Label11
-	iconst_1
-	goto Label12
-Label11:
-	iconst_0
-Label12:
-	ifle Label6
-	goto Label5
-	goto Label8
-Label6:
-	iload_1
-	iconst_1
-	if_icmple Label15
-	iconst_1
-	goto Label16
-Label15:
-	iconst_0
-Label16:
-	ifle Label7
-	iload_1
-	iconst_3
-	isub
-	istore_1
-	goto Label8
-Label7:
-	ldc "Error"
-	invokestatic io/printStrLn(Ljava/lang/String;)V
-	goto Label5
-Label8:
-Label4:
-	goto Label2
-Label3:
-Label5:
+	iload_2
+	invokestatic MCClass/foo(II)V
 Label1:
 	return
-.limit stack 9
+.limit stack 3
+.limit locals 3
+.end method
+
+.method public static foo(II)V
+.var 0 is x I from Label0 to Label1
+.var 1 is y I from Label0 to Label1
+Label0:
+	iload_0
+	iload_1
+	iadd
+	invokestatic io/string_of_int(I)Ljava/lang/String;
+	invokestatic io/print(Ljava/lang/String;)V
+	return
+Label1:
+.limit stack 3
 .limit locals 2
 .end method
 

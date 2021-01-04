@@ -1,7 +1,13 @@
 
-                Function: main
-                    Body:
-                        Var: x[3] = {True,False,True};
-                        x = {False,True,False};
-                        print(string_of_bool(x[1]));
-                    EndBody.
+        Function: main
+        Body:
+        Var: row=2,col=3,arr[2][3]={{1,2,3},{4,5,6}};
+            Var: sum=0;
+            Var: i=0, j=0;
+            For( i=0,i<row,1) Do
+                For(j=0,j<col,1) Do
+                    sum=sum+arr[i][j];
+                EndFor.
+            EndFor.
+            print(string_of_int(sum));
+        EndBody.

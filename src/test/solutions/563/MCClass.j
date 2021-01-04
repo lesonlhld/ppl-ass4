@@ -4,56 +4,32 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is i I from Label0 to Label1
+.var 1 is x [Z from Label0 to Label1
+	iconst_3
+	newarray boolean
+	dup
 	iconst_0
-	istore_1
-.var 2 is x I from Label0 to Label1
-	bipush 15
-	istore_2
+	iconst_1
+	bastore
+	dup
+	iconst_1
+	iconst_0
+	bastore
+	dup
+	iconst_2
+	iconst_1
+	bastore
+	astore_1
 Label0:
+	aload_1
 	iconst_1
-	istore_1
-Label2:
-	iload_1
-	iload_2
-	iload_2
-	imul
-	if_icmpgt Label8
-	iconst_1
-	goto Label9
-Label8:
-	iconst_0
-Label9:
-	ifle Label3
-	iload_2
-	iconst_1
-	iadd
-	istore_2
-	iload_1
-	invokestatic io/string_of_int(I)Ljava/lang/String;
+	baload
+	invokestatic io/string_of_bool(Z)Ljava/lang/String;
 	invokestatic io/print(Ljava/lang/String;)V
-	ldc ", "
-	invokestatic io/print(Ljava/lang/String;)V
-	iload_2
-	invokestatic io/string_of_int(I)Ljava/lang/String;
-	invokestatic io/print(Ljava/lang/String;)V
-	invokestatic io/printLn()V
-Label4:
-	iload_1
-	iload_1
-	iload_1
-	imul
-	iconst_1
-	iadd
-	iadd
-	istore_1
-	goto Label2
-Label3:
-Label5:
 Label1:
 	return
-.limit stack 9
-.limit locals 3
+.limit stack 11
+.limit locals 2
 .end method
 
 .method public <init>()V

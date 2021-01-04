@@ -22,7 +22,7 @@ Label0:
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 5
+.limit stack 3
 .limit locals 3
 .end method
 
@@ -41,7 +41,7 @@ Label0:
 	istore_1
 Label1:
 	return
-.limit stack 6
+.limit stack 5
 .limit locals 3
 .end method
 

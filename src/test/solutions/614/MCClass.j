@@ -9,45 +9,42 @@
 	istore_1
 .var 2 is array [[I from Label0 to Label1
 	iconst_2
-	iconst_3
-	multianewarray [[I 2
-	astore_2
-	aload_2
+	anewarray [I
+	dup
 	iconst_0
-	aaload
+	iconst_3
+	newarray int
+	dup
 	iconst_0
 	sipush 867
 	iastore
-	aload_2
-	iconst_0
-	aaload
+	dup
 	iconst_1
 	sipush 345
 	iastore
-	aload_2
-	iconst_0
-	aaload
+	dup
 	iconst_2
 	sipush 987
 	iastore
-	aload_2
+	aastore
+	dup
 	iconst_1
-	aaload
+	iconst_3
+	newarray int
+	dup
 	iconst_0
 	bipush 76
 	iastore
-	aload_2
-	iconst_1
-	aaload
+	dup
 	iconst_1
 	bipush 12
 	iastore
-	aload_2
-	iconst_1
-	aaload
+	dup
 	iconst_2
 	sipush 744
 	iastore
+	aastore
+	astore_2
 Label0:
 	iload_1
 	bipush 10

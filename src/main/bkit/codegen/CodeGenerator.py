@@ -43,24 +43,12 @@ class Type(ABC):
         elif type(literal) == BooleanLiteral:
             return BoolType()
         elif type(literal) == ArrayLiteral:
-            dimen1 = len(literal.value)
-            dimen2 = 0
-            dimen3 = 0
-            if dimen1 == 0:
-                return ArrayType(Unknown(), [0])
+            dimen1 = [len(literal.value)]
             for x in literal.value:
-                varType = varType1 = Type.getTypeFromLiteral(x)
-                if type(varType1) == ArrayType:
-                    dimen2 = len(x.value) if dimen2 < len(x.value) else dimen2
-                    for y in x.value:
-                        varType = varType2 = Type.getTypeFromLiteral(y)
-                        if type(varType2) == ArrayType:
-                            varType = Type.getTypeFromLiteral(y.value)
-                            dimen3 = len(y.value) if dimen3 < len(y.value) else dimen3
-                            varType = ArrayType(varType)
-                    varType = ArrayType(varType)
-            dimen = [dimen1, dimen2, dimen3] if dimen3 > 0 else [dimen1, dimen2] if dimen2 > 0 else [dimen1]
-            return ArrayType(varType, dimen)
+                varType = Type.getTypeFromLiteral(x)
+            if type(varType) == ArrayType:
+                dimen1 = dimen1 + varType.dimen[0]
+            return ArrayType(varType, dimen1)
         else:
             return Unknown()
             
@@ -370,6 +358,7 @@ class CodeGenVisitor(BaseVisitor):
         self.emit.printout(self.emit.emitMETHOD(methodName, methodType, True, frame))
         if isMain and self.initGlobalVardecl != []:
             for x in self.initGlobalVardecl:
+                frame.push()
                 self.emit.printout(x)
 
         frame.enterScope(True)
@@ -404,77 +393,35 @@ class CodeGenVisitor(BaseVisitor):
         isGlobal = o.isGlobal
         init, initType = self.visit(var.varInit, Access(frame, o.sym, False, True))
         
-        # if isGlobal or frame == None:
         if isGlobal:
             self.emit.printout(self.emit.emitATTRIBUTE(varName, initType, False, ""))
             varCode, varType = self.visit(var.variable, Access(frame, o.sym, True, True))
-            if type(initType) == ArrayType:
-                if type(initType.eleType) == ArrayType:
-                    for x in range(len(var.varDimen)):
-                        self.initGlobalVardecl.append(self.visit(IntLiteral(var.varDimen[x]), Access(frame, o.sym, False, True))[0])
-                    self.initGlobalVardecl.append(self.emit.emitWRITEVAR2(initType))
-                    self.initGlobalVardecl.append(varCode)
-                    varCode2, varType = self.visit(var.variable, Access(frame, o.sym, False, False))
-                    for x in range(var.varDimen[0]):
-                        for y in range(var.varDimen[1]):
-                            frame.push()
-                            self.initGlobalVardecl.append(varCode2)
-                            self.initGlobalVardecl.append(self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
-                            self.initGlobalVardecl.append(self.emit.emitALOAD(initType.eleType, frame))
-                            self.initGlobalVardecl.append(self.visit(IntLiteral(y), Access(frame, o.sym, False, True))[0])
-                            self.initGlobalVardecl.append(init[x][0][y][0])
-                            self.initGlobalVardecl.append(self.emit.emitASTORE(init[x][0][y][1], frame))
-
+            for x in init:
+                if type(x) == str:
+                    self.initGlobalVardecl.append(x)
                 else:
-                    self.initGlobalVardecl.append(self.visit(IntLiteral(len(init)), Access(frame, o.sym, False, True))[0])
-                    self.initGlobalVardecl.append(self.emit.emitWRITEVAR2(init[0][1]))
-                    self.initGlobalVardecl.append(varCode)
-                    varCode2, varType = self.visit(var.variable, Access(frame, o.sym, False, False))
-                    for x in range(len(init)):
-                        frame.push()
-                        self.initGlobalVardecl.append(varCode2)
-                        self.initGlobalVardecl.append(self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
-                        self.initGlobalVardecl.append(init[x][0])
-                        self.initGlobalVardecl.append(self.emit.emitASTORE(init[x][1], frame))
-            else:
-                self.initGlobalVardecl.append(init + varCode)
-                
+                    for y in x:
+                        if type(y) == str:
+                            self.initGlobalVardecl.append(y)
+                        else:
+                            [self.initGlobalVardecl.append(z) for z in y]
+            self.initGlobalVardecl.append(varCode)
             return Symbol(varName, initType)
         else:
             idx = frame.getNewIndex()
             self.emit.printout(self.emit.emitVAR(idx, varName, initType, frame.getStartLabel(), frame.getEndLabel(), frame))
+            
             o.sym = [Symbol(varName, initType, Index(idx))] + o.sym
-            if type(initType) == ArrayType:
-                if type(initType.eleType) == ArrayType:
-                    for x in range(len(var.varDimen)):
-                        self.emit.printout(self.visit(IntLiteral(var.varDimen[x]), Access(frame, o.sym, False, True))[0])
-                    self.emit.printout(self.emit.emitWRITEVAR2(initType))
-                    self.emit.printout(self.emit.emitWRITEVAR(varName, initType, idx, frame))
-                    for x in range(var.varDimen[0]):
-                        for y in range(var.varDimen[1]):
-                            frame.push()
-                            self.emit.printout(self.emit.emitREADVAR(varName, initType, idx, frame))
-                            self.emit.printout(self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
-                            self.emit.printout(self.emit.emitALOAD(initType.eleType, frame))
-                            self.emit.printout(self.visit(IntLiteral(y), Access(frame, o.sym, False, True))[0])
-                            self.emit.printout(init[x][0][y][0])
-                            self.emit.printout(self.emit.emitASTORE(initType.eleType.eleType, frame))
-
+            for x in init:
+                if type(x) == str:
+                    self.emit.printout(x)
                 else:
-                    self.emit.printout(self.visit(IntLiteral(var.varDimen[0]), Access(frame, o.sym, False, True))[0])
-                    self.emit.printout(self.emit.emitWRITEVAR2(initType))
-                    [self.emit.printout(x) for x in init]
-                    print(init)
-                    self.emit.printout(self.emit.emitWRITEVAR(varName, initType, idx, frame))
-                    # for x in range(len(init)):
-                    #     frame.push()
-                    #     self.emit.printout(self.emit.emitREADVAR(varName, initType, idx, frame))
-                        # self.emit.printout(self.visit(IntLiteral(x), Access(frame, o.sym, False, True))[0])
-                        # self.emit.printout(init[x][0])
-                        # self.emit.printout(self.emit.emitASTORE(init[x][1], frame))
-            else:
-                varCode2, varType = self.visit(var.variable, Access(frame, o.sym, True, False))
-                self.emit.printout(init + varCode2)
+                    for y in x:
+                        if type(y) == str:
+                            self.emit.printout(y)
+                        else:
+                            [self.emit.printout(z) for z in y]
+            self.emit.printout(self.emit.emitWRITEVAR(varName, initType, idx, frame))
             return MethodEnv(frame, o.sym)
 
     def visitFuncDecl(self, func, o):
@@ -550,16 +497,21 @@ class CodeGenVisitor(BaseVisitor):
         idx = 0
         for x in ast.param:
             pCode, pType = self.visit(x, Access(frame, symbols, False, True))
+            
             if type(paramTypes[idx]) is FloatType and type(pType) is IntType:
                 pCode = pCode + self.emit.emitI2F(frame)
-            if type(x) == ArrayLiteral:
-                for x in pCode:
-                    paramsCode += x[0]
-            else:
-                paramsCode = paramsCode + pCode
-            print(paramsCode)
+                
+            for x in pCode:
+                if type(x) == str:
+                    paramsCode += x
+                else:
+                    for y in x:
+                        if type(y) == str:
+                            paramsCode += y
+                        else:
+                            for z in y:
+                                paramsCode += z
             idx = idx + 1
-        
         code = paramsCode + self.emit.emitINVOKESTATIC(sym.value.value+"/"+sym.name,sym.mtype,frame)
 
         if type(ast) == CallExpr:
@@ -572,10 +524,12 @@ class CodeGenVisitor(BaseVisitor):
         listIdx = [self.visit(x, Access(o.frame, o.sym, False, True)) for x in ast.idx]
         if not o.isFirst and o.isLeft: o.frame.push()
         code = arr
+        print(code)
         for x in range(len(listIdx) - 1):
             code += listIdx[x][0]
             if not o.isLeft:
                 code += self.emit.emitALOAD(arrType, o.frame)
+            
         code += listIdx[len(listIdx) - 1][0]
         if not o.isLeft:
             if type(arrType.eleType) == ArrayType:
@@ -725,11 +679,22 @@ class CodeGenVisitor(BaseVisitor):
     def visitReturn(self, ast: Return, o):
         retType = o.frame.returnType
         if o.frame.name != "main":
-            expCode, expType = self.visit(ast.expr, Access(o.frame, o.sym, False, True))
-            if type(retType) is FloatType and type(expType) is IntType:
-                expCode = expCode + self.emit.emitI2F(o.frame)
-                expType = FloatType()
-            self.emit.printout(expCode)
+            if ast.expr == None:
+                expType = VoidType()
+            else:
+                expCode, expType = self.visit(ast.expr, Access(o.frame, o.sym, False, True))
+                if type(retType) is FloatType and type(expType) is IntType:
+                    expCode = expCode + self.emit.emitI2F(o.frame)
+                    expType = FloatType()
+                for x in expCode:
+                    if type(x) == str:
+                        self.emit.printout(x)
+                    else:
+                        for y in x:
+                            if type(y) == str:
+                                self.emit.printout(y)
+                            else:
+                                [self.emit.printout(z) for z in y]
             retType = o.frame.returnType = expType
         self.emit.printout(self.emit.emitRETURN(retType, o.frame))
         return True
@@ -754,16 +719,17 @@ class CodeGenVisitor(BaseVisitor):
 
     def visitArrayLiteral(self, ast, o):
         array = Type.getTypeFromLiteral(ast)
-        value =[]
+        value = []
+        value.append(self.visit(IntLiteral(len(ast.value)), Access(o.frame, o.sym, False, True))[0])
+        value.append(self.emit.emitWRITEVAR2(array.eleType))
         for x in range(len(ast.value)):
             o.frame.push()
             init = self.visit(ast.value[x], o)
-            value.append(self.emit.emitDUP)
+            value.append(self.emit.emitDUP(o.frame))
             value.append(self.visit(IntLiteral(x), Access(o.frame, o.sym, False, True))[0])
             value.append(init[0])
             value.append(self.emit.emitASTORE(init[1], o.frame))
-
-        # value = [self.visit(x, o) for x in ast.value]
+            
         return value, array
 
 class Checker:
@@ -1250,18 +1216,5 @@ class StaticChecker(BaseVisitor):
         return StringType()
         
     def visitArrayLiteral(self, ast, param):
-        valueType = [self.visit(x, param) for x in ast.value]
-
-        dimen1 = len(valueType)
-        dimen2 = 0
-        dimen3 = 0
-        for x in ast.value:
-            varType = varType1 = self.visit(x, param)
-            if type(varType1) == ArrayType:
-                dimen2 = len(x.value) if dimen2 < len(x.value) else dimen2
-                for y in x.value:
-                    varType = varType2 = self.visit(y, param)
-                    if type(varType2) == ArrayType:
-                        dimen3 = len(y.value) if dimen3 < len(y.value) else dimen3
-        dimen = [dimen1, dimen2, dimen3] if dimen3 > 0 else [dimen1, dimen2] if dimen2 > 0 else [dimen1]
-        return ArrayType(varType, dimen)
+        valueType = Type.getTypeFromLiteral(ast)
+        return valueType

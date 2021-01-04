@@ -6,333 +6,269 @@
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 .var 1 is a [[I from Label0 to Label1
 	bipush 9
-	bipush 6
-	multianewarray [[I 2
-	astore_1
-	aload_1
+	anewarray [I
+	dup
 	iconst_0
-	aaload
+	bipush 6
+	newarray int
+	dup
 	iconst_0
 	iconst_1
 	iastore
-	aload_1
-	iconst_0
-	aaload
+	dup
 	iconst_1
 	iconst_2
 	iastore
-	aload_1
-	iconst_0
-	aaload
+	dup
 	iconst_2
 	iconst_3
 	iastore
-	aload_1
-	iconst_0
-	aaload
+	dup
 	iconst_3
 	iconst_4
 	iastore
-	aload_1
-	iconst_0
-	aaload
+	dup
 	iconst_4
 	iconst_5
 	iastore
-	aload_1
-	iconst_0
-	aaload
+	dup
 	iconst_5
 	bipush 6
 	iastore
-	aload_1
+	aastore
+	dup
 	iconst_1
-	aaload
+	bipush 6
+	newarray int
+	dup
 	iconst_0
 	iconst_3
 	iastore
-	aload_1
-	iconst_1
-	aaload
+	dup
 	iconst_1
 	iconst_4
 	iastore
-	aload_1
-	iconst_1
-	aaload
+	dup
 	iconst_2
 	iconst_5
 	iastore
-	aload_1
-	iconst_1
-	aaload
+	dup
 	iconst_3
 	bipush 6
 	iastore
-	aload_1
-	iconst_1
-	aaload
+	dup
 	iconst_4
 	bipush 7
 	iastore
-	aload_1
-	iconst_1
-	aaload
+	dup
 	iconst_5
 	bipush 8
 	iastore
-	aload_1
+	aastore
+	dup
 	iconst_2
-	aaload
+	bipush 6
+	newarray int
+	dup
 	iconst_0
 	iconst_5
 	iastore
-	aload_1
-	iconst_2
-	aaload
+	dup
 	iconst_1
 	iconst_3
 	iastore
-	aload_1
-	iconst_2
-	aaload
+	dup
 	iconst_2
 	iconst_4
 	iastore
-	aload_1
-	iconst_2
-	aaload
+	dup
 	iconst_3
 	bipush 8
 	iastore
-	aload_1
-	iconst_2
-	aaload
+	dup
 	iconst_4
 	bipush 9
 	iastore
-	aload_1
-	iconst_2
-	aaload
+	dup
 	iconst_5
 	bipush 10
 	iastore
-	aload_1
+	aastore
+	dup
 	iconst_3
-	aaload
+	bipush 6
+	newarray int
+	dup
 	iconst_0
 	bipush 7
 	iastore
-	aload_1
-	iconst_3
-	aaload
+	dup
 	iconst_1
 	bipush 8
 	iastore
-	aload_1
-	iconst_3
-	aaload
+	dup
 	iconst_2
 	bipush 10
 	iastore
-	aload_1
-	iconst_3
-	aaload
+	dup
 	iconst_3
 	bipush 11
 	iastore
-	aload_1
-	iconst_3
-	aaload
+	dup
 	iconst_4
 	bipush 12
 	iastore
-	aload_1
-	iconst_3
-	aaload
+	dup
 	iconst_5
 	bipush 13
 	iastore
-	aload_1
+	aastore
+	dup
 	iconst_4
-	aaload
+	bipush 6
+	newarray int
+	dup
 	iconst_0
 	bipush 9
 	iastore
-	aload_1
-	iconst_4
-	aaload
+	dup
 	iconst_1
 	bipush 10
 	iastore
-	aload_1
-	iconst_4
-	aaload
+	dup
 	iconst_2
 	bipush 11
 	iastore
-	aload_1
-	iconst_4
-	aaload
+	dup
 	iconst_3
 	bipush 12
 	iastore
-	aload_1
-	iconst_4
-	aaload
+	dup
 	iconst_4
 	bipush 13
 	iastore
-	aload_1
-	iconst_4
-	aaload
+	dup
 	iconst_5
 	bipush 14
 	iastore
-	aload_1
+	aastore
+	dup
 	iconst_5
-	aaload
+	bipush 6
+	newarray int
+	dup
 	iconst_0
 	bipush 11
 	iastore
-	aload_1
-	iconst_5
-	aaload
+	dup
 	iconst_1
 	bipush 12
 	iastore
-	aload_1
-	iconst_5
-	aaload
+	dup
 	iconst_2
 	bipush 13
 	iastore
-	aload_1
-	iconst_5
-	aaload
+	dup
 	iconst_3
 	bipush 14
 	iastore
-	aload_1
-	iconst_5
-	aaload
+	dup
 	iconst_4
 	bipush 15
 	iastore
-	aload_1
-	iconst_5
-	aaload
+	dup
 	iconst_5
 	bipush 16
 	iastore
-	aload_1
+	aastore
+	dup
 	bipush 6
-	aaload
+	bipush 6
+	newarray int
+	dup
 	iconst_0
 	bipush 13
 	iastore
-	aload_1
-	bipush 6
-	aaload
+	dup
 	iconst_1
 	bipush 14
 	iastore
-	aload_1
-	bipush 6
-	aaload
+	dup
 	iconst_2
 	bipush 15
 	iastore
-	aload_1
-	bipush 6
-	aaload
+	dup
 	iconst_3
 	bipush 16
 	iastore
-	aload_1
-	bipush 6
-	aaload
+	dup
 	iconst_4
 	bipush 17
 	iastore
-	aload_1
-	bipush 6
-	aaload
+	dup
 	iconst_5
 	bipush 18
 	iastore
-	aload_1
+	aastore
+	dup
 	bipush 7
-	aaload
+	bipush 6
+	newarray int
+	dup
 	iconst_0
 	bipush 15
 	iastore
-	aload_1
-	bipush 7
-	aaload
+	dup
 	iconst_1
 	bipush 16
 	iastore
-	aload_1
-	bipush 7
-	aaload
+	dup
 	iconst_2
 	bipush 17
 	iastore
-	aload_1
-	bipush 7
-	aaload
+	dup
 	iconst_3
 	bipush 18
 	iastore
-	aload_1
-	bipush 7
-	aaload
+	dup
 	iconst_4
 	bipush 19
 	iastore
-	aload_1
-	bipush 7
-	aaload
+	dup
 	iconst_5
 	bipush 20
 	iastore
-	aload_1
+	aastore
+	dup
 	bipush 8
-	aaload
+	bipush 6
+	newarray int
+	dup
 	iconst_0
 	bipush 16
 	iastore
-	aload_1
-	bipush 8
-	aaload
+	dup
 	iconst_1
 	bipush 17
 	iastore
-	aload_1
-	bipush 8
-	aaload
+	dup
 	iconst_2
 	bipush 18
 	iastore
-	aload_1
-	bipush 8
-	aaload
+	dup
 	iconst_3
 	bipush 19
 	iastore
-	aload_1
-	bipush 8
-	aaload
+	dup
 	iconst_4
 	bipush 20
 	iastore
-	aload_1
-	bipush 8
-	aaload
+	dup
 	iconst_5
 	bipush 21
 	iastore
+	aastore
+	astore_1
 .var 2 is x I from Label0 to Label1
 	iconst_2
 	istore_2
@@ -421,7 +357,7 @@ Label0:
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 66
+.limit stack 72
 .limit locals 4
 .end method
 

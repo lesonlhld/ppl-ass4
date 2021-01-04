@@ -52,7 +52,7 @@ Label5:
 	iload_2
 	ireturn
 Label1:
-.limit stack 8
+.limit stack 6
 .limit locals 4
 .end method
 
@@ -71,47 +71,47 @@ Label1:
 .var 1 is a [I from Label0 to Label1
 	bipush 10
 	newarray int
-	astore_1
-	aload_1
+	dup
 	iconst_0
 	iconst_1
 	iastore
-	aload_1
+	dup
 	iconst_1
 	iconst_2
 	iastore
-	aload_1
+	dup
 	iconst_2
 	iconst_3
 	iastore
-	aload_1
+	dup
 	iconst_3
 	iconst_4
 	iastore
-	aload_1
+	dup
 	iconst_4
 	iconst_5
 	iastore
-	aload_1
+	dup
 	iconst_5
 	bipush 6
 	iastore
-	aload_1
+	dup
 	bipush 6
 	bipush 7
 	iastore
-	aload_1
+	dup
 	bipush 7
 	bipush 8
 	iastore
-	aload_1
+	dup
 	bipush 8
 	bipush 9
 	iastore
-	aload_1
+	dup
 	bipush 9
 	bipush 10
 	iastore
+	astore_1
 .var 2 is x I from Label0 to Label1
 	iconst_2
 	istore_2
@@ -172,7 +172,7 @@ Label0:
 	invokestatic io/print(Ljava/lang/String;)V
 	return
 Label1:
-.limit stack 19
+.limit stack 17
 .limit locals 4
 .end method
 

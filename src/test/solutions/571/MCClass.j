@@ -7,19 +7,19 @@
 .var 1 is x [Ljava/lang/String; from Label0 to Label1
 	iconst_3
 	anewarray java/lang/String
-	astore_1
-	aload_1
+	dup
 	iconst_0
 	ldc "Hello"
 	aastore
-	aload_1
+	dup
 	iconst_1
 	ldc "World"
 	aastore
-	aload_1
+	dup
 	iconst_2
 	ldc "!"
 	aastore
+	astore_1
 Label0:
 	aload_1
 	iconst_1

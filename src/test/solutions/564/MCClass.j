@@ -12,45 +12,42 @@
 	istore_2
 .var 3 is arr [[I from Label0 to Label1
 	iconst_2
-	iconst_3
-	multianewarray [[I 2
-	astore_3
-	aload_3
+	anewarray [I
+	dup
 	iconst_0
-	aaload
+	iconst_3
+	newarray int
+	dup
 	iconst_0
 	iconst_1
 	iastore
-	aload_3
-	iconst_0
-	aaload
+	dup
 	iconst_1
 	iconst_2
 	iastore
-	aload_3
-	iconst_0
-	aaload
+	dup
 	iconst_2
 	iconst_3
 	iastore
-	aload_3
+	aastore
+	dup
 	iconst_1
-	aaload
+	iconst_3
+	newarray int
+	dup
 	iconst_0
 	iconst_4
 	iastore
-	aload_3
-	iconst_1
-	aaload
+	dup
 	iconst_1
 	iconst_5
 	iastore
-	aload_3
-	iconst_1
-	aaload
+	dup
 	iconst_2
 	bipush 6
 	iastore
+	aastore
+	astore_3
 .var 4 is sum I from Label0 to Label1
 	iconst_0
 	istore 4
@@ -114,7 +111,7 @@ Label5:
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 23
+.limit stack 19
 .limit locals 7
 .end method
 

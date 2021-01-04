@@ -6,19 +6,19 @@
 .method public static main([Ljava/lang/String;)V
 	iconst_3
 	anewarray java/lang/String
-	putstatic MCClass/x [Ljava/lang/String;
-	getstatic MCClass/x [Ljava/lang/String;
+	dup
 	iconst_0
 	ldc "Hello"
 	aastore
-	getstatic MCClass/x [Ljava/lang/String;
+	dup
 	iconst_1
 	ldc "World"
 	aastore
-	getstatic MCClass/x [Ljava/lang/String;
+	dup
 	iconst_2
 	ldc "!"
 	aastore
+	putstatic MCClass/x [Ljava/lang/String;
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 .var 1 is i I from Label0 to Label1
 	iconst_0
@@ -74,7 +74,7 @@ Label11:
 Label13:
 Label1:
 	return
-.limit stack 12
+.limit stack 26
 .limit locals 2
 .end method
 

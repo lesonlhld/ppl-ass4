@@ -7,19 +7,19 @@
 .var 1 is x [I from Label0 to Label1
 	iconst_3
 	newarray int
-	astore_1
-	aload_1
+	dup
 	iconst_0
 	iconst_1
 	iastore
-	aload_1
+	dup
 	iconst_1
 	iconst_2
 	iastore
-	aload_1
+	dup
 	iconst_2
 	iconst_3
 	iastore
+	astore_1
 .var 2 is i I from Label0 to Label1
 	iconst_0
 	istore_2
@@ -61,7 +61,7 @@ Label3:
 Label5:
 Label1:
 	return
-.limit stack 12
+.limit stack 11
 .limit locals 3
 .end method
 

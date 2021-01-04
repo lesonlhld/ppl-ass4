@@ -7,19 +7,19 @@
 .var 1 is x [F from Label0 to Label1
 	iconst_3
 	newarray float
-	astore_1
-	aload_1
+	dup
 	iconst_0
 	ldc 1.1
 	fastore
-	aload_1
+	dup
 	iconst_1
 	ldc 2.2
 	fastore
-	aload_1
+	dup
 	iconst_2
 	ldc 3.3
 	fastore
+	astore_1
 Label0:
 	aload_1
 	iconst_1
@@ -28,7 +28,7 @@ Label0:
 	invokestatic io/print(Ljava/lang/String;)V
 Label1:
 	return
-.limit stack 7
+.limit stack 8
 .limit locals 2
 .end method
 

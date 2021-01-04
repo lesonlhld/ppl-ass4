@@ -5,33 +5,34 @@
 
 .method public static main([Ljava/lang/String;)V
 	iconst_2
-	iconst_2
-	multianewarray [[Ljava/lang/String; 2
-	putstatic MCClass/x [[Ljava/lang/String;
-	getstatic MCClass/x [[Ljava/lang/String;
+	anewarray [Ljava/lang/String;
+	dup
 	iconst_0
-	aaload
+	iconst_2
+	anewarray java/lang/String
+	dup
 	iconst_0
 	ldc "1"
 	aastore
-	getstatic MCClass/x [[Ljava/lang/String;
-	iconst_0
-	aaload
+	dup
 	iconst_1
 	ldc "2"
 	aastore
-	getstatic MCClass/x [[Ljava/lang/String;
+	aastore
+	dup
 	iconst_1
-	aaload
+	iconst_2
+	anewarray java/lang/String
+	dup
 	iconst_0
 	ldc "3"
 	aastore
-	getstatic MCClass/x [[Ljava/lang/String;
-	iconst_1
-	aaload
+	dup
 	iconst_1
 	ldc "4"
 	aastore
+	aastore
+	putstatic MCClass/x [[Ljava/lang/String;
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 .var 1 is i I from Label0 to Label1
 	iconst_0
@@ -88,7 +89,7 @@ Label3:
 Label5:
 Label1:
 	return
-.limit stack 12
+.limit stack 39
 .limit locals 3
 .end method
 

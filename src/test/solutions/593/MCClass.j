@@ -6,45 +6,47 @@
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 .var 1 is a [[I from Label0 to Label1
 	iconst_3
-	iconst_2
-	multianewarray [[I 2
-	astore_1
-	aload_1
+	anewarray [I
+	dup
 	iconst_0
-	aaload
+	iconst_2
+	newarray int
+	dup
 	iconst_0
 	iconst_1
 	iastore
-	aload_1
-	iconst_0
-	aaload
+	dup
 	iconst_1
 	iconst_2
 	iastore
-	aload_1
+	aastore
+	dup
 	iconst_1
-	aaload
+	iconst_2
+	newarray int
+	dup
 	iconst_0
 	iconst_3
 	iastore
-	aload_1
-	iconst_1
-	aaload
+	dup
 	iconst_1
 	iconst_4
 	iastore
-	aload_1
+	aastore
+	dup
 	iconst_2
-	aaload
+	iconst_2
+	newarray int
+	dup
 	iconst_0
 	iconst_5
 	iastore
-	aload_1
-	iconst_2
-	aaload
+	dup
 	iconst_1
 	bipush 6
 	iastore
+	aastore
+	astore_1
 .var 2 is i I from Label0 to Label1
 	iconst_0
 	istore_2
